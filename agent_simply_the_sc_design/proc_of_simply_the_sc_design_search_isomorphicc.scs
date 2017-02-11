@@ -1,0 +1,51 @@
+scp_program -> proc_of_simply_the_sc_design_search_isomorphicc (*	
+	
+	-> rrel_params: ...(*
+		-> rrel_1: rrel_in: _el1;;
+		-> rrel_2: rrel_in: _el2;;
+		-> rrel_3: rrel_in: _nrel;;
+	*);;
+
+	-> rrel_operators: ...(*
+		
+		-> rrel_init: ..print1 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура генерации связки неориентированного бинарного отношения при заданных элементах. Вход];;
+			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphicc_1;;
+	   	*);;
+
+		-> .proc_of_simply_the_sc_design_search_isomorphicc_1 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _nrel;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _svyazka;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphicc_2;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_search_isomorphicc_2 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _svyazka;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _el1;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphicc_3;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_search_isomorphicc_3 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _svyazka;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _el2;;
+			=> nrel_goto: ..print2;;
+		*);;
+
+	    -> ..print2 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура генерации связки неориентированного бинарного отношения при заданных элементах. Выход];;
+			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphicc_return;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_search_isomorphicc_return (*
+			<- return;;
+		*);;
+	*);;
+*);;

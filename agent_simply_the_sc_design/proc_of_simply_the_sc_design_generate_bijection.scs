@@ -1,0 +1,128 @@
+scp_program -> proc_of_simply_the_sc_design_generate_bijection (*	
+	
+	-> rrel_params: ...(*
+		-> rrel_1: rrel_in: _el1;;
+		-> rrel_2: rrel_in: _el2;;
+		-> rrel_3: rrel_in: _pos_var_perm;;
+		-> rrel_4: rrel_in: _nrel;;
+	*);;
+
+	-> rrel_operators: ...(*
+		
+		-> rrel_init: ..print1 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура генерации биекции для дуги принадлежности, при заданной биекции двух узлов. Вход];;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_bijection_1;;
+	   	*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_1 (*
+			<- searchSetStr3;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: _curr_svyazka;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _el1;;
+
+			-> rrel_set_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _svyazkas;;
+
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_bijection_2;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_2 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _svyazkas;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _svyazka;;
+
+			=> nrel_then: .proc_of_simply_the_sc_design_generate_bijection_3;;
+			=> nrel_else: .proc_of_simply_the_sc_design_generate_bijection_3;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_3 (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_erase: rrel_scp_var: _arc;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_bijection_4;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_4 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _nrel;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _svyazka;;
+
+			=> nrel_then: .proc_of_simply_the_sc_design_generate_bijection_5;;
+			=> nrel_else: .proc_of_simply_the_sc_design_generate_bijection_5;;
+		*);;
+		
+		-> .proc_of_simply_the_sc_design_generate_bijection_5 (*
+			<- searchSetStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _svyazka;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _els;;
+
+			-> rrel_set_2: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_arcs;;
+
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_bijection_6;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_6 (*
+			<- eraseElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_arcs;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _el1;;
+			-> rrel_4: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_var: _svyazka;;
+
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_bijection_7;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_7 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _svyazka;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _A;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_bijection_8;;
+		*);;
+
+
+
+
+
+
+
+
+
+
+
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_2 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _svyazka;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _el1;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_bijection_3;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_3 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _svyazka;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _el2;;
+			=> nrel_goto: ..print2;;
+		*);;
+
+	    -> ..print2 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура генерации биекции для дуги принадлежности, при заданной биекции двух узлов. Выход];;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_bijection_return;;
+		*);;
+
+		-> ..print3 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура генерации биекции для дуги принадлежности, при заданной биекции двух узлов завершена с ошибкой];;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_bijection_return;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_return (*
+			<- return;;
+		*);;
+	*);;
+*);;
