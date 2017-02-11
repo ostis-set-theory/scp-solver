@@ -1,0 +1,87 @@
+scp_program -> proc_of_simply_the_sc_design_test (*	
+	
+	-> rrel_params: ...(*
+		-> rrel_1: rrel_in: _state;;
+		-> rrel_2: rrel_in: _statement;;
+	*);;
+
+	-> rrel_operators: ...(*
+		
+		-> rrel_init: ..print1 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура валидации. Вход];;
+			=> nrel_goto: .proc_of_simply_the_sc_design_test_1;;
+	   	*);;
+
+		-> .proc_of_simply_the_sc_design_test_1 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: sc_statement;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _statement;;
+			=> nrel_then: .proc_of_simply_the_sc_design_test_2;;
+			=> nrel_else: ..print6;;
+		*);;
+
+		-> ..print6 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Ошибка. Данная сущность не является утверждением];;
+			=>nrel_goto: ..print3;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_test_2 (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _statement;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _contour;;
+			-> rrel_4: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_main_key_sc_element;;
+			=> nrel_then: .proc_of_simply_the_sc_design_test_3;;
+			=> nrel_else: ..print4;;
+		*);;
+
+		-> ..print4 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Ошибка. Контур не найден];;
+			=>nrel_goto: ..print3;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_test_3 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: atomic_formula;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _contour;;
+			=> nrel_then: .proc_of_simply_the_sc_design_test_4;;
+			=> nrel_else: ..print5;;
+		*);;
+
+		-> ..print5 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Ошибка. Контур не является атомарной формулой];;
+			=>nrel_goto: ..print3;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_test_4 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _state;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _true;;
+			=> nrel_goto: ..print2;;
+		*);;
+
+	    -> ..print2 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура валидации. Выход];;
+			=> nrel_goto: .proc_of_simply_the_sc_design_return;;
+		*);;
+
+		-> ..print3 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура валидации. Завершено с ошибкой];;
+			=> nrel_goto: .proc_of_simply_the_sc_design_return;;
+	   	*);;
+
+		-> .proc_of_simply_the_sc_design_return (*
+			<- return;;
+		*);;
+	*);;
+*);;

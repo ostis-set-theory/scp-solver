@@ -1,0 +1,122 @@
+scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*	
+	
+	-> rrel_params: ...(*
+		// состояние
+		-> rrel_1: rrel_in: _state;;
+		// результат в квазибинарном отношении
+		-> rrel_2: rrel_in: _result;;
+		// исходный контур
+		-> rrel_3: rrel_in: _contour;;
+		// новый контур, содержащий данное отношение
+		-> rrel_4: rrel_out: rrel_assign: rrel_scp_var: _new_contour;;
+	*);;
+
+	-> rrel_operators: ...(*
+		
+		-> rrel_init: ..print1 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура поиска квазибинарного отношения. Вход];;
+			=> nrel_goto: .proc_of_simply_the_sc_design_search_kvazibinary_1;;
+	   	*);;
+
+	   	-> .proc_of_simply_the_sc_design_search_kvazibinary_1 (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _new_contour;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_search_kvazibinary_2;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_search_kvazibinary_2 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _new_contour;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _result;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_search_kvazibinary_3;;
+		*);;
+
+	   	// данное отношение --- ориентированное
+		-> .proc_of_simply_the_sc_design_search_kvazibinary_3 (*
+			<- searchSetStr5;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _svyazka;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: rrel_var: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _result;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;			
+			-> rrel_5: rrel_fixed: rrel_scp_var: _contour;;
+			
+			-> rrel_set_1: rrel_fixed: rrel_scp_var: _new_contour;;
+			-> rrel_set_2: rrel_fixed: rrel_scp_var: _new_contour;;
+
+			=> nrel_then: .proc_of_simply_the_sc_design_search_kvazibinary_4;;
+			=> nrel_else: ..print4;;
+		*);;
+
+		-> ..print4 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Ошибка. Связка не найдена];;
+			=> nrel_goto: ..print3;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_search_kvazibinary_4 (*
+			<- searchSetStr5;;			
+			-> rrel_1: rrel_fixed: rrel_scp_var: _svyazka;;
+			-> rrel_2: rrel_fixed: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _result;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _arc2;;			
+			-> rrel_5: rrel_assign: rrel_scp_var: _nrel;;
+			
+			-> rrel_set_4: rrel_fixed: rrel_scp_var: _new_contour;;
+			-> rrel_set_5: rrel_fixed: rrel_scp_var: _new_contour;;
+			
+			=> nrel_then: .proc_of_simply_the_sc_design_search_kvazibinary_5;;
+			=> nrel_else: ..print5;;
+		*);;
+
+		-> ..print5 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Ошибка. Отношение не найдено];;
+			=> nrel_goto: ..print3;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_search_kvazibinary_5 (*
+			<- searchSetStr3;;			
+			-> rrel_1: rrel_fixed: rrel_scp_var: _svyazka;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _el;;
+			
+			-> rrel_set_2: rrel_fixed: rrel_scp_var: _new_contour;;
+			-> rrel_set_3: rrel_fixed: rrel_scp_var: _new_contour;;
+			
+			=> nrel_then: .proc_of_simply_the_sc_design_search_kvazibinary_6;;
+			=> nrel_else: ..print6;;
+		*);;
+
+		-> ..print6 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Ошибка. Элементы в квазибинарном отношении не найдены];;
+			=> nrel_goto: ..print3;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_search_kvazibinary_6 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _state;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _true;;
+			=> nrel_goto: ..print2;;
+		*);;
+
+	    -> ..print2 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура поиска квазибинарного отношения. Выход];;
+			=> nrel_goto: .proc_of_simply_the_sc_design_search_kvazibinary_return;;
+		*);;
+
+		-> ..print3 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура поиска квазибинарного отношения завершена с ошибкой];;
+			=> nrel_goto: .proc_of_simply_the_sc_design_search_kvazibinary_return;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_search_kvazibinary_return (*
+			<- return;;
+		*);;
+	*);;
+*);;

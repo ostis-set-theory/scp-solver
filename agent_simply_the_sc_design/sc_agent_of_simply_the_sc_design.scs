@@ -1,0 +1,51 @@
+sc_agent_of_simply_the_sc_design
+=> nrel_main_idtf:
+	[sc-агент упрощения sc-конструкций] 
+	(* <- lang_ru;; *);
+	[sc-agent of simply the sc-design] 
+	(* <- lang_en;; *);
+
+<- abstract_sc_agent;
+
+=> nrel_primary_initiation_condition: 
+	(sc_event_add_output_arc => question_initiated);
+
+=> nrel_initiation_condition_and_result: 
+	(..sc_agent_of_simply_the_sc_design_condition => ..sc_agent_of_simply_the_sc_design_result);
+
+<= nrel_sc_agent_key_sc_elements: 
+	{
+	question_initiated;
+	question;
+	question_simply_the_sc_design
+	};
+
+=> nrel_inclusion: 
+	.platform_independent_realization_of_sc_agent_of_simply_the_sc_design
+	(*
+	<- platform_independent_abstract_sc_agent;;
+	<= nrel_sc_agent_program: 
+		{
+		agent_of_simply_the_sc_design;
+		proc_of_simply_the_sc_design_test	
+		};;
+	-> sc_agent_of_simply_the_sc_design_scp   
+		(* <- active_sc_agent;; *);;
+	*);;
+
+..sc_agent_of_simply_the_sc_design_condition
+= [*
+	question_simply_the_sc_design _-> .._question;;
+	question_initiated _-> .._question;;
+	question _-> .._question;;
+	.._question _-> .._parameter;;
+*];;
+
+..sc_agent_of_simply_the_sc_design_result
+= [*
+	question_simply_the_sc_design _-> .._question;;
+	question_finished _-> .._question;;
+	question _-> .._question;;
+	.._question _=> nrel_answer:: .._answer;;
+	.._question _-> .._parameter;;
+*];;

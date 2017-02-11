@@ -1,0 +1,90 @@
+scp_program -> proc_of_simply_the_sc_design_vydelenye (*	
+	
+	-> rrel_params: ...(*
+		// состояние
+		-> rrel_1: rrel_in: _state;;
+		// связка отношения
+		-> rrel_2: rrel_in: _svyazka;;
+		// контур
+		-> rrel_3: rrel_in: _contour;;
+		// новый контур, содержащий данное отношение
+		-> rrel_4: rrel_out: rrel_assign: rrel_scp_var: _new_contour;;
+	*);;
+
+	-> rrel_operators: ...(*
+		
+		-> rrel_init: ..print1 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура поиска неориентированного отношения. Вход];;
+			=> nrel_goto: .proc_of_simply_the_sc_design_vydelenye_1;;
+	   	*);;
+
+	   	-> .proc_of_simply_the_sc_design_vydelenye_1 (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _new_contour;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_vydelenye_2;;
+		*);;
+
+	   	// данное отношение --- неориентированное
+		-> .proc_of_simply_the_sc_design_vydelenye_2 (*
+			<- searchSetStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _svyazka;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_var: _tmps;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;			
+			-> rrel_5: rrel_fixed: rrel_scp_var: _contour;;
+			
+			-> rrel_set_2: rrel_fixed: rrel_scp_var: _new_contour;;
+			-> rrel_set_3: rrel_fixed: rrel_scp_var: _new_contour;;
+
+			=> nrel_goto: .proc_of_simply_the_sc_design_vydelenye_3;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_vydelenye_3 (*
+			<- searchSetStr5;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _nrel;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _svyazka;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;			
+			-> rrel_5: rrel_fixed: rrel_scp_var: _contour;;
+			
+			-> rrel_set_1: rrel_fixed: rrel_scp_var: _new_contour;;
+			-> rrel_set_2: rrel_fixed: rrel_scp_var: _new_contour;;
+
+			=> nrel_goto: .proc_of_simply_the_sc_design_vydelenye_4;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_vydelenye_4 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _new_contour;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _svyazka;;
+
+			=> nrel_goto: .proc_of_simply_the_sc_design_vydelenye_5;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_vydelenye_5 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _state;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _true;;
+			=> nrel_goto: ..print2;;
+		*);;
+
+	    -> ..print2 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура поиска неориентированного отношения. Выход];;
+			=> nrel_goto: .proc_of_simply_the_sc_design_vydelenye_return;;
+		*);;
+
+		-> ..print3 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура поиска неориентированного отношения завершена с ошибкой];;
+			=> nrel_goto: .proc_of_simply_the_sc_design_vydelenye_return;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_vydelenye_return (*
+			<- return;;
+		*);;
+	*);;
+*);;
