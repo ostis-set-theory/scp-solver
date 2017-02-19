@@ -4,6 +4,7 @@ scp_program -> proc_of_simply_the_sc_design_contour_subdividing (*
 		-> rrel_1: rrel_in: _state;;
 		-> rrel_2: rrel_in: _root;;
 		-> rrel_3: rrel_in: _contour;;
+		-> rrel_4: rrel_in: _new_contour;;
 	*);;
 
 	-> rrel_operators: ...(*
@@ -16,7 +17,7 @@ scp_program -> proc_of_simply_the_sc_design_contour_subdividing (*
 
 	   	-> .proc_of_simply_the_sc_design_contour_subdividing_1 (*
 			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _contour;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _new_contour;;
 			-> rrel_2: rrel_assign: rrel_scp_var: _arc;;
 			-> rrel_3: rrel_fixed: rrel_scp_var: _root;;
 			=> nrel_then: .proc_of_simply_the_sc_design_contour_subdividing_2;;
@@ -25,7 +26,7 @@ scp_program -> proc_of_simply_the_sc_design_contour_subdividing (*
 
 		-> .proc_of_simply_the_sc_design_contour_subdividing_1_5 (*
 			<- genElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _contour;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _new_contour;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
 			-> rrel_3: rrel_fixed: rrel_scp_var: _root;;
 			=> nrel_goto: .proc_of_simply_the_sc_design_contour_subdividing_2;;
@@ -40,28 +41,33 @@ scp_program -> proc_of_simply_the_sc_design_contour_subdividing (*
 			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;			
 			-> rrel_5: rrel_fixed: rrel_scp_var: _contour;;
 			
-			-> rrel_set_1: rrel_fixed: rrel_scp_var: _contour;;
-			-> rrel_set_2: rrel_fixed: rrel_scp_var: _contour;;
+			-> rrel_set_1: rrel_fixed: rrel_scp_var: _new_contour;;
+			-> rrel_set_2: rrel_fixed: rrel_scp_var: _new_contour;;
 
-			=> nrel_goto: .proc_of_simply_the_sc_design_contour_subdividing_3;;
+			=> nrel_then: .proc_of_simply_the_sc_design_contour_subdividing_3;;
+			=> nrel_else: ..print6;;
+		*);;
+
+		-> ..print6 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Один узел !!!];;
+			=> nrel_goto: .proc_of_simply_the_sc_design_contour_subdividing_14;;
 		*);;
 
 		-> .proc_of_simply_the_sc_design_contour_subdividing_3 (*
-			<- searchSetStr5;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _svyazka;;
-			-> rrel_2: rrel_fixed: rrel_scp_var: _arc;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _root;;
-			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _arc2;;			
-			-> rrel_5: rrel_assign: rrel_scp_var: _nrel;;
+			<- searchSetStr3;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _nrel;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _arc2;;			
+			-> rrel_3: rrel_fixed: rrel_scp_var: _arc;;
 			
-			-> rrel_set_4: rrel_fixed: rrel_scp_var: _contour;;
+			-> rrel_set_2: rrel_fixed: rrel_scp_var: _new_contour;;
 
 			=> nrel_goto: .proc_of_simply_the_sc_design_contour_subdividing_4;;
 		*);;
 
 		-> .proc_of_simply_the_sc_design_contour_subdividing_4 (*
 			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _contour;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _new_contour;;
 			-> rrel_2: rrel_assign: rrel_scp_var: _arc;;
 			-> rrel_3: rrel_fixed: rrel_scp_var: _nrel;;
 			=> nrel_then: .proc_of_simply_the_sc_design_contour_subdividing_6;;
@@ -70,7 +76,7 @@ scp_program -> proc_of_simply_the_sc_design_contour_subdividing (*
 
 		-> .proc_of_simply_the_sc_design_contour_subdividing_5 (*
 			<- genElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _contour;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _new_contour;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
 			-> rrel_3: rrel_fixed: rrel_scp_var: _nrel;;
 			=> nrel_goto: .proc_of_simply_the_sc_design_contour_subdividing_6;;
@@ -88,7 +94,7 @@ scp_program -> proc_of_simply_the_sc_design_contour_subdividing (*
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _els;;
 
-			-> rrel_set_2: rrel_fixed: rrel_scp_var: _contour;;
+			-> rrel_set_2: rrel_fixed: rrel_scp_var: _new_contour;;
 			-> rrel_set_3: rrel_fixed: rrel_scp_var: _nodes;;
 			
 			=> nrel_goto: .proc_of_simply_the_sc_design_contour_subdividing_8;;
@@ -108,7 +114,13 @@ scp_program -> proc_of_simply_the_sc_design_contour_subdividing (*
 			-> rrel_1: rrel_fixed: rrel_erase: rrel_scp_var: _arc;;
 			=> nrel_goto: .proc_of_simply_the_sc_design_contour_subdividing_10;;
 		*);;
-
+/*
+		-> ..print5 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [ВЫПОЛНЕНО УСПЕШНО !!!];;
+			=> nrel_goto: .proc_of_simply_the_sc_design_contour_subdividing_10;;
+		*);;
+*/
 		-> .proc_of_simply_the_sc_design_contour_subdividing_10 (*
 			<- call;; 
 			-> rrel_1: rrel_fixed: rrel_scp_const: proc_of_simply_the_sc_design_contour_subdividing;;
@@ -116,6 +128,7 @@ scp_program -> proc_of_simply_the_sc_design_contour_subdividing (*
 				-> rrel_1: rrel_fixed: rrel_scp_var: _state;;
 				-> rrel_2: rrel_fixed: rrel_scp_var: _node;;
 				-> rrel_3: rrel_fixed: rrel_scp_var: _contour;;			
+				-> rrel_4: rrel_fixed: rrel_scp_var: _new_contour;;						
 			*);;
 			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
 			=> nrel_goto: .proc_of_simply_the_sc_design_contour_subdividing_11;;
@@ -132,14 +145,14 @@ scp_program -> proc_of_simply_the_sc_design_contour_subdividing (*
 			-> rrel_1: rrel_fixed: rrel_scp_var: _state;;
 			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _true;;
-			=> nrel_then: ..proc_of_simply_the_sc_design_contour_subdividing_8;;
+			=> nrel_then: .proc_of_simply_the_sc_design_contour_subdividing_8;;
 			=> nrel_else: ..print4;;
 		*);;
 
 		-> ..print4 (*
 			<- printNl;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: [Ошибка при вызове процедуры];;
-			=> nrel_goto: .print3;;
+			=> nrel_goto: ..print3;;
 		*);;
 
 		-> .proc_of_simply_the_sc_design_contour_subdividing_13 (*

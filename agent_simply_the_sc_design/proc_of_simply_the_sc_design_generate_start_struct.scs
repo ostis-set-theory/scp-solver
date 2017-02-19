@@ -85,19 +85,19 @@ scp_program -> proc_of_simply_the_sc_design_generate_start_struct (*
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _arc2;;
 			-> rrel_3: rrel_fixed: rrel_scp_var: _tuple;;
 			=> nrel_then: ..print5;;
-			=> nrel_else: ..print4;;		
+			=> nrel_else: .proc_of_simply_the_sc_design_generate_start_struct_6;;		
 		*);;
 
 		-> ..print5 (*
 			<- printNl;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: [Связка равенства найдена !];;
-			=> nrel_goto: ..print2;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_start_struct_9;;
 		*);;
 
 		-> .proc_of_simply_the_sc_design_generate_start_struct_9 (*
 			<- searchSetStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _tuple;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _arc2;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _node;;
 			
 			-> rrel_set_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _nodes;;
@@ -105,13 +105,14 @@ scp_program -> proc_of_simply_the_sc_design_generate_start_struct (*
 			=> nrel_goto: .proc_of_simply_the_sc_design_generate_start_struct_10;;
 		*);;
 
+/// БОЛЬШОЙ ЦИКЛ ПО ПЕРЕМЕННЫМ СВЯЗКИ РАВЕНСТВА
 		-> .proc_of_simply_the_sc_design_generate_start_struct_10 (*
 			<- searchElStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _nodes;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _node;;
-			=> nrel_then: ..print5;;
-			=> nrel_else: ..print4;;	
+			=> nrel_then: .proc_of_simply_the_sc_design_generate_start_struct_11;;
+			=> nrel_else: ..print2;;	
 		*);;
 
 		-> .proc_of_simply_the_sc_design_generate_start_struct_11 (*
@@ -132,37 +133,88 @@ scp_program -> proc_of_simply_the_sc_design_generate_start_struct (*
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
 				-> rrel_1: rrel_fixed: rrel_scp_var: _state;;
 				-> rrel_2: rrel_fixed: rrel_scp_var: _node;;
-				-> rrel_3: rrel_fixed: rrel_scp_var: _new_contour;;			
+				-> rrel_3: rrel_fixed: rrel_scp_var: _contour;;			
+				-> rrel_4: rrel_fixed: rrel_scp_var: _new_contour;;
 			*);;
 			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_contour_subdividing_14;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_start_struct_14;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_contour_subdividing_14 (*
+		-> .proc_of_simply_the_sc_design_generate_start_struct_14 (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_start_struct_15;;
+		*);;
+
+// Добавление переменной x
+		-> .proc_of_simply_the_sc_design_generate_start_struct_15 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _node;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _arc;;			
+			-> rrel_3: rrel_fixed: rrel_scp_const: _x;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_start_struct_16;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_start_struct_16 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _new_contour;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;			
+			-> rrel_3: rrel_fixed: rrel_scp_const: _x;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_start_struct_17;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_start_struct_17 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _new_contour;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;			
+			-> rrel_3: rrel_fixed: rrel_scp_const: _arc;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_start_struct_18;;
+		*);;
+
+		// добавление контура
+		-> .proc_of_simply_the_sc_design_generate_start_struct_18 (*
+			<- genElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _sc_action;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: rrel_const: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _new_contour;;
+			-> rrel_4: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: nrel_result;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_start_struct_19;;
+		*);;
+
+/// БОЛЬШАЯ ПРОВЕРКА
+		-> .proc_of_simply_the_sc_design_generate_start_struct_20 (*
+			<- call;; 
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_of_simply_the_sc_design_search_kvazibinary;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _state;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _node;;
+				-> rrel_3: rrel_fixed: rrel_scp_var: _new_contour;;
+				-> rrel_4: rrel_assign: rrel_scp_var: _new_contour2;;
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_start_struct_21;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_start_struct_21 (*
 			<- waitReturn;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
 			=> nrel_goto: .proc_of_simply_the_sc_design_generate_start_struct_10;;
-		*);;
-		
-		-> ..print4 (*
-			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [иначе];;
-			=> nrel_goto: .proc_of_simply_the_sc_design_generate_start_struct_6;;
 		*);;
 
 	    -> ..print2 (*
 			<- printNl;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура генерации структуры. Выход];;
-			=> nrel_goto: .proc_of_simply_the_sc_design_return;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_start_struct_return;;
 		*);;
 
 		-> ..print3 (*
 			<- printNl;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура генерации структуры завершена с ошибкой];;
-			=> nrel_goto: .proc_of_simply_the_sc_design_return;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_start_struct_return;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_return (*
+		-> .proc_of_simply_the_sc_design_generate_start_struct_return (*
 			<- return;;
 		*);;
 	*);;
