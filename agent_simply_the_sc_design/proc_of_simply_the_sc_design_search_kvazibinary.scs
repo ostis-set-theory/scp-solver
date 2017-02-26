@@ -3,6 +3,7 @@ scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*
 	-> rrel_params: ...(*
 		// состояние
 		-> rrel_1: rrel_in: _state;;
+// ВНИМАНИЕ !!! НУЖНО УДАЛИТЬ ИЛИ ЗАМЕНИТЬ НА МНОЖЕСТВО КОРНЕВЫХ ЭЛ-ОВ
 		// корневой элемент контура
 		-> rrel_2: rrel_in: _root;;
 		// исходный контур
@@ -18,74 +19,97 @@ scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*
 		-> rrel_init: ..print1 (*
 			<- printNl;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура преобразования контура. Вход];;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_kvazibinary_01;;
+			=> nrel_goto: ..proc_1;;
 	   	*);;
 
-	   	-> .proc_of_simply_the_sc_design_search_kvazibinary_01 (*
+	   	-> ..proc_1 (*
 			<- genEl;;
 			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _new_contour;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_kvazibinary_02;;
+			=> nrel_goto: ..proc_2;;
 		*);;
 
 	   	// копируем контур
-		-> .proc_of_simply_the_sc_design_search_kvazibinary_02 (*
+		-> ..proc_2 (*
 			<- searchSetStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _contour;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _els;;
-			
 			-> rrel_set_3: rrel_fixed: rrel_scp_var: _new_contour;;
-
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_kvazibinary_03;;
+			=> nrel_goto: ..proc_3;;
 		*);;
 
 		// множество сущностей которые нужно удалить в контуре new_contour
-		-> .proc_of_simply_the_sc_design_search_kvazibinary_03 (*
+		-> ..proc_3 (*
 			<- genEl;;
 			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _delete_entity;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_kvazibinary_04;;
+			=> nrel_goto: ..proc_4;;
 		*);;
 
-		// множество связок биекций new_contour с правой частью правила
-		-> .proc_of_simply_the_sc_design_search_kvazibinary_04 (*
+		// множество связок биекций new_contour с правой частью найденного правила
+		-> ..proc_4 (*
 			<- genEl;;
 			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _bijection;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_kvazibinary_3;;
+			=> nrel_goto: ..proc_4_1;;
 		*);;
 
 // ####################
+		// череда проверок
+		// ищем квазибинарное отношение 
+		-> ..proc_4_1 (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _svyazka;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: rrel_var: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _root;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;			
+			-> rrel_5: rrel_fixed: rrel_scp_var: _new_contour;;
+			=> nrel_then: ..proc_5_1;;
+			=> nrel_else: ..print4;;
+		*);;
+
 		// ищем квазибинарную связку и добавляем, что нужно удалить
-		-> .proc_of_simply_the_sc_design_search_kvazibinary_3 (*
+		-> ..proc_5_1 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _delete_entity;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _svyazka;;
+			=> nrel_goto: ..proc_5_2;;
+		*);;
+
+		-> ..proc_5_2 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _delete_entity;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _svyazka;;
+			=> nrel_goto: ..proc_5_2;;
+		*);;
+
+		-> ..proc_5 (*
 			<- searchSetStr5;;
 			-> rrel_1: rrel_assign: rrel_scp_var: _svyazka;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: rrel_var: _arc;;
 			-> rrel_3: rrel_fixed: rrel_scp_var: _root;;
 			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;			
 			-> rrel_5: rrel_fixed: rrel_scp_var: _new_contour;;
-			
 			-> rrel_set_1: rrel_fixed: rrel_scp_var: _delete_entity;;
 			-> rrel_set_2: rrel_fixed: rrel_scp_var: _delete_entity;;
-
-			=> nrel_then: .proc_of_simply_the_sc_design_search_kvazibinary_4;;
+			=> nrel_then: ..proc_6;;
 			=> nrel_else: ..print4;;
 		*);;
 
 		-> ..print4 (*
 			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Ошибка. Связка не найдена];;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Ошибка. Бинарная связка не найдена];;
 			=> nrel_goto: ..print3;;
 		*);;
 
 		// находим узел отношения
-		-> .proc_of_simply_the_sc_design_search_kvazibinary_4 (*
+		-> ..proc_6 (*
 			<- searchSetStr3;;			
 			-> rrel_1: rrel_assign: rrel_scp_var: _nrel;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _arc2;;			
 			-> rrel_3: rrel_fixed: rrel_scp_var: _arc;;
-			
 			-> rrel_set_2: rrel_fixed: rrel_scp_var: _delete_entity;;
-			
-			=> nrel_then: .proc_of_simply_the_sc_design_search_kvazibinary_5;;
+			=> nrel_then: ..proc_7;;
 			=> nrel_else: ..print5;;
 		*);;
 
@@ -95,7 +119,7 @@ scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*
 			=> nrel_goto: ..print3;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_kvazibinary_5 (*
+		-> ..proc_7 (*
 			<- searchSetStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _svyazka;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _arc;;
@@ -284,7 +308,7 @@ scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*
 
 		-> .proc_of_simply_the_sc_design_search_isomorphic_79 (*
 			<- call;; 
-			-> rrel_1: rrel_fixed: rrel_scp_const: proc_of_simply_the_sc_design_search_isomorphicc;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_to_create_a_non_oriented_cords;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
 				// в контуре
 				-> rrel_1: rrel_fixed: rrel_scp_var: _A_in_new_contour;;
@@ -307,7 +331,7 @@ scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*
 
 		-> .proc_of_simply_the_sc_design_search_isomorphic_711 (*
 			<- call;; 
-			-> rrel_1: rrel_fixed: rrel_scp_const: proc_of_simply_the_sc_design_search_isomorphicc;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_to_create_a_non_oriented_cords;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
 				-> rrel_1: rrel_fixed: rrel_scp_var: _B_in_new_contour;;
 				-> rrel_2: rrel_fixed: rrel_scp_var: _B;;
@@ -325,7 +349,7 @@ scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*
 
 		-> .proc_of_simply_the_sc_design_search_isomorphic_713 (*
 			<- call;; 
-			-> rrel_1: rrel_fixed: rrel_scp_const: proc_of_simply_the_sc_design_search_isomorphicc;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_to_create_a_non_oriented_cords;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
 				-> rrel_1: rrel_fixed: rrel_scp_var: _x_in_new_contour;;
 				-> rrel_2: rrel_fixed: rrel_scp_var: _x;;
