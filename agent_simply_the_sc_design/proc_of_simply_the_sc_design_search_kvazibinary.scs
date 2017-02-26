@@ -1,17 +1,17 @@
 scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*	
 	
 	-> rrel_params: ...(*
+
+// ВХОДНЫЕ ПАР-РЫ ИЗМЕНЕНЫ 
+
 		// состояние
 		-> rrel_1: rrel_in: _state;;
-// ВНИМАНИЕ !!! НУЖНО УДАЛИТЬ ИЛИ ЗАМЕНИТЬ НА МНОЖЕСТВО КОРНЕВЫХ ЭЛ-ОВ
-		// корневой элемент контура
-		-> rrel_2: rrel_in: _root;;
 		// исходный контур
-		-> rrel_3: rrel_in: _contour;;
+		-> rrel_2: rrel_in: _contour;;
+		// утверждение
+		-> rrel_3: rrel_out: rrel_assign: rrel_scp_var: _stat;;
 		// преобразованный контур
 		-> rrel_4: rrel_out: rrel_assign: rrel_scp_var: _new_contour;;
-		// утверждение
-		-> rrel_5: rrel_out: rrel_assign: rrel_scp_var: _stat;;
 	*);;
 
 	-> rrel_operators: ...(*
@@ -52,16 +52,36 @@ scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*
 			=> nrel_goto: ..proc_4_1;;
 		*);;
 
-// ####################
+// ###### КВАЗИБИНАРНОЕ ОТНОШЕНИЕ ######
 		// череда проверок
-		// ищем квазибинарное отношение 
+		// ищем квазибинарные отношения вида
+
+//// ======== ОШИБКА ЗДЕСЬ =======
 		-> ..proc_4_1 (*
-			<- searchElStr5;;
-			-> rrel_1: rrel_assign: rrel_scp_var: _svyazka;;
+			<- searchSetStr5;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _rule_ligament;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: rrel_var: _arc;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _root;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: _root;;
 			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;			
 			-> rrel_5: rrel_fixed: rrel_scp_var: _new_contour;;
+			
+			-> rrel_set_2: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_of_ligaments_of_quasibinary_relations_in_the_loop;;
+			
+			=> nrel_then: ..proc_4_2;;
+			=> nrel_else: ..print4;;
+		*);;
+//// ==================================
+
+		-> ..proc_4_2 (*
+			<- searchSetStr5;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _rule_ligament;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: rrel_var: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: _root;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;			
+			-> rrel_5: rrel_fixed: rrel_scp_var: _new_contour;;
+			
+			-> rrel_set_2: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_of_ligaments_of_quasibinary_relations_in_the_loop;;
+			
 			=> nrel_then: ..proc_5_1;;
 			=> nrel_else: ..print4;;
 		*);;
@@ -71,7 +91,7 @@ scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*
 			<- genElStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _delete_entity;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _svyazka;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _rule_ligament;;
 			=> nrel_goto: ..proc_5_2;;
 		*);;
 
@@ -79,21 +99,8 @@ scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*
 			<- genElStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _delete_entity;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _svyazka;;
-			=> nrel_goto: ..proc_5_2;;
-		*);;
-
-		-> ..proc_5 (*
-			<- searchSetStr5;;
-			-> rrel_1: rrel_assign: rrel_scp_var: _svyazka;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: rrel_var: _arc;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _root;;
-			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;			
-			-> rrel_5: rrel_fixed: rrel_scp_var: _new_contour;;
-			-> rrel_set_1: rrel_fixed: rrel_scp_var: _delete_entity;;
-			-> rrel_set_2: rrel_fixed: rrel_scp_var: _delete_entity;;
-			=> nrel_then: ..proc_6;;
-			=> nrel_else: ..print4;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _arc;;
+			=> nrel_goto: ..proc_6;;
 		*);;
 
 		-> ..print4 (*
@@ -108,7 +115,9 @@ scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*
 			-> rrel_1: rrel_assign: rrel_scp_var: _nrel;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _arc2;;			
 			-> rrel_3: rrel_fixed: rrel_scp_var: _arc;;
+			
 			-> rrel_set_2: rrel_fixed: rrel_scp_var: _delete_entity;;
+			
 			=> nrel_then: ..proc_7;;
 			=> nrel_else: ..print5;;
 		*);;
@@ -121,14 +130,15 @@ scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*
 
 		-> ..proc_7 (*
 			<- searchSetStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _svyazka;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _rule_ligament;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _els;;
 
-			-> rrel_set_2: rrel_fixed: rrel_scp_var: _delete_entity;;			
-			-> rrel_set_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _A_B_in_new_contour;;
+			-> rrel_set_2: rrel_fixed: rrel_scp_var: _delete_entity;;
+			// элементы А и Б
+			-> rrel_set_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _remember_A_and_B;;
 			
-			=> nrel_then: .proc_of_simply_the_sc_design_search_isomorphic_00;;
+			=> nrel_then: ..proc_8;;
 			=> nrel_else: ..print6;;
 		*);;
 
@@ -137,217 +147,220 @@ scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*
 			-> rrel_1: rrel_fixed: rrel_scp_const: [Ошибка. Элементы в квазибинарном отношении не найдены];;
 			=> nrel_goto: ..print3;;
 		*);;
-
-// запоминаем A, B, x 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_00 (*
+// #####################################
+// вспоминаем A, B, x - путем нахождения 
+		-> ..proc_8 (*
 			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _A_B_in_new_contour;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _remember_A_and_B;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: _A_in_new_contour;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_01;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _remembered_A;;
+			=> nrel_goto: ..proc_9;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_01 (*
+		-> ..proc_9 (*
 			<- eraseEl;;
 			-> rrel_1: rrel_fixed: rrel_erase: rrel_scp_var: _arc;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_02;;
+			=> nrel_goto: ..proc_10;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_02 (*
+		-> ..proc_10 (*
 			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _A_B_in_new_contour;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _remember_A_and_B;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: _B_in_new_contour;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_03;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _remembered_B;;
+			=> nrel_goto: ..proc_11;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_03 (*
+		-> ..proc_11 (*
 			<- eraseEl;;
 			-> rrel_1: rrel_fixed: rrel_erase: rrel_scp_var: _arc;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_04;;
+			=> nrel_goto: ..proc_12;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_04 (*
+		-> ..proc_12 (*
 			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _root;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _roots;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _x_in_new_contour;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_1;;
+			=> nrel_goto: ..proc_13;;
 		*);;
 
 // ======================================>
-		// множество контуров (если) правил 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_1 (*
+		// множество контуров (если) правил
+
+				// левые части правил
+		-> ..proc_13 (*
 			<- genEl;;
-			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _contour_left_rules;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_2;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _left_part_of_the_rules;;
+			=> nrel_goto: ..proc_14;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_2 (*
+				// формируем все контура левых частей правил в одно множество
+		-> ..proc_14 (*
 			<- searchSetStr3;;
 			-> rrel_1: rrel_assign: rrel_scp_var: _contours;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
 			-> rrel_3: rrel_fixed: rrel_scp_var: _nrel;;
 
-			-> rrel_set_1: rrel_fixed: rrel_scp_var: _contour_left_rules;;
+			-> rrel_set_1: rrel_fixed: rrel_scp_var: _left_part_of_the_rules;;
 			
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_3;;
+			=> nrel_goto: ..proc_15;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_3 (*
+				// удаляем принадлежность исходного контура
+		-> ..proc_15 (*
 			<- eraseElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _contour_left_rules;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _left_part_of_the_rules;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: rrel_erase: _arc;;
 			-> rrel_3: rrel_fixed: rrel_scp_var: _contour;;		
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_4;;
+			=> nrel_goto: ..proc_16;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_4 (*
+				// удаляем принадлежность нового контура 
+		-> ..proc_16 (*
 			<- eraseElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _contour_left_rules;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _left_part_of_the_rules;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: rrel_erase: _arc;;
 			-> rrel_3: rrel_fixed: rrel_scp_var: _new_contour;;		
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_5;;
+			=> nrel_goto: ..proc_17;;
 		*);;
 
 // ВНИМАНИЕ. Предполагается что с таким отношением будет один контур
-		-> .proc_of_simply_the_sc_design_search_isomorphic_5 (*
+		-> ..proc_17 (*
 			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _contour_left_rules;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _left_part_of_the_rules;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: _contour_left_rule;;
-			=> nrel_then: .proc_of_simply_the_sc_design_search_isomorphic_6;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _the_left_side_of_the_rule_loop;;
+			=> nrel_then: ..proc_18;;
 			=> nrel_else: ..print5;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_6 (*
+		-> ..proc_18 (*
 			<- eraseEl;;
 			-> rrel_1: rrel_fixed: rrel_erase: rrel_scp_var: _arc;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_5duyuwyuwge;;
+			=> nrel_goto: ..proc_19;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_5duyuwyuwge (*
+		-> ..proc_19 (*
 			<- searchElStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: atomic_existence;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _contour_left_rule;;
-			=> nrel_then: .proc_of_simply_the_sc_design_search_isomorphic_71;;
-			=> nrel_else: .proc_of_simply_the_sc_design_search_isomorphic_5;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _the_left_side_of_the_rule_loop;;
+			=> nrel_then: ..proc_20;;
+			=> nrel_else: ..proc_17;;
 		*);;
 
 // ====> находим элементы в контуре правила
 		// C
-		-> .proc_of_simply_the_sc_design_search_isomorphic_71 (*
+		-> ..proc_20 (*
 			<- searchElStr5;;
-			-> rrel_1: rrel_assign: rrel_scp_var: _svyazka_in_rule;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _ligament_left_side_of_the_rule;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: rrel_var: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _C;;
 			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
-			-> rrel_5: rrel_fixed: rrel_scp_var: _contour_left_rule;;			
-			=> nrel_then: .proc_of_simply_the_sc_design_search_isomorphic_72;;
-			=> nrel_else: .proc_of_simply_the_sc_design_search_isomorphic_5;;
+			-> rrel_5: rrel_fixed: rrel_scp_var: _the_left_side_of_the_rule_loop;;			
+			=> nrel_then: ..proc_21;;
+			=> nrel_else: ..proc_17;;
 		*);;
 
 		// сохраняем А, В в правиле
-		-> .proc_of_simply_the_sc_design_search_isomorphic_72 (*
+		-> ..proc_21 (*
 			<- searchSetStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _svyazka_in_rule;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _ligament_left_side_of_the_rule;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _els;;
 
-			-> rrel_set_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _els_A_B;;
+			-> rrel_set_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _elements_in_the_left_side_of_the_rule;;
 
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_73;;
+			=> nrel_goto: ..proc_22;;
 		*);;
 
 		// A
-		-> .proc_of_simply_the_sc_design_search_isomorphic_73 (*
+		-> ..proc_22 (*
 			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _els_A_B;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _elements_in_the_left_side_of_the_rule;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _A;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_74;;
+			=> nrel_goto: ..proc_23;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_74 (*
+		-> ..proc_23 (*
 			<- eraseEl;;
 			-> rrel_1: rrel_fixed: rrel_erase: rrel_scp_var: _arc;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_75;;
+			=> nrel_goto: ..proc_24;;
 		*);;
 
 		// B
-		-> .proc_of_simply_the_sc_design_search_isomorphic_75 (*
+		-> ..proc_24 (*
 			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _els_A_B;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _elements_in_the_left_side_of_the_rule;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _B;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_76;;
+			=> nrel_goto: ..proc_25;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_76 (*
+		-> ..proc_25 (*
 			<- eraseEl;;
 			-> rrel_1: rrel_fixed: rrel_erase: rrel_scp_var: _arc;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_77;;
+			=> nrel_goto: ..proc_26;;
 		*);;
 
 		// x
-		-> .proc_of_simply_the_sc_design_search_isomorphic_77 (*
+		-> ..proc_26 (*
 			<- searchElStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _C;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _x;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_78;;
+			=> nrel_goto: ..proc_27;;
 		*);;
 // <====
-		-> .proc_of_simply_the_sc_design_search_isomorphic_78 (*
+		-> ..proc_27 (*
 			<- varAssign;;
 			-> rrel_1: rrel_assign: rrel_scp_var: _nrel_bijection;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: nrel_bijection;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_79;;
+			=> nrel_goto: ..proc_28;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_79 (*
+		-> ..proc_28 (*
 			<- call;; 
 			-> rrel_1: rrel_fixed: rrel_scp_const: proc_to_create_a_non_oriented_cords;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
 				// в контуре
-				-> rrel_1: rrel_fixed: rrel_scp_var: _A_in_new_contour;;
-				
+				-> rrel_1: rrel_fixed: rrel_scp_var: _remembered_A;;
 				// в найденном правиле
 				-> rrel_2: rrel_fixed: rrel_scp_var: _A;;
-				
 				// отношение биекции
 				-> rrel_3: rrel_fixed: rrel_scp_var: _nrel_bijection;;
 			*);;
 			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_710;;
+			=> nrel_goto: ..proc_29;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_710 (*
+		-> ..proc_29 (*
 			<- waitReturn;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
-			=>nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_711;;
+			=>nrel_goto: ..proc_30;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_711 (*
+		-> ..proc_30 (*
 			<- call;; 
 			-> rrel_1: rrel_fixed: rrel_scp_const: proc_to_create_a_non_oriented_cords;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
-				-> rrel_1: rrel_fixed: rrel_scp_var: _B_in_new_contour;;
+				-> rrel_1: rrel_fixed: rrel_scp_var: _remembered_B;;
 				-> rrel_2: rrel_fixed: rrel_scp_var: _B;;
 				-> rrel_3: rrel_fixed: rrel_scp_var: _nrel_bijection;;
 			*);;
 			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_712;;
+			=> nrel_goto: ..proc_31;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_712 (*
+		-> ..proc_31 (*
 			<- waitReturn;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
-			=>nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_713;;
+			=>nrel_goto: ..proc_32;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_713 (*
+		-> ..proc_32 (*
 			<- call;; 
 			-> rrel_1: rrel_fixed: rrel_scp_const: proc_to_create_a_non_oriented_cords;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
@@ -356,62 +369,61 @@ scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*
 				-> rrel_3: rrel_fixed: rrel_scp_var: _nrel_bijection;;
 			*);;
 			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_714;;
+			=> nrel_goto: ..proc_33;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_714 (*
+		-> ..proc_33 (*
 			<- waitReturn;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
-			=>nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_8;;
+			=>nrel_goto: ..proc_34;;
 		*);;
 
 // от левой части переходим к правой
-		-> .proc_of_simply_the_sc_design_search_isomorphic_8 (*
+		-> ..proc_34 (*
 			<- searchSetStr3;;
-			-> rrel_1: rrel_assign: rrel_scp_var: _svyazka;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _rule_ligament;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _contour_left_rule;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _the_left_side_of_the_rule_loop;;
 			
-			-> rrel_set_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _svyazkas;;
+			-> rrel_set_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _rules_ligaments;;
 
-			=> nrel_then: .proc_of_simply_the_sc_design_search_isomorphic_8_a;;
+			=> nrel_then: ..proc_35;;
 			=> nrel_else: ..print6;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_8_a (*
+		-> ..proc_35 (*
 			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _svyazkas;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _rules_ligaments;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: _svyazka;;
-			
-			=> nrel_then: .proc_of_simply_the_sc_design_search_isomorphic_8_b;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _rule_ligament;;
+			=> nrel_then: ..proc_36;;
 			=> nrel_else: ..print3;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_8_b (*
+		-> ..proc_36 (*
 			<- eraseEl;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_8_c;;
+			=> nrel_goto: ..proc_37;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_8_c (*
+		-> ..proc_37 (*
 			<- searchElStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: nrel_equivalence;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _svyazka;;
-			=> nrel_then: .proc_of_simply_the_sc_design_search_isomorphic_9;;
-			=> nrel_else: .proc_of_simply_the_sc_design_search_isomorphic_8_a;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _rule_ligament;;
+			=> nrel_then: ..proc_38;;
+			=> nrel_else: ..proc_35;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_9 (*
+		-> ..proc_38 (*
 			<- searchSetStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _svyazka;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _rule_ligament;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _contours;;
 
-			-> rrel_set_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _left_and_right;;
+			-> rrel_set_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _contours_rule;;
 
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_10;;
+			=> nrel_goto: ..proc_39;;
 		*);;
 
 		-> ..print6 (*
@@ -420,20 +432,22 @@ scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*
 			=> nrel_goto: ..print3;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_10 (*
+		// удаляем принадлежность левого контура, остается только правый
+		-> ..proc_39 (*
 			<- eraseElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _left_and_right;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _contours_rule;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: rrel_erase: _arc;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _contour_left_rule;;		
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_11;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _the_left_side_of_the_rule_loop;;		
+			=> nrel_goto: ..proc_40;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_11 (*
+		// нашли правую часть правила вывода
+		-> ..proc_40 (*
 			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _left_and_right;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _contours_rule;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: _found_a_bunch;;
-			=> nrel_then: ..proc_search_1;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _the_right_side_of_the_rule_loop;;
+			=> nrel_then: ..proc_41;;
 			=> nrel_else: ..print7;;
 		*);;
 
@@ -446,87 +460,88 @@ scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*
 // =============================================>
 // поиск утверждения
 //	
-		-> ..proc_search_1 (*
+		// проверяем, есть ли утверждение
+		-> ..proc_41 (*
 			<- searchElStr5;;
 			-> rrel_1: rrel_assign: rrel_scp_var: _stat;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _svyazka;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _rule_ligament;;
 			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
 			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_main_key_sc_element;;			
-			=> nrel_then: .proc_of_simply_the_sc_design_search_isomorphic_12;;
-			=> nrel_else: ..proc_gen;;
+			=> nrel_then: ..proc_42;;
+			=> nrel_else: ..proc_43;;
 		*);;
 
-		-> ..proc_gen (*
+		-> ..proc_43 (*
 			<- genEl;;
 			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _stat;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_12;;
+			=> nrel_goto: ..proc_42;;
 		*);;
 //
 //
 // <==============================================
 // создание биекций для дуг принадлежности
-		-> .proc_of_simply_the_sc_design_search_isomorphic_12 (*
+//		set_of_arcs_supplies_right_hand_side -- множество дуг принадлежности правой части правила
+		-> ..proc_42 (*
 			<- searchSetStr5;;
-			-> rrel_1: rrel_assign: rrel_scp_var: _el1;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: _el2;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _element1_right_hand_side;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _accessories_arc_in_right_hand_side;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _element2_right_hand_side;;
 			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
-			-> rrel_5: rrel_fixed: rrel_scp_var: _found_a_bunch;;
+			-> rrel_5: rrel_fixed: rrel_scp_var: _the_right_side_of_the_rule_loop;;
 
-			-> rrel_set_2: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_pos_var_perm;;
+			-> rrel_set_2: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_of_arcs_supplies_right_hand_side;;
 
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_13;;
+			=> nrel_goto: ..proc_43;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_13 (*
+		-> ..proc_43 (*
 			<- searchElStr5;;
-			-> rrel_1: rrel_assign: rrel_scp_var: _el1;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: _el2;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _element1_right_hand_side;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _accessories_arc_in_right_hand_side;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _element2_right_hand_side;;
 			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
-			-> rrel_5: rrel_fixed: rrel_scp_var: _set_pos_var_perm;;
-			=> nrel_then: .proc_of_simply_the_sc_design_search_isomorphic_14;;
-			=> nrel_else: .proc_of_simply_the_sc_design_search_isomorphic_17;;		
+			-> rrel_5: rrel_fixed: rrel_scp_var: _set_of_arcs_supplies_right_hand_side;;
+			=> nrel_then: ..proc_44;;
+			=> nrel_else: ..proc_47;;		
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_14 (*
+		-> ..proc_44 (*
 			<- eraseEl;;
 			-> rrel_1: rrel_fixed: rrel_erase: rrel_scp_var: _arc2;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_15;;
+			=> nrel_goto: ..proc_45;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_15 (*
+		-> ..proc_45 (*
 			<- call;; 
 			-> rrel_1: rrel_fixed: rrel_scp_const: proc_of_simply_the_sc_design_generate_bijection;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
 				-> rrel_1: rrel_fixed: rrel_scp_var: _state;;
-				-> rrel_2: rrel_fixed: rrel_scp_var: _el1;;
-				-> rrel_3: rrel_fixed: rrel_scp_var: _el2;;
-				-> rrel_4: rrel_fixed: rrel_scp_var: _arc;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _element1_right_hand_side;;
+				-> rrel_3: rrel_fixed: rrel_scp_var: _element2_right_hand_side;;
+				-> rrel_4: rrel_fixed: rrel_scp_var: _accessories_arc_in_right_hand_side;;
 				-> rrel_5: rrel_fixed: rrel_scp_var: _nrel_bijection;;			
 			*);;
 			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_16;;
+			=> nrel_goto: ..proc_46;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_16 (*
+		-> ..proc_46 (*
 			<- waitReturn;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_17;;
+			=> nrel_goto: ..proc_43;;
 		*);;
 // ============================================================
 // удаление сущностей в новом контуре
-		-> .proc_of_simply_the_sc_design_search_isomorphic_17 (*
+		-> ..proc_47 (*
 			<- eraseSetStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _delete_entity;;
 			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_erase: _entity;;
-
-			=> nrel_goto: .proc_of_simply_the_sc_design_search_isomorphic_18;;
+			=> nrel_goto: ..proc_48;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_search_isomorphic_18 (*
+		-> ..proc_48 (*
 			<- genElStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _state;;
 			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
