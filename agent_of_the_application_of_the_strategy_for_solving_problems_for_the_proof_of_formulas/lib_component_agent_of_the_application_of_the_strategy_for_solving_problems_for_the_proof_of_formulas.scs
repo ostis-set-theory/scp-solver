@@ -1,0 +1,16 @@
+lib_component_agent_of_the_application_of_the_strategy_for_solving_problems_for_the_proof_of_formulas
+=> nrel_main_idtf:
+	[Компонент библиотеки. sc-агент применения стратегии решения задач для доказательства формул]
+	(* <- lang_ru;; *);
+	[Library component. sc-agent for finding constructions isomorphic to the indicated sample]
+	(* <- lang_en;; *);
+
+<- platform_independent_reusable_component_OSTIS;
+<- atomic_reusable_component_OSTIS; 
+<- reusable_scp_agent;
+
+=> nrel_attendant_component: 
+	lib_component_ui_menu_file_for_of_the_application_of_the_strategy_for_solving_problems_for_the_proof_of_formulas; 
+
+-> rrel_key_sc_element: 
+	.platform_independent_realization_of_sc_agent_of_the_application_of_the_strategy_for_solving_problems_for_the_proof_of_formulas;;

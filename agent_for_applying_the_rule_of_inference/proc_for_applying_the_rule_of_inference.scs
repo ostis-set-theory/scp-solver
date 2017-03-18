@@ -1,4 +1,4 @@
-scp_program -> proc_of_simply_the_sc_design_test (*	
+scp_program -> proc_for_applying_the_rule_of_inference (*	
 	
 	-> rrel_params: ...(*
 		-> rrel_1: rrel_in: _state;;
@@ -9,25 +9,25 @@ scp_program -> proc_of_simply_the_sc_design_test (*
 		
 		-> rrel_init: ..print1 (*
 			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура валидации. Вход];;
-			=> nrel_goto: .proc_of_simply_the_sc_design_test_1;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура применения правила вывода. Вход];;
+			=> nrel_goto: .proc_for_applying_the_rule_of_inference_1;;
 	   	*);;
 
-		-> .proc_of_simply_the_sc_design_test_1 (*
+		-> .proc_for_applying_the_rule_of_inference_1 (*
 			<- searchElStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: sc_statement;;
 			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
 			-> rrel_3: rrel_fixed: rrel_scp_var: _statement;;
-			=> nrel_then: .proc_of_simply_the_sc_design_test_2;;
-			=> nrel_else: .proc_of_simply_the_sc_design_test_1_5;;
+			=> nrel_then: .proc_for_applying_the_rule_of_inference_2;;
+			=> nrel_else: .proc_for_applying_the_rule_of_inference_1_5;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_test_1_5 (*
+		-> .proc_for_applying_the_rule_of_inference_1_5 (*
 			<- searchElStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: statement;;
 			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
 			-> rrel_3: rrel_fixed: rrel_scp_var: _statement;;
-			=> nrel_then: .proc_of_simply_the_sc_design_test_2;;
+			=> nrel_then: .proc_for_applying_the_rule_of_inference_2;;
 			=> nrel_else: ..print6;;
 		*);;
 
@@ -37,14 +37,14 @@ scp_program -> proc_of_simply_the_sc_design_test (*
 			=>nrel_goto: ..print3;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_test_2 (*
+		-> .proc_for_applying_the_rule_of_inference_2 (*
 			<- searchElStr5;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _statement;;
 			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _contour;;
 			-> rrel_4: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc2;;
 			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_main_key_sc_element;;
-			=> nrel_then: .proc_of_simply_the_sc_design_test_3;;
+			=> nrel_then: .proc_for_applying_the_rule_of_inference_3;;
 			=> nrel_else: ..print4;;
 		*);;
 
@@ -54,12 +54,12 @@ scp_program -> proc_of_simply_the_sc_design_test (*
 			=>nrel_goto: ..print3;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_test_3 (*
+		-> .proc_for_applying_the_rule_of_inference_3 (*
 			<- searchElStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: atomic_formula;;
 			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
 			-> rrel_3: rrel_fixed: rrel_scp_var: _contour;;
-			=> nrel_then: .proc_of_simply_the_sc_design_test_4;;
+			=> nrel_then: .proc_for_applying_the_rule_of_inference_4;;
 			=> nrel_else: ..print5;;
 		*);;
 
@@ -69,7 +69,7 @@ scp_program -> proc_of_simply_the_sc_design_test (*
 			=>nrel_goto: ..print3;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_test_4 (*
+		-> .proc_for_applying_the_rule_of_inference_4 (*
 			<- genElStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _state;;
 			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
@@ -79,13 +79,13 @@ scp_program -> proc_of_simply_the_sc_design_test (*
 
 	    -> ..print2 (*
 			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура валидации. Выход];;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура применения правила вывода. Выход];;
 			=> nrel_goto: .proc_of_simply_the_sc_design_return;;
 		*);;
 
 		-> ..print3 (*
 			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура валидации. Завершено с ошибкой];;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура применения правила вывода. Завершено с ошибкой];;
 			=> nrel_goto: .proc_of_simply_the_sc_design_return;;
 	   	*);;
 

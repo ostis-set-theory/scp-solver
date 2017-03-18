@@ -49,14 +49,30 @@ scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*
 		-> ..proc_4 (*
 			<- genEl;;
 			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _bijection;;
-			=> nrel_goto: ..proc_4_1;;
+			=> nrel_goto: ..print_true;;
 		*);;
 
 // ###### КВАЗИБИНАРНОЕ ОТНОШЕНИЕ ######
 		// череда проверок
-		// ищем квазибинарные отношения вида
 
 //// ======== ОШИБКА ЗДЕСЬ =======
+		// ищем квазибинарные отношения вида
+		//
+		// <- - - -	-			 ^
+		//			|	  		 |
+		//			| = = = = = =>
+		//			|	  ^
+		// <- - - - -	  ||
+		//				  ||
+		//				  ||
+		//
+
+		-> ..print_true (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [ВЫПОЛНЕНО УСПЕШНО !!!!];;
+			=> nrel_goto: ..proc_4_1;;
+		*);;
+		
 		-> ..proc_4_1 (*
 			<- searchSetStr5;;
 			-> rrel_1: rrel_assign: rrel_scp_var: _rule_ligament;;
@@ -68,23 +84,35 @@ scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*
 			-> rrel_set_2: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_of_ligaments_of_quasibinary_relations_in_the_loop;;
 			
 			=> nrel_then: ..proc_4_2;;
-			=> nrel_else: ..print4;;
+			=> nrel_else: ..proc_4_5;;
 		*);;
-//// ==================================
 
 		-> ..proc_4_2 (*
-			<- searchSetStr5;;
+			<- searchElStr5;;
 			-> rrel_1: rrel_assign: rrel_scp_var: _rule_ligament;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: rrel_var: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: _root;;
-			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;			
-			-> rrel_5: rrel_fixed: rrel_scp_var: _new_contour;;
-			
-			-> rrel_set_2: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_of_ligaments_of_quasibinary_relations_in_the_loop;;
-			
-			=> nrel_then: ..proc_5_1;;
-			=> nrel_else: ..print4;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: rrel_var: _rule_common;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _root;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;	
+			-> rrel_5: rrel_fixed: rrel_scp_var: _set_of_ligaments_of_quasibinary_relations_in_the_loop;;			
+			=> nrel_then: ..proc_4_3;;
+			=> nrel_else: ..print3;;
 		*);;
+
+		-> ..proc_4_3 (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_erase: rrel_scp_var: _arc2;;
+			=> nrel_goto: ..proc_4_4;;
+		*);;
+
+		-> ..proc_4_4 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _root;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _remembered_X;;
+			=> nrel_then: ..proc_5_1;;
+			=> nrel_else: ..proc_4_2;;		
+		*);;
+// ==================================================
 
 		// ищем квазибинарную связку и добавляем, что нужно удалить
 		-> ..proc_5_1 (*
@@ -99,7 +127,7 @@ scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*
 			<- genElStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _delete_entity;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _rule_common;;
 			=> nrel_goto: ..proc_6;;
 		*);;
 
@@ -148,7 +176,7 @@ scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*
 			=> nrel_goto: ..print3;;
 		*);;
 // #####################################
-// вспоминаем A, B, x - путем нахождения 
+// вспоминаем A, B - путем нахождения 
 		-> ..proc_8 (*
 			<- searchElStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _remember_A_and_B;;
@@ -174,17 +202,8 @@ scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*
 		-> ..proc_11 (*
 			<- eraseEl;;
 			-> rrel_1: rrel_fixed: rrel_erase: rrel_scp_var: _arc;;
-			=> nrel_goto: ..proc_12;;
-		*);;
-
-		-> ..proc_12 (*
-			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _roots;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: _x_in_new_contour;;
 			=> nrel_goto: ..proc_13;;
 		*);;
-
 // ======================================>
 		// множество контуров (если) правил
 
@@ -364,7 +383,7 @@ scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*
 			<- call;; 
 			-> rrel_1: rrel_fixed: rrel_scp_const: proc_to_create_a_non_oriented_cords;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
-				-> rrel_1: rrel_fixed: rrel_scp_var: _x_in_new_contour;;
+				-> rrel_1: rrel_fixed: rrel_scp_var: _remembered_X;;
 				-> rrel_2: rrel_fixed: rrel_scp_var: _x;;
 				-> rrel_3: rrel_fixed: rrel_scp_var: _nrel_bijection;;
 			*);;
@@ -378,7 +397,7 @@ scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*
 			=>nrel_goto: ..proc_34;;
 		*);;
 
-// от левой части переходим к правой
+// ############### от левой части переходим к правой ###############
 		-> ..proc_34 (*
 			<- searchSetStr3;;
 			-> rrel_1: rrel_assign: rrel_scp_var: _rule_ligament;;
@@ -412,7 +431,16 @@ scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
 			-> rrel_3: rrel_fixed: rrel_scp_var: _rule_ligament;;
 			=> nrel_then: ..proc_38;;
-			=> nrel_else: ..proc_35;;
+			=> nrel_else: ..proc_37_1;;
+		*);;
+
+		-> ..proc_37_1 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: nrel_implication;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _rule_ligament;;
+			=> nrel_then: ..proc_35;;
+			=> nrel_else: ..print3;;
 		*);;
 
 		-> ..proc_38 (*
@@ -447,7 +475,26 @@ scp_program -> proc_of_simply_the_sc_design_search_kvazibinary (*
 			-> rrel_1: rrel_fixed: rrel_scp_var: _contours_rule;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _the_right_side_of_the_rule_loop;;
+			=> nrel_then: ..proc_40_1;;
+			=> nrel_else: ..print7;;
+		*);;
+
+		-> ..proc_40_1 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: atomic_existence;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _the_right_side_of_the_rule_loop;;
 			=> nrel_then: ..proc_41;;
+			=> nrel_else: ..proc_40_2;;
+		*);;
+
+/// ЕСЛИ ДИЗЪЮНКЦИЯ, ТО ВЫЗЫВАЕМ ПРОЦЕДУРУ ПРЕОБРАЗОВАНИЯ
+		-> ..proc_40_2 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: nrel_disjunction;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _the_right_side_of_the_rule_loop;;
+			=> nrel_then: ..proc_40_3;;
 			=> nrel_else: ..print7;;
 		*);;
 

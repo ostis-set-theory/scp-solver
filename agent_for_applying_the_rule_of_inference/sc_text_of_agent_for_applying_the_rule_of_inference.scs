@@ -1,0 +1,6 @@
+sc_text_of_agent_for_applying_the_rule_of_inference
+-> rrel_key_sc_element:
+	agent_for_applying_the_rule_of_inference;
+<- scp_program_sc_text;;
+
+sc_text_of_agent_for_applying_the_rule_of_inference = [*^"file://agent_for_applying_the_rule_of_inference.scsi"*];;
