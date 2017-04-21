@@ -1,0 +1,263 @@
+scp_program -> proc_of_simply_the_sc_design_generate_bijection (*	
+	
+	-> rrel_params: ...(*
+		-> rrel_1: rrel_in: _state;;
+		-> rrel_2: rrel_in: _el1;;
+		-> rrel_3: rrel_in: _el2;;
+		-> rrel_4: rrel_in: _pos_var_perm;;
+		-> rrel_5: rrel_in: _nrel;;
+	*);;
+
+	-> rrel_operators: ...(*
+		
+		-> rrel_init: ..print1 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура генерации биекции для дуги принадлежности, при заданной биекции двух узлов. Вход];;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_bijection_1;;
+	   	*);;
+
+// проверка биекции для А
+		-> .proc_of_simply_the_sc_design_generate_bijection_1 (*
+			<- searchSetStr3;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: _curr_svyazka;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _el1;;
+
+			-> rrel_set_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _svyazkas;;
+
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_bijection_2;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_2 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _svyazkas;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _svyazka;;
+			=> nrel_then: .proc_of_simply_the_sc_design_generate_bijection_3;;
+			=> nrel_else: ..print3;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_3 (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_erase: rrel_scp_var: _arc;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_bijection_4;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_4 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _nrel;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _svyazka;;
+			=> nrel_then: .proc_of_simply_the_sc_design_generate_bijection_5;;
+			=> nrel_else: .proc_of_simply_the_sc_design_generate_bijection_2;;
+		*);;
+		
+		-> .proc_of_simply_the_sc_design_generate_bijection_5 (*
+			<- searchSetStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _svyazka;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _els;;
+
+			-> rrel_set_2: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_arcs;;
+
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_bijection_6;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_6 (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _svyazka;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _el1;;
+			-> rrel_4: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_var: _set_arcs;;
+			=> nrel_then: .proc_of_simply_the_sc_design_generate_bijection_6_5;;
+			=> nrel_else: ..print_b;;		
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_6_5 (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc2;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_bijection_7;;
+		*);;
+
+		-> ..print_b (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Ошибка. 1];;
+			=> nrel_goto: ..print3;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_7 (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _svyazka;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _A;;
+			-> rrel_4: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_var: _set_arcs;;
+			=> nrel_then: .proc_of_simply_the_sc_design_generate_bijection_7_5;;
+			=> nrel_else: ..print_b2;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_7_5 (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc2;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_bijection_8;;
+		*);;
+
+		-> ..print_b2 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Ошибка 2];;
+			=> nrel_goto: ..print3;;
+		*);;
+
+// проверка биекции для В
+		-> .proc_of_simply_the_sc_design_generate_bijection_8 (*
+			<- searchSetStr3;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: _curr_svyazka;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _el2;;
+
+			-> rrel_set_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _svyazkas;;
+
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_bijection_9;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_9 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _svyazkas;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _svyazka;;
+			=> nrel_then: .proc_of_simply_the_sc_design_generate_bijection_10;;
+			=> nrel_else: ..print3;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_10 (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_erase: rrel_scp_var: _arc;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_bijection_11;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_11 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _nrel;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _svyazka;;
+			=> nrel_then: .proc_of_simply_the_sc_design_generate_bijection_12;;
+			=> nrel_else: .proc_of_simply_the_sc_design_generate_bijection_9;;
+		*);;
+		
+		-> .proc_of_simply_the_sc_design_generate_bijection_12 (*
+			<- searchSetStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _svyazka;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _els;;
+
+			-> rrel_set_2: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_arcs;;
+
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_bijection_13;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_13 (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _svyazka;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _el2;;
+			-> rrel_4: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_var: _set_arcs;;
+			=> nrel_then: .proc_of_simply_the_sc_design_generate_bijection_13_5;;
+			=> nrel_else: ..print_v;;		
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_13_5 (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc2;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_bijection_14;;
+		*);;
+
+		-> ..print_v (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Ошибка 3];;
+			=> nrel_goto: ..print3;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_14 (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _svyazka;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _B;;
+			-> rrel_4: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_var: _set_arcs;;
+			=> nrel_then: .proc_of_simply_the_sc_design_generate_bijection_14_5;;
+			=> nrel_else: ..print_v2;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_14_5 (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc2;;
+			=> nrel_goto: ..print_x;;
+		*);;
+
+		-> ..print_v2 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Ошибка 4];;
+			=> nrel_goto: ..print3;;
+		*);;
+
+		-> ..print_x (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [ВЫПОЛНЕНО !!!];;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_bijection_15;;
+		*);;
+
+// создание биекции для дуги
+		-> .proc_of_simply_the_sc_design_generate_bijection_15 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _A;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _B;;
+			=> nrel_then: .proc_of_simply_the_sc_design_generate_bijection_16;;
+			=> nrel_else: ..print3;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_16 (*
+			<- call;; 
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_to_create_a_non_oriented_cords;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _A;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _B;;
+				-> rrel_3: rrel_fixed: rrel_scp_var: _arc;;
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_bijection_17;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_17 (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_bijection_18;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_18 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _state;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _true;;
+			=> nrel_goto: ..print2;;
+		*);;
+
+	    -> ..print2 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура генерации биекции для дуги принадлежности, при заданной биекции двух узлов. Выход];;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_bijection_return;;
+		*);;
+
+		-> ..print3 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура генерации биекции для дуги принадлежности, при заданной биекции двух узлов завершена с ошибкой];;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_bijection_return;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_generate_bijection_return (*
+			<- return;;
+		*);;
+	*);;
+*);;
