@@ -1,6 +1,0 @@
-sc_text_of_agent_for_finding_constructions_isomorphic_to_the_indicated_sample
--> rrel_key_sc_element:
-	agent_for_finding_constructions_isomorphic_to_the_indicated_sample;
-<- scp_program_sc_text;;
-
-sc_text_of_agent_for_finding_constructions_isomorphic_to_the_indicated_sample = [*^"file://agent_for_finding_constructions_isomorphic_to_the_indicated_sample.scsi"*];;

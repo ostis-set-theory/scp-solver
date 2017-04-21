@@ -1,6 +1,0 @@
-sc_text_of_agent_of_simply_the_sc_design
--> rrel_key_sc_element:
-	agent_of_simply_the_sc_design;
-<- scp_program_sc_text;;
-
-sc_text_of_agent_of_simply_the_sc_design = [*^"file://agent_of_simply_the_sc_design.scsi"*];;
