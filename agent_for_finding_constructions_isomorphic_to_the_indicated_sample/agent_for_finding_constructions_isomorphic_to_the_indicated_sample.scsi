@@ -60,38 +60,6 @@ scp_program -> agent_for_finding_constructions_isomorphic_to_the_indicated_sampl
 			=>nrel_then: .agent_for_finding_constructions_isomorphic_to_the_indicated_sample10;;
 			=>nrel_else: ..print3;;
 		*);;
-		
-		-> .agent_for_finding_constructions_isomorphic_to_the_indicated_sample10 (*
-			<- call;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: proc_of_simply_the_sc_design_test;;
-			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
-				-> rrel_1: rrel_fixed: rrel_scp_var: _state;;
-				-> rrel_2: rrel_fixed: rrel_scp_var: _statement;;
-			*);;
-			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
-			=>nrel_goto: .agent_for_finding_constructions_isomorphic_to_the_indicated_sample11;;
-		*);;
-
-		-> .agent_for_finding_constructions_isomorphic_to_the_indicated_sample11 (*
-			<- waitReturn;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
-			=>nrel_goto: .agent_for_finding_constructions_isomorphic_to_the_indicated_sample12;;
-		*);;
-
-		-> .agent_for_finding_constructions_isomorphic_to_the_indicated_sample12 (*
-			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _state;;
-			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: _true;;
-			=> nrel_then: .agent_for_finding_constructions_isomorphic_to_the_indicated_sample13;;
-			=> nrel_else: ..print3;;
-		*);;
-
-		-> .agent_for_finding_constructions_isomorphic_to_the_indicated_sample13 (*
-			<- eraseEl;;
-			-> rrel_1: rrel_fixed: rrel_erase: rrel_scp_var: _true;;
-			=> nrel_goto: .agent_for_finding_constructions_isomorphic_to_the_indicated_sample14;;
-		*);;
 
 		-> .agent_for_finding_constructions_isomorphic_to_the_indicated_sample14 (*
 			<- call;; 

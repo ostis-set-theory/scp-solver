@@ -1,95 +1,480 @@
 scp_program -> proc_for_finding_constructions_isomorphic_to_the_indicated_sample (*	
 	
 	-> rrel_params: ...(*
+		// состояние процедуры
 		-> rrel_1: rrel_in: _state;;
-		-> rrel_2: rrel_in: _statement;;
+		// контур либо связка, по которому(ой) ищем изоморфный граф
+		-> rrel_2: rrel_in: _graph_template;;
+		// множество в котором ищутся изоморфные графы, только контур
+		// множество не пустое
+		-> rrel_3: rrel_in: _search_boxes;;
+		// множество сформированных изоморфизмов (контуры либо связки)
+		-> rrel_4: rrel_in: _set_graph;;
+		// биекция сформирована либо нет
+		-> rrel_5: rrel_out: rrel_assign: rrel_scp_var: _state_bijection;;
 	*);;
 
+/* 	ниже перечисляются случаи, когда агент может аварийно завершить
+	работу:
+	1. если для отношения nrel_bijection - изменят идентификатор 
+	2. если для отношения nrel_disjunction - изменят идентификатор 
+*/
 	-> rrel_operators: ...(*
 		
-		-> rrel_init: ..print1 (*
+		-> rrel_init: ..input_print (*
 			<- printNl;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура поиска конструкций изоморфных указанному образцу. Вход];;
 			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_1;;
 	   	*);;
 
-		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_1 (*
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_A1 (*
+			<- varAssign;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _nrel_bijection;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: nrel_bijection;;			
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_A2;;
+		*);;
+
+		// var1 - связка исходного контура (шаблон поиска)
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_A2 (*
+			<- varAssign;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _var1;;
+			-> rrel_2: rrel_fixed: rrel_scp_var: _graph_template;;			
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_A3;;
+		*);;
+
+		// var2 - граф, в котором ищем
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_A3 (*
+			<- varAssign;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _var2;;
+			-> rrel_2: rrel_fixed: rrel_scp_var: _search_boxes;;			
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_A5;;
+		*);;
+
+	   	// set_node_const -- множество константных узлов с системным идентификатором
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_A5 (*
+			<- genElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_graph;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: rrel_const: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_node_const;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: nrel_unique_constant_node;;
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_A6;;
+		*);;
+
+		// set_node_isomorphic -- сюда сохраняются связки биекций
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_A6 (*
+			<- genElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_graph;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: rrel_const: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_node_isomorphic;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: nrel_isomorphic_entity;;
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_A7;;
+		*);;
+
+		// множество, в которое будут сохраняться все дуги
+		// используется в поиске во втором контуре
+	   	-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_A7 (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_arcs;;
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_B1;;
+		*);;
+
+// ================ НАЧАЛО ЦИКЛА ПО КОНТУРАМ ==================================
+		// если на входе связка дизъюнкции в 1-ом контуре, то 
+		// НАМ СТАЛА ИЗВЕСТНА ВХОДНАЯ ДУГА: arc_in_1
+		// ДИЗЪЮНКЦИЯ
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_B1 (*
 			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: sc_statement;;
-			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _statement;;
-			=> nrel_then: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_2;;
-			=> nrel_else: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_1_5;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: nrel_disjunction;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc_in_1;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _var1;;
+			=> nrel_then: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_C1;;
+			=> nrel_else: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_B2;;		
 		*);;
 
-		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_1_5 (*
+		// КОНЪЮНКЦИЯ
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_B2 (*
 			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: statement;;
-			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _statement;;
-			=> nrel_then: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_2;;
-			=> nrel_else: ..print6;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: nrel_conjunction;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc_in_1;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _var1;;
+			=> nrel_then: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_C2;;
+			=> nrel_else: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_B3;;		
 		*);;
 
-		-> ..print6 (*
-			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Ошибка. Данная сущность не является утверждением];;
-			=>nrel_goto: ..print3;;
-		*);;
-
-		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_2 (*
-			<- searchElStr5;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _statement;;
-			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: _contour;;
-			-> rrel_4: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc2;;
-			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_main_key_sc_element;;
-			=> nrel_then: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_3;;
-			=> nrel_else: ..print4;;
-		*);;
-
-		-> ..print4 (*
-			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Ошибка. Контур не найден];;
-			=>nrel_goto: ..print3;;
-		*);;
-
-		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_3 (*
+// !!! ERROR !!! ATOMIC EXISTENCE // АТОМАРНОЕ СУЩЕСТВОВАНИЕ !!!
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_B3 (*
 			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: atomic_formula;;
-			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _contour;;
-			=> nrel_then: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_4;;
-			=> nrel_else: ..print5;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: atomic_existence;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc_in_1;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _var1;;
+			=> nrel_then: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_C3;;
+			=> nrel_else: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_return;;		
 		*);;
 
-		-> ..print5 (*
-			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Ошибка. Контур не является атомарной формулой];;
-			=>nrel_goto: ..print3;;
+		// проверяем, принадлежит ли связка диъюнкции 2 контуру, предназначенному для поиска
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_C1 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _var2;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_const: nrel_disjunction;;
+			=> nrel_then: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_D1;;
+			=> nrel_else: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_return;;		
 		*);;
 
-		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_4 (*
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_C2 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _var2;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_const: nrel_conjunction;;
+			=> nrel_then: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_D2;;
+			=> nrel_else: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_return;;		
+		*);;
+
+		// НА ВХОДЕ КОНТУР, СЛЕДОВАТЕЛЬНО ДАЛЕЕ БУДЕМ НАХОДИТЬ,
+		// =========== ЧТО НАХОДИТСЯ ВНУТРИ КОНТУРА ===========
+		// =========== НАЧНЕМ С КОНСТАНТНЫХ УЗЛОВ =============
+		// множество, в которое будут сохраним все константные узлы, если они есть
+	   	-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_C3 (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _nodes_const;;
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_D3;;
+		*);;
+
+		// если узел дизъюнкции добавлен в set_node_const, то не добавляем
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_D1 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_node_const;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_const: nrel_disjunction;;
+			=> nrel_then: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_F1;;
+			=> nrel_else: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_E1;;		
+		*);;
+
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_D2 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_node_const;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_const: nrel_conjunction;;
+			=> nrel_then: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_F2;;
+			=> nrel_else: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_E2;;		
+		*);;
+
+		// формируем множество всех константных узлов в шаблонном контуре
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_D3 (*
+			<- searchSetStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _var1;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _node_const;;
+			
+			-> rrel_set_3: rrel_fixed: rrel_scp_var: _nodes_const;;
+			
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_E3;;
+		*);;
+
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_E1 (*
 			<- genElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _state;;
-			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _true;;
-			=> nrel_goto: ..print2;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_node_const;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_const: nrel_disjunction;;
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_F1;;
 		*);;
+
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_E2 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_node_const;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_const: nrel_conjunction;;
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_F2;;
+		*);;
+
+		// находим случайный константный узел
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_E3 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _nodes_const;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _node_const;;
+						
+			=> nrel_then: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_F3;;
+			=> nrel_else: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_G3;;		
+		*);;
+
+
+		// ПЕРЕБОР ВСЕХ СВЯЗОК ДИЗЪЮНКЦИИ В search_boxes
+		// ищем связки дизъюнкции в во втором контуре search_boxes
+		// node -- константная связка дизъюнкции
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_F1 (*
+			<- searchSetStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: nrel_disjunction;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _node;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_var: _var2;;
+
+			-> rrel_set_2: rrel_fixed: rrel_scp_var: _set_arcs;; 
+			
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_G1;;
+		*);;
+
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_F2 (*
+			<- searchSetStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: nrel_conjunction;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _node;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_var: _var2;;
+
+			-> rrel_set_2: rrel_fixed: rrel_scp_var: _set_arcs;;
+			
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_G1;;
+		*);;
+
+		// УДАЛЯЕМ ДУГУ ПРИНАДЛЕЖНОСТИ ЭЛЕМЕНТА УЗЛУ
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_F3 (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_erase: rrel_scp_var: _arc;;
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_F4;;
+		*);;
+
+		// ПРОВЕРЯЕМ, ПРИНАДЛЕЖИТ ЛИ ДАННЫЙ КОНСТАНТНЫЙ УЗЕЛ ВТОРОМУ КОНТУРУ
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_F4 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _var2;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _node_const;;
+
+			=> nrel_then: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_F5;;
+			=> nrel_else: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_F5;;		
+		*);;
+
+		// ПРОВЕРЯЕМ ПРИНАДЛЕЖНОСТЬ УЗЛА ОТВЕТУ
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_F5 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_node_const;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _node_const;;
+			
+			=> nrel_then: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_E3;;
+			=> nrel_else: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_F6;;		
+		*);;
+
+		// ДОБАВЛЯЕМ КОНТАНТНЫЙ УЗЕЛ В ОТВЕТ
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_F6 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_node_const;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _node_const;;
+			
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_E3;;
+		*);;
+
+// =============== УСТАНАВЛИВАЕМ БИЕКЦИИ ДЛЯ ПРИНАДЛЕЖНОСТЕЙ И КОНСТАНТНЫХ УЗЛОВ ===============
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_G1 (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: _node1;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc_in_2;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: _node2;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;			
+			-> rrel_5: rrel_fixed: rrel_scp_var: _set_arcs;;
+
+			=> nrel_then: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_G2;;
+			// !!!!!!!! ВНИМАНИЕ ! НЕПРОВЕРЕНО !
+			=> nrel_else: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H1;;
+		*);;
+
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_G2 (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_erase: rrel_scp_var: _arc;;
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_G3;;
+		*);;
+
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_G3 (*
+			<- call;; 
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_to_create_a_non_oriented_cords;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _arc_in_1;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _arc_in_2;;
+				-> rrel_3: rrel_fixed: rrel_scp_var: _nrel_bijection;;
+				-> rrel_4: rrel_assign: rrel_scp_var: _svyazka1;;
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_G4;;
+		*);;
+
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_G4 (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_G5;;
+		*);;
+
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_G5 (*
+			<- call;; 
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_to_create_a_non_oriented_cords;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _node2;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _var2;;
+				-> rrel_3: rrel_fixed: rrel_scp_var: _nrel_bijection;;
+				-> rrel_4: rrel_assign: rrel_scp_var: _svyazka2;;
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_G6;;
+		*);;
+
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_G6 (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_G7;;
+		*);;
+
+		// создание множества биекций
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_G7 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_node_isomorphic;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _nodes_const;;
+			
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_G8;;
+		*);;
+
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_G8 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _nodes_const;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _svyazka1;;
+			
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_G9;;
+		*);;
+
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_G9 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _nodes_const;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _svyazka2;;
+			
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H1;;
+		*);;
+
+// ========== РЕКУРСИВНЫЙ ВЫЗОВ ДЛЯ ЭЛЕМЕНТОВ СВЯЗОК ДИЪЮНКЦИЙ ЛИБО КОНЪЮНКЦИЙ ================
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H1 (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_svyazka;;
+			
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H2;;
+		*);;
+
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H2 (*
+			<- searchSetStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _var1;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _node;;
+
+			-> rrel_set_3: rrel_fixed: rrel_scp_var: _set_svyazka;; 
+			
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H3;;
+		*);;
+
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H3 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_svyazka;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _node1;;
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H4;;
+		*);;
+		
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H4 (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_erase: rrel_scp_var: _arc;;
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H5;;
+		*);;
+
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H5 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_svyazka;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _node2;;
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H6;;
+		*);;
+
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H6 (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_erase: rrel_scp_var: _set_svyazka;;
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H7;;
+		*);;
+
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H7 (*
+			<- call;; 
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_for_finding_constructions_isomorphic_to_the_indicated_sample;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _state;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _node1;;
+				-> rrel_3: rrel_fixed: rrel_scp_var: _search_boxes;;
+				-> rrel_4: rrel_fixed: rrel_scp_var: _set_graph;;
+				-> rrel_5: rrel_assign: rrel_scp_var: _state_bijection1;;
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H8;;
+		*);;
+
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H8 (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H9;;
+		*);;
+
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H9 (*
+			<- call;; 
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_for_finding_constructions_isomorphic_to_the_indicated_sample;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _state;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _node2;;
+				-> rrel_3: rrel_fixed: rrel_scp_var: _search_boxes;;
+				-> rrel_4: rrel_fixed: rrel_scp_var: _set_graph;;
+				-> rrel_5: rrel_assign: rrel_scp_var: _state_bijection2;;
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H10;;
+		*);;
+
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H10 (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H11;;
+		*);;
+
+		// ЕСЛИ В ОБОИХ СЛУЧАЯХ ИСТИНА, ТО НУЖНО УСТАНОВИТЬ БИЕКЦИЮ
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H11 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _state_bijection1;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _true1;;
+			=> nrel_then: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H12;;
+			=> nrel_else: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H12;;
+		*);;
+
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H12 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _state_bijection2;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _true2;;
+			=> nrel_then: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H13;;
+			=> nrel_else: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_H13;;
+		*);;
+// ================= ЗАВЕРШЕНИЕ ЦИКЛА ПО ДИЗЪЮНКТИВНЫМ КОНТУРАМ ====================================
 
 	    -> ..print2 (*
 			<- printNl;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура поиска конструкций изоморфных указанному образцу. Выход];;
-			=> nrel_goto: .proc_of_simply_the_sc_design_return;;
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_return;;
 		*);;
 
 		-> ..print3 (*
 			<- printNl;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура поиска конструкций изоморфных указанному образцу. Завершено с ошибкой];;
-			=> nrel_goto: .proc_of_simply_the_sc_design_return;;
+			=> nrel_goto: .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_return;;
 	   	*);;
 
-		-> .proc_of_simply_the_sc_design_return (*
+		-> .proc_for_finding_constructions_isomorphic_to_the_indicated_sample_return (*
 			<- return;;
 		*);;
 	*);;
