@@ -2,7 +2,8 @@ scp_program -> proc_of_simply_the_sc_design_generate_start_struct (*
 	
 	-> rrel_params: ...(*
 		-> rrel_1: rrel_in: _state;;
-		-> rrel_2: rrel_in: _statement;;		
+		-> rrel_2: rrel_in: _statement;;
+		-> rrel_3: rrel_out: rrel_assign: rrel_scp_var: _tree;;				
 	*);;
 
 	-> rrel_operators: ...(*
@@ -72,15 +73,6 @@ scp_program -> proc_of_simply_the_sc_design_generate_start_struct (*
 		*);;
 
 		-> .proc_of_simply_the_sc_design_generate_start_struct_7 (*
-			<- genElStr3;;
-			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: rrel_struct: _tree;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _root;;
-			//=> nrel_goto: .proc_of_simply_the_sc_design_generate_start_struct_8;;
-			=> nrel_goto: ..print2;;
-		*);;
-/*
-		-> .proc_of_simply_the_sc_design_generate_start_struct_8 (*
 			<- call;; 
 			-> rrel_1: rrel_fixed: rrel_scp_const: proc_of_simply_the_sc_design_contour_subdividing;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
@@ -89,18 +81,18 @@ scp_program -> proc_of_simply_the_sc_design_generate_start_struct (*
 				// корень дерева
 				-> rrel_3: rrel_fixed: rrel_scp_var: _root;;
 				// контур дерева		
-				-> rrel_4: rrel_fixed: rrel_scp_var: _tree;;
+				-> rrel_4: rrel_assign: rrel_scp_var: _tree;;
 			*);;
 			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_generate_start_struct_9;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_generate_start_struct_8;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_generate_start_struct_9 (*
+		-> .proc_of_simply_the_sc_design_generate_start_struct_8 (*
 			<- waitReturn;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_generate_start_struct_10;;
+			=> nrel_goto: ..print2;;
 		*);;
-
+/*
 // Добавление переменной x в распиленный контур
 		-> .proc_of_simply_the_sc_design_generate_start_struct_15 (*
 			<- genElStr3;;
