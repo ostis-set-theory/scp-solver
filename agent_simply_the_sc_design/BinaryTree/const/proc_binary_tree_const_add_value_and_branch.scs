@@ -2,28 +2,74 @@ scp_program -> proc_binary_tree_const_add_value_and_branch (*
 	
 	-> rrel_params: ... (*
 		
+		// параметры бинарного дерева
+		-> rrel_1: rrel_in: _in_parameter;;
+		
 		// неизменяемый входный параметр: отношение ветвь
-		-> rrel_1: rrel_in: _nrel_branch;;
-
-		// неизменяемый входный параметр: отношение значение
-		-> rrel_2: rrel_in: _nrel_value;;
-
-		// изменяемый входный параметр: контур дерева
-		-> rrel_3: rrel_in: _contour;;
+		-> rrel_2: rrel_in: _nrel_branch;;
 
 		// изменяемый входный параметр: текущий узел дерева
-		-> rrel_4: rrel_in: _element;;
+		-> rrel_3: rrel_in: _element;;
 
 		// изменяемый входный параметр: сохраняемое значение
-		-> rrel_5: rrel_in: _value;;
-
-		// изменяемый входный параметр: процедура сохранения элемента
-		-> rrel_6: rrel_in: _set_value;;
+		-> rrel_4: rrel_in: _value;;
 	*);;
 
 	-> rrel_operators: ...(*
 		
-		-> rrel_init: .proc_binary_tree_const_add_value_and_branch_1 (*
+		-> rrel_init: .proc_binary_tree_const_add_value_and_branch_A (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _in_parameter;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _contour;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_1;;
+			=> nrel_goto: .proc_binary_tree_const_add_value_and_branch_B;;
+		*);;
+		// изменяемый входный параметр: контур дерева
+
+		-> .proc_binary_tree_const_add_value_and_branch_B (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _in_parameter;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _out_4;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_4;;
+			=> nrel_goto: .proc_binary_tree_const_add_value_and_branch_C;;
+		*);;
+
+		// неизменяемый входный параметр: отношение значение
+		-> .proc_binary_tree_const_add_value_and_branch_C (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _out_4;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _nrel_value;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_1;;
+			=> nrel_goto: .proc_binary_tree_const_add_value_and_branch_D;;
+		*);;
+
+		-> .proc_binary_tree_const_add_value_and_branch_D (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _in_parameter;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _out_3;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_3;;
+			=> nrel_goto: .proc_binary_tree_const_add_value_and_branch_E;;
+		*);;
+
+		-> .proc_binary_tree_const_add_value_and_branch_E (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _out_3;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _set_value;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_2;;
+			=> nrel_goto: .proc_binary_tree_const_add_value_and_branch_1;;
+		*);;
+
+		-> .proc_binary_tree_const_add_value_and_branch_1 (*
 			<- ifType;;
 			-> rrel_1: rrel_const: _value;;
 			=> nrel_then: .proc_binary_tree_const_add_value_and_branch_2;;
@@ -69,10 +115,9 @@ scp_program -> proc_binary_tree_const_add_value_and_branch (*
 			<- call;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _set_value;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
-				-> rrel_1: rrel_fixed: rrel_scp_var: _nrel_value;;
-				-> rrel_2: rrel_fixed: rrel_scp_var: _contour;;
-				-> rrel_3: rrel_fixed: rrel_scp_var: _branch;;
-				-> rrel_4: rrel_fixed: rrel_scp_var: _value;;
+				-> rrel_1: rrel_fixed: rrel_scp_var: _in_parameter;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _branch;;
+				-> rrel_3: rrel_fixed: rrel_scp_var: _value;;
 			*);;
 			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
 			=> nrel_goto: .proc_binary_tree_const_add_value_and_branch_7;;

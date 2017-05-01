@@ -26,16 +26,13 @@ scp_program -> proc_search_and_save_kv_f (*
 			rrel_7: дуга принадлежности
 			rrel_8: второй атрибут
 		*/
-		-> rrel_1: rrel_in: _parameter;;
+		-> rrel_1: rrel_in: _parameters;;
 
 		// множество найденных квазибинарных отношений
 		-> rrel_2: rrel_in: _set_kv;;
 
-		// сюда сохраняем формируемые множества
-		-> rrel_3: rrel_in: _formable_sets;;
-
 		// содержить узел, если отношение найдено
-		-> rrel_4: rrel_out: rrel_assign: rrel_scp_var: is_search;;
+		-> rrel_3: rrel_out: rrel_assign: rrel_scp_var: _is_search;;
 	*);;
 
 	-> rrel_operators: ...(*
@@ -46,22 +43,142 @@ scp_program -> proc_search_and_save_kv_f (*
 			=> nrel_goto: .proc_search_and_save_kv_f_1;;
 	   	*);;
 
-		// неизменяемые выходные параметры:
-		// rrel_1: контур дерева
+// ПОЛУЧЕНИЕ ПЕРВОГО ЭЛЕМЕНТА
 	   	-> .proc_search_and_save_kv_f_1 (*
-			<- genElStr5;;
-			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _out_not_changing_parameter;;
-			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: rrel_struct: _out_1;;
-			-> rrel_4: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc2;;
-			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_1;;
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_get_parameter;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _parameters;;
+				-> rrel_2: rrel_fixed: rrel_scp_const: rrel_1;;
+				-> rrel_3: rrel_fixed: rrel_scp_const: rrel_1;;
+				-> rrel_4: rrel_assign: rrel_scp_var: _node;;
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_search_and_save_kv_f_2;;
+		*);;
+
+		-> .proc_search_and_save_kv_f_2 (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_search_and_save_kv_f_3;;
+		*);;
+
+		-> .proc_search_and_save_kv_f_3 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _node;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _kv_el1;;
+			=> nrel_then: .proc_search_and_save_kv_f_4;;
+			=> nrel_else: ..print3;;	
+		*);;
+
+// НАЧАЛО ПЕРЕБОРА КВАЗИБИНАРНЫХ ОТНОШЕНИЙ
+		// формируем множество связок
+		-> .proc_search_and_save_kv_f_4 (*
+			<- searchSetStr5;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _el3;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: _el2;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _kv_el1;;
+
+				-> rrel_set_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_el3;;
+
+			=> nrel_goto: .proc_search_and_save_kv_f_5;;
+		*);;
+
+		// получаем текущую связку квазибинарного отношения
+		-> .proc_search_and_save_kv_f_5 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_el3;;
+			-> rrel_2: rrel_assign: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _kv_el3;;
+			=> nrel_then: .proc_search_and_save_kv_f_6;;
+			=> nrel_else: .proc_search_and_save_kv_f_7;;	
+		*);;
+
+		-> .proc_search_and_save_kv_f_6 (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
+			=> nrel_goto: .proc_search_and_save_kv_f_7;;
+		*);;
+
+		-> .proc_search_and_save_kv_f_7 (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _kv_el3;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: _kv_el2;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _kv_el1;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_perm: _kv_el4;;
+			-> rrel_5: rrel_assign: rrel_scp_var: rrel_norole_relation: _kv_el5;;
+			=> nrel_then: .proc_search_and_save_kv_f_8;;
+			=> nrel_else: ..print3;;	
+		*);;
+
+		// поиск атрибутов
+		-> .proc_search_and_save_kv_f_8 (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _kv_el3;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_perm: _kv_el6;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _kv_el7;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_perm: _kv_el10;;
+			-> rrel_5: rrel_fixed: rrel_scp_var: _kv_el11;;
+			=> nrel_then: .proc_search_and_save_kv_f_9;;
+			=> nrel_else: .proc_search_and_save_kv_f_10;;		
+		*);;
+
+		-> .proc_search_and_save_kv_f_9 (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _flag;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _node2;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_2;;
+			=> nrel_goto: .proc_search_and_save_kv_f_12;;
+		*);;
+
+		-> .proc_search_and_save_kv_f_10 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _kv_el3;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_perm: _kv_el6;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _kv_el7;;
+			=> nrel_then: .proc_search_and_save_kv_f_11;;
+			=> nrel_else: ..print3;;		
+		*);;
+
+		-> .proc_search_and_save_kv_f_11 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _kv_el3;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_perm: _kv_el8;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _kv_el9;;
+			=> nrel_then: .proc_search_and_save_kv_f_12;;
+			=> nrel_else: ..print3;;		
+		*);;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	   	-> .proc_search_and_save_kv_f_1 (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _is_search;;
 			=> nrel_goto: .proc_search_and_save_kv_f_3;;
 		*);;
 
 		// rrel_3: набор процедур
 		-> .proc_search_and_save_kv_f_3 (*
 			<- genElStr5;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _out_not_changing_parameter;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _out_not_changing_parameters;;
 			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _out_3;;
 			-> rrel_4: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc2;;
@@ -71,7 +188,7 @@ scp_program -> proc_search_and_save_kv_f (*
 
 	   	-> .proc_search_and_save_kv_f_3_0 (*
 			<- searchElStr5;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _in_parameter;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _in_parameters;;
 			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _type;;
 			-> rrel_4: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc2;;
@@ -83,7 +200,7 @@ scp_program -> proc_search_and_save_kv_f (*
 		// rrel_2: корень дерева константный
 		-> .proc_search_and_save_kv_f_2A (*
 			<- genElStr5;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _out_not_changing_parameter;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _out_not_changing_parameters;;
 			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _out_2;;
 			-> rrel_4: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc2;;
@@ -114,7 +231,7 @@ scp_program -> proc_search_and_save_kv_f (*
 		// rrel_2: корень дерева переменный
 		-> .proc_search_and_save_kv_f_2B (*
 			<- genElStr5;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _out_not_changing_parameter;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _out_not_changing_parameters;;
 			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_var: _out_2;;
 			-> rrel_4: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc2;;
@@ -145,7 +262,7 @@ scp_program -> proc_search_and_save_kv_f (*
 		// rrel_4: отношения в дереве
 		-> .proc_search_and_save_kv_f_4 (*
 			<- genElStr5;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _out_not_changing_parameter;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _out_not_changing_parameters;;
 			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _out_4;;
 			-> rrel_4: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc2;;

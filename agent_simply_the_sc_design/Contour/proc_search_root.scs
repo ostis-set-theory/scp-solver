@@ -7,6 +7,7 @@ scp_program -> proc_search_root (*
 
 		// корневой узел, если таковой есть,
 		// содержится в данном множестве как элемент
+		// иначе корень, не найден и данное множество пусто
 		-> rrel_2: rrel_out: rrel_assign: rrel_scp_var: _out_parameter;;
 	*);;
 
@@ -91,7 +92,7 @@ scp_program -> proc_search_root (*
 			-> rrel_1: rrel_fixed: rrel_scp_var: _out_parameter;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
 			-> rrel_3: rrel_fixed: rrel_scp_var: _root;;
-			=> nrel_then: ..print4;;
+			=> nrel_goto: ..print4;;
 		*);;
 
 		-> ..print4 (*

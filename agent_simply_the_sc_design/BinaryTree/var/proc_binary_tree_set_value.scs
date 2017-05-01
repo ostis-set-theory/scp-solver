@@ -2,22 +2,49 @@ scp_program -> proc_binary_tree_set_value (*
 	
 	-> rrel_params: ... (*
 
-		// неизменяемый входный параметр: отношение значение
-		-> rrel_1: rrel_in: _nrel_value;;
-
-		// изменяемый входный параметр: контур дерева
-		-> rrel_2: rrel_in: _contour;;
+		// параметры бинарного дерева
+		-> rrel_1: rrel_in: _in_parameter;;
 
 		// изменяемый входный параметр: текущий узел дерева
-		-> rrel_3: rrel_in: _element;;
+		-> rrel_2: rrel_in: _element;;
 
 		// изменяемый входный параметр: сохраняемое значение
-		-> rrel_4: rrel_in: _value;;
+		-> rrel_3: rrel_in: _value;;
 	*);;
 
 	-> rrel_operators: ...(*
 
-		-> rrel_init: .proc_binary_tree_set_value_1 (*
+		-> rrel_init: .proc_binary_tree_set_value_A (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _in_parameter;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _contour;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_1;;
+			=> nrel_goto: .proc_binary_tree_set_value_B;;
+		*);;
+
+		-> .proc_binary_tree_set_value_B (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _in_parameter;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _out_4;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_4;;
+			=> nrel_goto: .proc_binary_tree_set_value_C;;
+		*);;
+
+		-> .proc_binary_tree_set_value_C (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _out_4;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _nrel_value;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_1;;
+			=> nrel_goto: .proc_binary_tree_set_value_1;;
+		*);;
+
+		-> .proc_binary_tree_set_value_1 (*
 			<- genElStr5;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _element;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: rrel_var: _arc_element_value;;

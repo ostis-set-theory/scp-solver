@@ -1,8 +1,10 @@
-scp_program -> proc_binary_tree_init (*	
+scp_program -> proc_binary_tree_init (*
 	
 	-> rrel_params: ...(*
 		
 		// rrel_1: тип дерева (переменный или контантный)
+		// если есть элемент, то дерево константное
+		// иначе переменное
 		-> rrel_1: rrel_in: _in_parameter;;
 
 		/*

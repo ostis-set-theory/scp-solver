@@ -1,8 +1,12 @@
 scp_program -> proc_of_simply_the_sc_design_rule (*	
 	
 	-> rrel_params: ...(*
+
+		// правило вывода
 		-> rrel_1: rrel_in: _contour;;
-		-> rrel_2: rrel_in: _tree;;
+
+		// сформированное дерево
+		-> rrel_2: rrel_out: rrel_assign: rrel_scp_var: _tree;;
 	*);;
 
 	-> rrel_operators: ...(*
@@ -13,6 +17,7 @@ scp_program -> proc_of_simply_the_sc_design_rule (*
 			=> nrel_goto: .proc_of_simply_the_sc_design_rule_1;;
 	   	*);;
 
+// ИГНОРИРУЕМ ИМПЛИКАЦИЮ В НАЧАЛЕ, СРАЗУ ПЕРЕХОДИМ К ПРАВИЛУ
 		-> .proc_of_simply_the_sc_design_rule_1 (*
 			<- searchElStr5;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _contour;;
@@ -35,17 +40,128 @@ scp_program -> proc_of_simply_the_sc_design_rule (*
 			=> nrel_else: ..print3;;
 		*);;
 
-// =====================================================
-// ЦИКЛ ПО ЭКВИВАЛЕНЦИЯМ И ИМПЛИКАЦЯМ:
+// СОЗДАЕМ БИНАРНОЕ ДЕРЕВО
 		-> .proc_of_simply_the_sc_design_rule_3 (*
-			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: atomic_existence;;
-			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _statement;;
-			=> nrel_then: .proc_of_simply_the_sc_design_rule_x;;
-			=> nrel_else: .proc_of_simply_the_sc_design_rule_4;;
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _binary_tree_type;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_rule_4;;
 		*);;
 
+		-> .proc_of_simply_the_sc_design_rule_4 (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_binary_tree_init;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _binary_tree_type;;
+				-> rrel_2: rrel_assign: rrel_scp_var: _binary_tree_parameter;;
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_rule_5;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_rule_5 (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_rule_6;;
+		*);;
+
+		// ПОЛУЧАЕМ КОРЕНЬ
+		-> .proc_of_simply_the_sc_design_rule_6 (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_get_root;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _binary_tree_parameter;;
+				-> rrel_2: rrel_assign: rrel_scp_var: _binary_tree_element;;
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_rule_7;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_rule_7 (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_rule_8;;
+		*);;
+
+		// ищем отношение
+		-> .proc_of_simply_the_sc_design_rule_8 (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_get_root;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _statement;;
+				-> rrel_2: rrel_assign: rrel_scp_var: _nrel;;
+				-> rrel_3: rrel_assign: rrel_scp_var: _first;;
+				-> rrel_4: rrel_assign: rrel_scp_var: _second;;
+				-> rrel_5: rrel_assign: rrel_scp_var: _type;;
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_rule_9;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_rule_9 (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_rule_10;;
+		*);;
+
+		// получаем set_value
+		-> .proc_of_simply_the_sc_design_rule_10 (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_get_parameter;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _binary_tree_parameter;;
+				-> rrel_2: rrel_fixed: rrel_scp_const: rrel_3;;
+				-> rrel_3: rrel_fixed: rrel_scp_const: rrel_1;;
+				-> rrel_4: rrel_assign: rrel_scp_var: _set_value;;
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_rule_12;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_rule_12 (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_rule_13;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_rule_13 (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_value;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _binary_tree_parameter;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _binary_tree_element;;
+				-> rrel_3: rrel_fixed: rrel_scp_var: _nrel;;
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_rule_14;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_rule_14 (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=> nrel_goto: ..print2;;
+		*);;
+
+/*
+// ===========================================================
+// ЦИКЛ ПО ЭКВИВАЛЕНЦИЯМ И ИМПЛИКАЦЯМ, КОНЪЮНКЦИЯМ, ДИЪЮНКЦИЯМ:
+		-> .proc_of_simply_the_sc_design_rule_8 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: atomic_existence;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _statement;;
+			=> nrel_then: .proc_of_simply_the_sc_design_rule_x;;
+			=> nrel_else: .proc_of_simply_the_sc_design_rule_9;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_rule_9 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_norole_relation: _nrel;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _statement;;
+			=> nrel_then: .proc_of_simply_the_sc_design_rule_10;;
+			=> nrel_else: ..print3;;		
+		*);;
+*/
 	    -> ..print2 (*
 			<- printNl;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура построение дерева по правилу. Выход];;

@@ -1,0 +1,90 @@
+scp_program -> proc_search_nrel (*
+	
+	-> rrel_params: ... (*
+
+		// подается только связка бинарного отношения
+		// отсутствиет проверка связка это или контур, например
+		-> rrel_1: rrel_in: _link;;
+
+		// бинарное отношение
+		-> rrel_2: rrel_out: rrel_assign: rrel_scp_var: _nrel;;
+
+		// первый элемент в бинарном отношении, 
+		// если отношение упорядоченное
+		-> rrel_3: rrel_out: rrel_assign: rrel_scp_var: _first;;
+
+		// второй элемент в бинарном отношении, 
+		// если отношение упорядоченное
+		-> rrel_4: rrel_out: rrel_assign: rrel_scp_var: _second;;
+		
+		// тип отношения: ориентированное или нет
+		// если есть значение, то ориентированное
+		-> rrel_5: rrel_out: rrel_assign: rrel_scp_var: _type;;
+	*);;
+
+	-> rrel_operators: ...(*
+
+	   	-> rrel_init: .proc_search_nrel_1 (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _type;;
+			=> nrel_goto: .proc_search_nrel_2;;
+	   	*);;
+
+	   	-> .proc_search_nrel_2 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_norole_relation: _nrel;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _link;;
+			=> nrel_goto: .proc_search_nrel_3;;
+		*);;
+
+		-> .proc_search_nrel_3 (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _link;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _first;;
+			-> rrel_4: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_1;;	
+			=> nrel_then: .proc_search_nrel_4;;
+			=> nrel_else: .proc_search_nrel_5;;		
+		*);;
+
+		-> .proc_search_nrel_4 (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _link;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _second;;
+			-> rrel_4: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_2;;	
+			=> nrel_goto: .proc_search_nrel_oriented;;
+		*);;
+
+		-> .proc_search_nrel_5 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _link;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _first;;
+			=> nrel_goto: .proc_search_nrel_6;;		
+		*);;
+
+		-> .proc_search_nrel_6 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _link;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _second;;
+			=> nrel_goto: .proc_search_nrel_non_oriented;;		
+		*);;
+
+		-> .proc_search_nrel_oriented (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _type;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _nrel;;
+			=> nrel_goto: .proc_search_nrel_return;;
+		*);;
+
+		-> .proc_search_nrel_non_oriented (*
+			<- return;;
+		*);;
+	*);;
+*);;

@@ -1,0 +1,84 @@
+scp_program -> proc_gen_parameter_fixed_const (*	
+	
+	-> rrel_params: ... (*
+
+		// множество параметров
+		-> rrel_1: rrel_in: _set_of_parameters;;
+
+		// первый атрибут
+		-> rrel_2: rrel_in: _first_attribute;;
+
+		// второй атрибут
+		-> rrel_3: rrel_in: _second_attribute;;
+
+		// параметр не генерируется, вместо него сохраняется значение,
+		// аналог fixed const
+		-> rrel_4: rrel_in: _value;;
+
+		// данное множество содержит value, если его сохранили 
+		-> rrel_5: rrel_out: rrel_assign: rrel_scp_var: _is_saved;;
+	*);;
+
+	-> rrel_operators: ...(*
+
+	   	-> rrel_init: .proc_gen_parameter_fixed_const_1 (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _is_saved;;
+			=> nrel_goto: .proc_gen_parameter_fixed_const_2;;
+		*);;
+
+		-> .proc_gen_parameter_fixed_const_2 (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_of_parameters;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _node;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_var: _first_attribute;;
+			=> nrel_then: .proc_gen_parameter_fixed_const_4;;
+			=> nrel_else: .proc_gen_parameter_fixed_const_3;;		
+		*);;
+
+		-> .proc_gen_parameter_fixed_const_3 (*
+			<- genElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_of_parameters;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _node;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_var: _first_attribute;;
+			=> nrel_goto: .proc_gen_parameter_fixed_const_4;;
+		*);;
+
+		-> .proc_gen_parameter_fixed_const_4 (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _node;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _value;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_var: _second_attribute;;
+			=> nrel_then: .proc_gen_parameter_fixed_const_return;;
+			=> nrel_else: .proc_gen_parameter_fixed_const_5;;		
+		*);;
+
+		-> .proc_gen_parameter_fixed_const_5 (*
+			<- genElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _node;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _value;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_var: _second_attribute;;
+			=> nrel_goto: .proc_gen_parameter_fixed_const_6;;
+		*);;
+
+		-> .proc_gen_parameter_fixed_const_6 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _is_saved;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _value;;
+			=> nrel_goto: .proc_gen_parameter_fixed_const_return;;
+		*);;
+
+		-> .proc_gen_parameter_fixed_const_return (*
+			<- return;;
+		*);;
+	*);;
+*);;
