@@ -1,12 +1,11 @@
 scp_program -> proc_of_simply_the_sc_design_kv (*	
 	
 	-> rrel_params: ...(*
-		-> rrel_1: rrel_in: _state;;
-		-> rrel_2: rrel_in: _contour;;
-		-> rrel_3: rrel_in: _root;;
-		-> rrel_4: rrel_in: _tree;;
-		-> rrel_5: rrel_in: _root_tree;;
-		-> rrel_6: rrel_in: _node;;
+		-> rrel_1: rrel_in: _contour;;
+		-> rrel_2: rrel_in: _root;;
+		-> rrel_3: rrel_in: _tree;;
+		-> rrel_4: rrel_in: _root_tree;;
+		-> rrel_5: rrel_in: _flag;;
 	*);;
 
 	-> rrel_operators: ...(*
@@ -17,38 +16,49 @@ scp_program -> proc_of_simply_the_sc_design_kv (*
 			=> nrel_goto: .proc_of_simply_the_sc_design_kv_1;;
 	   	*);;
 
-	   	-> .proc_of_simply_the_sc_design_kv_1 (*
-			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _node;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: _arc;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _root;;			
-			=> nrel_then: .proc_of_simply_the_sc_design_kv_B3;;
-			=> nrel_else: .proc_of_simply_the_sc_design_kv_2;;	
-		*);;
-
-		-> .proc_of_simply_the_sc_design_kv_2 (*
-			<- searchElStr3;;
-			-> rrel_1: rrel_assign: rrel_scp_var: _node;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: _arc;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _root;;			
-			=> nrel_goto: .proc_of_simply_the_sc_design_kv_B3;;
-		*);;
-
-		-> .proc_of_simply_the_sc_design_kv_B3 (*
+		-> .proc_of_simply_the_sc_design_kv_1 (*
 			<- searchElStr5;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _node;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _flag;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: _arc;;
 			-> rrel_3: rrel_fixed: rrel_scp_var: _root;;
 			-> rrel_4: rrel_assign: rrel_scp_var: rrel_perm: _arc2;;
 			-> rrel_5: rrel_assign: rrel_scp_var: rrel_norole_relation: _nrel;;
-			=> nrel_then: .proc_of_simply_the_sc_design_kv_BB1;;
-			=> nrel_else: ..print2;;		
+			=> nrel_then: .proc_of_simply_the_sc_design_kv_2;;					
+			=> nrel_else: ..print6;;
 		*);;
 
-		// поиск множеств входных множеств в квазиб. отношении
-		-> .proc_of_simply_the_sc_design_kv_BB1 (*
+		-> ..print6 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Это внутренний узел];;
+			=> nrel_goto: .proc_of_simply_the_sc_design_kv_1A;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_kv_1A (*
+			<- genElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _root_tree;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: rrel_const: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _root;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: nrel_tree_value;;
+			=> nrel_goto: ..print4;;
+		*);;
+
+		-> ..print4 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Лист не добавляется в tree];;
+			=> nrel_goto: ..print5;;
+		*);;
+
+		-> ..print5 (*
+			<- printEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _root;;
+			=> nrel_goto: ..print2;;
+		*);;
+
+// поиск множеств входных множеств в квазиб. отношении
+		-> .proc_of_simply_the_sc_design_kv_2 (*
 			<- searchElStr5;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _node;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _flag;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_perm: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _node1;;
 			-> rrel_4: rrel_assign: rrel_scp_var: rrel_perm: _arc2;;
@@ -59,7 +69,7 @@ scp_program -> proc_of_simply_the_sc_design_kv (*
 
 		-> .proc_of_simply_the_sc_design_kv_BB2 (*
 			<- searchElStr5;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _node;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _flag;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_perm: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _node2;;
 			-> rrel_4: rrel_assign: rrel_scp_var: rrel_perm: _arc2;;
@@ -83,34 +93,58 @@ scp_program -> proc_of_simply_the_sc_design_kv (*
 
 		-> .proc_of_simply_the_sc_design_kv_BA1 (*
 			<- genEl;;
-			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _node_A_B;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _flag_A_B;;
 			=> nrel_goto: .proc_of_simply_the_sc_design_kv_BA2;;
 		*);;
 
 		-> .proc_of_simply_the_sc_design_kv_BA2 (*
 			<- searchSetStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _node;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _flag;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_perm: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _els;;
 
-			-> rrel_set_3: rrel_fixed: rrel_scp_var: _node_A_B;;
+			-> rrel_set_3: rrel_fixed: rrel_scp_var: _flag_A_B;;
 
 			=> nrel_goto: .proc_of_simply_the_sc_design_kv_BA3;;
 		*);;
 
 		-> .proc_of_simply_the_sc_design_kv_BA3 (*
-			<- eraseElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _node_A_B;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_erase: _arc;;
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _flag_A_B;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _node1;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_kv_BA3A;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_kv_BA3A (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
 			=> nrel_goto: .proc_of_simply_the_sc_design_kv_BA4;;
 		*);;
 
 		-> .proc_of_simply_the_sc_design_kv_BA4 (*
-			<- eraseElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _node_A_B;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_erase: _arc;;
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _flag_A_B;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _node2;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_kv_BA4A;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_kv_BA4A (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_kv_BA4B;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_kv_BA4B (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _flag_A_B;;
+			=> nrel_goto: ..print7;;
+		*);;
+
+		-> ..print7 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [ВЫПОЛНЕНО 2 КВ];;
 			=> nrel_goto: .proc_of_simply_the_sc_design_kv_BA5;;
 		*);;
 
@@ -125,9 +159,17 @@ scp_program -> proc_of_simply_the_sc_design_kv (*
 			<- varAssign;;
 			-> rrel_1: rrel_assign: rrel_scp_var: _nrel_right;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: nrel_binary_tree_branch;;
+			=> nrel_goto: ..print8;;
+		*);;
+
+		-> ..print8 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [ВЫПОЛНЕНО 3 КВ];;
 			=> nrel_goto: .proc_of_simply_the_sc_design_kv_B4;;
 		*);;
 
+//======
+		// СОЗДАЕМ НОВЫЕ ЭЛЕМЕНТЫ
 		-> .proc_of_simply_the_sc_design_kv_B4 (*
 			<- genElStr5;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _root_tree;;
@@ -188,10 +230,17 @@ scp_program -> proc_of_simply_the_sc_design_kv (*
 			-> rrel_1: rrel_fixed: rrel_scp_var: _tree;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
 			-> rrel_3: rrel_fixed: rrel_scp_var: _right;;
+			=> nrel_goto: ..print9;;
+		*);;
+
+		-> ..print9 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [ВЫПОЛНЕНО 4 КВ];;
 			=> nrel_goto: .proc_of_simply_the_sc_design_kv_B12;;
 		*);;
 
 //===========================
+// ПРОВЕРКА, ДОБАВЛЯТЬ ЛИ ИЛИ НЕТ
 		-> .proc_of_simply_the_sc_design_kv_B12 (*
 			<- searchElStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _tree;;
@@ -230,7 +279,7 @@ scp_program -> proc_of_simply_the_sc_design_kv (*
 			-> rrel_1: rrel_fixed: rrel_scp_var: _tree;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
 			-> rrel_3: rrel_fixed: rrel_scp_var: _nrel;;
-			=> nrel_then: .proc_of_simply_the_sc_design_kv_B18;;
+			=> nrel_then: .proc_of_simply_the_sc_design_kv_B18_3;;
 			=> nrel_else: .proc_of_simply_the_sc_design_kv_B18_2;;
 		*);;
 		-> .proc_of_simply_the_sc_design_kv_B18_2 (*
@@ -245,143 +294,108 @@ scp_program -> proc_of_simply_the_sc_design_kv (*
 			-> rrel_1: rrel_fixed: rrel_scp_var: _tree;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
 			-> rrel_3: rrel_fixed: rrel_scp_var: _arc;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_kv_B18_4;;
+		*);;
+		-> .proc_of_simply_the_sc_design_kv_B18_4 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _tree;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _arc2;;
+			=> nrel_goto: ..print10;;
+		*);;
+
+		-> ..print10 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [ВЫПОЛНЕНО 5 КВ];;
 			=> nrel_goto: .proc_of_simply_the_sc_design_kv_BC1;;
 		*);;
 
 //=========================>
 		-> .proc_of_simply_the_sc_design_kv_BC1 (*
-			<- ifType;;
-			-> rrel_1: rrel_const: _node1;;
-			=> nrel_then: .proc_of_simply_the_sc_design_kv_BC1A;;
-			=> nrel_else: .proc_of_simply_the_sc_design_kv_BD1;;
-		*);;
-		-> .proc_of_simply_the_sc_design_kv_BC1A (*
-			<- genElStr5;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _left;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: rrel_const: _arc;;
+			<- searchElStr5;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _flag2;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: _arc;;
 			-> rrel_3: rrel_fixed: rrel_scp_var: _node1;;
-			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
-			-> rrel_5: rrel_fixed: rrel_scp_const: nrel_tree_value;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_kv_BC2;;
+			-> rrel_4: rrel_assign: rrel_scp_var: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_var: _contour;;
+			=> nrel_then: ..print11;;
+			=> nrel_else: .proc_of_simply_the_sc_design_kv_BC2;;	
 		*);;
+
 		-> .proc_of_simply_the_sc_design_kv_BC2 (*
-			<- genElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _tree;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _arc;;
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _flag2;;
+			=> nrel_goto: ..print12;;
+		*);;
+
+		-> ..print11 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [ВЫПОЛНЕНО 6 КВ];;
 			=> nrel_goto: .proc_of_simply_the_sc_design_kv_BC3;;
 		*);;
+		-> ..print12 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [ВЫПОЛНЕНО 7 КВ];;
+			=> nrel_goto: .proc_of_simply_the_sc_design_kv_BC3;;
+		*);;
+
 		-> .proc_of_simply_the_sc_design_kv_BC3 (*
-			<- genElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _tree;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _arc2;;
+			<- call;; 
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_of_simply_the_sc_design_kv;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _contour;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _node1;;
+				-> rrel_3: rrel_fixed: rrel_scp_var: _tree;;
+				-> rrel_4: rrel_fixed: rrel_scp_var: _left;;
+				-> rrel_5: rrel_fixed: rrel_scp_var: _flag2;;
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
 			=> nrel_goto: .proc_of_simply_the_sc_design_kv_BC4;;
 		*);;
+
 		-> .proc_of_simply_the_sc_design_kv_BC4 (*
-			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _tree;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _node1;;
-			=> nrel_then: .proc_of_simply_the_sc_design_kv_BD1;;
-			=> nrel_else: .proc_of_simply_the_sc_design_kv_BC5;;		
-		*);;
-		-> .proc_of_simply_the_sc_design_kv_BC5 (*
-			<- genElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _tree;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _node1;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_kv_BD1;;
-		*);;
-		
-		-> .proc_of_simply_the_sc_design_kv_BD1 (*
-			<- ifType;;
-			-> rrel_1: rrel_const: _node2;;
-			=> nrel_then: .proc_of_simply_the_sc_design_kv_BD1A;;
-			=> nrel_else: .proc_of_simply_the_sc_design_kv_B19;;
-		*);;
-		-> .proc_of_simply_the_sc_design_kv_BD1A (*
-			<- genElStr5;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _right;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: rrel_const: _arc3;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _node2;;
-			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc4;;
-			-> rrel_5: rrel_fixed: rrel_scp_const: nrel_tree_value;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_kv_BD2;;
-		*);;
-		-> .proc_of_simply_the_sc_design_kv_BD2 (*
-			<- genElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _tree;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _arc3;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_kv_BD3;;
-		*);;
-		-> .proc_of_simply_the_sc_design_kv_BD3 (*
-			<- genElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _tree;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _arc4;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_kv_BD4;;
-		*);;
-		-> .proc_of_simply_the_sc_design_kv_BD4 (*
-			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _tree;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _node2;;
-			=> nrel_then: .proc_of_simply_the_sc_design_kv_B19;;
-			=> nrel_else: .proc_of_simply_the_sc_design_kv_BD5;;		
-		*);;
-		-> .proc_of_simply_the_sc_design_kv_BD5 (*
-			<- genElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _tree;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _node2;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_kv_B19;;
-		*);;
-//<===========================
-
-		-> .proc_of_simply_the_sc_design_kv_B19 (*
-			<- call;; 
-			-> rrel_1: rrel_fixed: rrel_scp_const: proc_of_simply_the_sc_design_kv;;
-			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
-				-> rrel_1: rrel_fixed: rrel_scp_var: _state;;
-				-> rrel_2: rrel_fixed: rrel_scp_var: _contour;;
-				-> rrel_3: rrel_fixed: rrel_scp_var: _node1;;
-				-> rrel_4: rrel_fixed: rrel_scp_var: _tree;;
-				-> rrel_5: rrel_fixed: rrel_scp_var: _left;;
-				-> rrel_6: rrel_fixed: rrel_scp_var: _node;;
-			*);;
-			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_kv_B20;;
-		*);;
-
-		-> .proc_of_simply_the_sc_design_kv_B20 (*
 			<- waitReturn;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_kv_B21;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_kv_BC5;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_kv_B21 (*
+		-> .proc_of_simply_the_sc_design_kv_BC5 (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _flag3;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _node2;;
+			-> rrel_4: rrel_assign: rrel_scp_var: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_var: _contour;;		
+			=> nrel_then: .proc_of_simply_the_sc_design_kv_BC7;;
+			=> nrel_else: .proc_of_simply_the_sc_design_kv_BC6;;	
+		*);;
+
+		-> .proc_of_simply_the_sc_design_kv_BC6 (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _flag3;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_kv_BC7;;
+		*);;
+
+		-> .proc_of_simply_the_sc_design_kv_BC7 (*
 			<- call;; 
 			-> rrel_1: rrel_fixed: rrel_scp_const: proc_of_simply_the_sc_design_kv;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
-				-> rrel_1: rrel_fixed: rrel_scp_var: _state;;
-				-> rrel_2: rrel_fixed: rrel_scp_var: _contour;;
-				-> rrel_3: rrel_fixed: rrel_scp_var: _node2;;
-				-> rrel_4: rrel_fixed: rrel_scp_var: _tree;;
-				-> rrel_5: rrel_fixed: rrel_scp_var: _right;;
-				-> rrel_6: rrel_fixed: rrel_scp_var: _node;;
+				-> rrel_1: rrel_fixed: rrel_scp_var: _contour;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _node2;;
+				-> rrel_3: rrel_fixed: rrel_scp_var: _tree;;
+				-> rrel_4: rrel_fixed: rrel_scp_var: _right;;
+				-> rrel_5: rrel_fixed: rrel_scp_var: _flag3;;
 			*);;
 			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_kv_B22;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_kv_BC8;;
 		*);;
 
-		-> .proc_of_simply_the_sc_design_kv_B22 (*
+		-> .proc_of_simply_the_sc_design_kv_BC8 (*
 			<- waitReturn;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
 			=> nrel_goto: ..print2;;
 		*);;
-		
+
 	    -> ..print2 (*
 			<- printNl;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура поиска квазибинарного отношения в контуре. Выход];;

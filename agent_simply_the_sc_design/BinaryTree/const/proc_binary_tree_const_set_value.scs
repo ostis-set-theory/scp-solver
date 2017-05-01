@@ -1,0 +1,80 @@
+scp_program -> proc_binary_tree_const_set_value (*	
+	
+	-> rrel_params: ...(*
+
+		// неизменяемый входный параметр: отношение значение
+		-> rrel_1: rrel_in: _nrel_value;;
+
+		// изменяемый входный параметр: контур дерева
+		-> rrel_2: rrel_in: _contour;;
+
+		// изменяемый входный параметр: текущий узел дерева
+		-> rrel_3: rrel_in: _element;;
+
+		// изменяемый входный параметр: сохраняемое значение
+		-> rrel_4: rrel_in: _value;;
+	*);;
+
+	-> rrel_operators: ...(*
+
+		-> rrel_init: .proc_binary_tree_const_set_value_1 (*
+			<- genElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _element;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: rrel_const: _arc_element_value;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _value;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc_value_nrel;;
+			-> rrel_5: rrel_fixed: rrel_scp_var: _nrel_value;;
+			=> nrel_goto: .proc_binary_tree_const_set_value_2;;
+		*);;
+
+		-> .proc_binary_tree_const_set_value_2 (*
+			<- ifType;;
+			-> rrel_1: rrel_const: _value;;
+			=> nrel_then: .proc_binary_tree_const_set_value_3;;
+			=> nrel_else: ..print2;;
+		*);;
+
+		-> .proc_binary_tree_const_set_value_3 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _contour;;
+			-> rrel_2: rrel_assign: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _value;;
+			=> nrel_then: .proc_binary_tree_const_set_value_5;;
+			=> nrel_else: .proc_binary_tree_const_set_value_4;;
+		*);;
+
+		-> .proc_binary_tree_const_set_value_4 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _contour;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _value;;
+			=> nrel_goto: .proc_binary_tree_const_set_value_5;;
+		*);;
+
+		-> .proc_binary_tree_const_set_value_5 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _contour;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _arc_element_value;;
+			=> nrel_goto: .proc_binary_tree_const_set_value_6;;
+		*);;
+
+		-> .proc_binary_tree_const_set_value_6 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _contour;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _arc_value_nrel;;
+			=> nrel_goto: ..print2;;
+		*);;
+
+	    -> ..print2 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Значение сохранено];;
+			=> nrel_goto: .proc_binary_tree_const_set_value_return;;
+		*);;
+
+		-> .proc_binary_tree_const_set_value_return (*
+			<- return;;
+		*);;
+	*);;
+*);;

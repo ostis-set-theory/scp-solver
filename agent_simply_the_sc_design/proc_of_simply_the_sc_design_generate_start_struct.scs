@@ -56,11 +56,10 @@ scp_program -> proc_of_simply_the_sc_design_generate_start_struct (*
 
 		-> .proc_of_simply_the_sc_design_generate_start_struct_5 (*
 			<- call;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: proc_of_simply_the_sc_design_root;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_search_root;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
-				-> rrel_1: rrel_fixed: rrel_scp_var: _state;;
-				-> rrel_2: rrel_fixed: rrel_scp_var: _contour;;
-				-> rrel_3: rrel_assign: rrel_scp_var: _root;;			
+				-> rrel_1: rrel_fixed: rrel_scp_var: _contour;;
+				-> rrel_2: rrel_assign: rrel_scp_var: _root;;			
 			*);;
 			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
 			=> nrel_goto: .proc_of_simply_the_sc_design_generate_start_struct_6;;
@@ -78,7 +77,7 @@ scp_program -> proc_of_simply_the_sc_design_generate_start_struct (*
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
 				-> rrel_1: rrel_fixed: rrel_scp_var: _state;;
 				-> rrel_2: rrel_fixed: rrel_scp_var: _contour;;
-				// корень дерева
+				// корень контура
 				-> rrel_3: rrel_fixed: rrel_scp_var: _root;;
 				// контур дерева		
 				-> rrel_4: rrel_assign: rrel_scp_var: _tree;;

@@ -1,0 +1,182 @@
+scp_program -> proc_of_simply_the_sc_added_constant_in_tree (*	
+	
+	-> rrel_params: ...(*
+		-> rrel_1: rrel_in: _contour;;
+		-> rrel_2: rrel_out: rrel_assign: rrel_scp_var: _tree;;
+		-> rrel_3: rrel_out: rrel_assign: rrel_scp_var: _left;;
+		-> rrel_4: rrel_out: rrel_assign: rrel_scp_var: _right;;
+	*);;
+
+	-> rrel_operators: ...(*
+		
+		-> rrel_init: ..print1 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура переписывания отношений из контура в дерево. Вход];;
+			=> nrel_goto: .proc_of_simply_the_sc_added_constant_in_tree_1;;
+	   	*);;
+
+		// создаем узел бинарного дерева
+	   	-> .proc_of_simply_the_sc_added_constant_in_tree_1 (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: rrel_struct: _tree;;
+			=> nrel_goto: .proc_of_simply_the_sc_added_constant_in_tree_2;;
+		*);;
+
+		-> .proc_of_simply_the_sc_added_constant_in_tree_2 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _tree;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_const: nrel_equality;;
+			=> nrel_goto: .proc_of_simply_the_sc_added_constant_in_tree_3;;
+		*);;
+
+		-> .proc_of_simply_the_sc_added_constant_in_tree_3 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _tree;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_const: nrel_binary_tree_branch;;
+			=> nrel_goto: .proc_of_simply_the_sc_added_constant_in_tree_4;;
+		*);;
+
+		-> .proc_of_simply_the_sc_added_constant_in_tree_4 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _tree;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_const: nrel_tree_value;;
+			=> nrel_goto: .proc_of_simply_the_sc_added_constant_in_tree_5;;
+		*);;
+
+		-> .proc_of_simply_the_sc_added_constant_in_tree_5 (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _el_sys_gen;;
+			=> nrel_goto: .proc_of_simply_the_sc_added_constant_in_tree_6;;
+		*);;
+
+		-> .proc_of_simply_the_sc_added_constant_in_tree_6 (*
+			<- sys_gen;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [*
+				_root_tree _=> nrel_binary_tree_branch:: _left; _right;
+						   _=> nrel_tree_value:: nrel_equality;;
+			*];;
+			-> rrel_2: rrel_assign: rrel_scp_var: _test;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _el_sys_gen;;
+			=> nrel_goto: .proc_of_simply_the_sc_added_constant_in_tree_7;;
+		*);;
+
+		-> .proc_of_simply_the_sc_added_constant_in_tree_7 (*
+			<- searchSetStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _test;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _els;;
+		
+				-> rrel_set_3: rrel_fixed: rrel_scp_var: _tree;;
+		
+			=> nrel_goto: .proc_of_simply_the_sc_added_constant_in_tree_8;;
+		*);;
+
+		-> .proc_of_simply_the_sc_added_constant_in_tree_8 (*
+			<- printEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _tree;;
+			=> nrel_goto: .proc_of_simply_the_sc_added_constant_in_tree_9;;
+		*);;
+
+		-> .proc_of_simply_the_sc_added_constant_in_tree_9 (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _branchs;;
+			=> nrel_goto: .proc_of_simply_the_sc_added_constant_in_tree_10;;
+		*);;
+
+		-> .proc_of_simply_the_sc_added_constant_in_tree_10 (*
+			<- searchSetStr5;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _root_trees;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _bs;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: nrel_binary_tree_branch;;
+
+				-> rrel_set_3: rrel_fixed: rrel_scp_var: _branchs;;
+
+			=> nrel_goto: .proc_of_simply_the_sc_added_constant_in_tree_11;;
+		*);;
+		
+		-> .proc_of_simply_the_sc_added_constant_in_tree_11 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _branchs;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _left;;
+			=> nrel_then: .proc_of_simply_the_sc_added_constant_in_tree_12;;
+			=> nrel_else: .proc_of_simply_the_sc_added_constant_in_tree_13;;		
+		*);;
+
+		-> .proc_of_simply_the_sc_added_constant_in_tree_12 (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
+			=> nrel_goto: .proc_of_simply_the_sc_added_constant_in_tree_14;;
+		*);;
+		
+		-> .proc_of_simply_the_sc_added_constant_in_tree_13 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [ОШИБКА !!!! КОНСТРУКЦИЯ НЕ СГЕНЕРИРОВАНА];;
+			=> nrel_goto: ..print3;;
+		*);;
+
+		-> .proc_of_simply_the_sc_added_constant_in_tree_14 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _branchs;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _right;;
+			=> nrel_goto: .proc_of_simply_the_sc_added_constant_in_tree_15;;
+		*);;
+
+		-> .proc_of_simply_the_sc_added_constant_in_tree_15 (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
+			=> nrel_goto: .proc_of_simply_the_sc_added_constant_in_tree_16;;
+		*);;
+
+		-> .proc_of_simply_the_sc_added_constant_in_tree_16 (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _branchs;;
+			=> nrel_goto: .proc_of_simply_the_sc_added_constant_in_tree_17;;
+		*);;
+
+// <======= ЦИКЛ ПО ОТНОШЕНИЯМ КОНТУРА =======>
+		-> .proc_of_simply_the_sc_added_constant_in_tree_17 (*
+			<- searchSetStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _contour;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: rrel_norole_relation: _nrels;;
+
+				-> rrel_set_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_nrel;;
+
+			=> nrel_goto: .proc_of_simply_the_sc_added_constant_in_tree_18;;
+		*);;
+
+		-> .proc_of_simply_the_sc_added_constant_in_tree_18 (*
+			<- searchSetStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_nrel;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _nrels;;
+
+				-> rrel_set_3: rrel_fixed: rrel_scp_var: _tree;;
+
+			=> nrel_goto: ..print2;;
+		*);;
+
+	    -> ..print2 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура переписывания отношений из контура в дерево. Выход];;
+			=> nrel_goto: .proc_of_simply_the_sc_design_return;;
+		*);;
+
+		-> ..print3 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура переписывания отношений из контура в дерево. Завершено с ошибкой];;
+			=> nrel_goto: .proc_of_simply_the_sc_design_return;;
+	   	*);;
+
+		-> .proc_of_simply_the_sc_design_return (*
+			<- return;;
+		*);;
+	*);;
+*);;
