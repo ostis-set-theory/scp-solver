@@ -14,7 +14,7 @@ scp_program -> proc_get_root (*
 			-> rrel_3: rrel_assign: rrel_scp_var: _root;;
 			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
 			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_2;;
-			=> nrel_goto: .proc_get_root_3;;
+			=> nrel_goto: .proc_get_root_return;;
 		*);;
 
 		-> .proc_get_root_return (*

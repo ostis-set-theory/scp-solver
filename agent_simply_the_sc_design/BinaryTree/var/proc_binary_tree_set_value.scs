@@ -14,7 +14,13 @@ scp_program -> proc_binary_tree_set_value (*
 
 	-> rrel_operators: ...(*
 
-		-> rrel_init: .proc_binary_tree_set_value_A (*
+		-> rrel_init: .proc_binary_tree_set_value_0 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Дерево. Сохранение элемента];;
+			=> nrel_goto: .proc_binary_tree_set_value_A;;
+		*);;
+
+		-> .proc_binary_tree_set_value_A (*
 			<- searchElStr5;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _in_parameter;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;

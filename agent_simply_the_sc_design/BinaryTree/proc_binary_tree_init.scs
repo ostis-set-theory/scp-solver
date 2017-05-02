@@ -160,7 +160,7 @@ scp_program -> proc_binary_tree_init (*
 			<- genElStr5;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _out_4;;
 			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
-			-> rrel_3: rrel_fixed: rrel_scp_const: _out_4_2;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _out_4_2;;
 			-> rrel_4: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc2;;
 			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_2;;
 			=> nrel_goto: .proc_binary_tree_init_4_2_1;;

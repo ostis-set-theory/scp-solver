@@ -2,6 +2,7 @@ scp_program -> proc_search_nrel (*
 	
 	-> rrel_params: ... (*
 
+		// 02.05.17
 		// подается только связка бинарного отношения
 		// отсутствиет проверка связка это или контур, например
 		-> rrel_1: rrel_in: _link;;
@@ -24,7 +25,13 @@ scp_program -> proc_search_nrel (*
 
 	-> rrel_operators: ...(*
 
-	   	-> rrel_init: .proc_search_nrel_1 (*
+		-> rrel_init: .proc_search_nrel_0 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Поиск отношения];;
+			=> nrel_goto: .proc_search_nrel_1;;
+	   	*);;
+
+	   	-> .proc_search_nrel_1 (*
 			<- genEl;;
 			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _type;;
 			=> nrel_goto: .proc_search_nrel_2;;
@@ -32,7 +39,7 @@ scp_program -> proc_search_nrel (*
 
 	   	-> .proc_search_nrel_2 (*
 			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_norole_relation: _nrel;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_norole_relation: _nrel;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
 			-> rrel_3: rrel_fixed: rrel_scp_var: _link;;
 			=> nrel_goto: .proc_search_nrel_3;;
