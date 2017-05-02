@@ -16,7 +16,7 @@ scp_program -> proc_binary_tree_set_value (*
 
 		-> rrel_init: .proc_binary_tree_set_value_0 (*
 			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Дерево. Сохранение элемента];;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Сохранение элемента. Вход];;
 			=> nrel_goto: .proc_binary_tree_set_value_A;;
 		*);;
 
@@ -102,7 +102,7 @@ scp_program -> proc_binary_tree_set_value (*
 
 	    -> ..print2 (*
 			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Значение сохранено];;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Сохранение элемента. Выход];;
 			=> nrel_goto: .proc_binary_tree_set_value_return;;
 		*);;
 

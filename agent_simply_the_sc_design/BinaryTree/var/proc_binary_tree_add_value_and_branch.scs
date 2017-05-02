@@ -20,7 +20,13 @@ scp_program -> proc_binary_tree_add_value_and_branch (*
 
 	-> rrel_operators: ...(*
 
-		-> rrel_init: .proc_binary_tree_add_value_and_branch_A (*
+		-> rrel_init: .proc_binary_tree_add_value_and_branch_AAA (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Сохранение элемента по какой-то ветви. Вход];;
+			=> nrel_goto: .proc_binary_tree_add_value_and_branch_A;;
+		*);;
+
+		-> .proc_binary_tree_add_value_and_branch_A (*
 			<- searchElStr5;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _in_parameter;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
@@ -68,7 +74,7 @@ scp_program -> proc_binary_tree_add_value_and_branch (*
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _set_value;;
 			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
-			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_1;;
 			=> nrel_goto: .proc_binary_tree_add_value_and_branch_1;;
 		*);;
 
@@ -172,7 +178,7 @@ scp_program -> proc_binary_tree_add_value_and_branch (*
 
 	    -> ..print2 (*
 			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Сохранение значения по ветви];;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Сохранение элемента по какой-то ветви. Вход];;
 			=> nrel_goto: .proc_binary_tree_add_value_and_branch_return;;
 		*);;
 

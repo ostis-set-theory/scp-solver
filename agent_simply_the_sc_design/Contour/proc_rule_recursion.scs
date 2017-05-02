@@ -116,7 +116,7 @@ scp_program -> proc_rule_recursion (*
 			=> nrel_else: .proc_rule_recursion_7C;;
 		*);;
 
-		// извлекаем процедуру сохранение set_value
+		// извлекаем процедуру сохранения по ветви
 		-> .proc_rule_recursion_7A (*
 			<- searchElStr5;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _set_proc;;
@@ -133,7 +133,7 @@ scp_program -> proc_rule_recursion (*
 			=> nrel_goto: .proc_rule_recursion_11;;
 		*);;
 
-		// извлекаем процедуру сохранения по ветви
+		// извлекаем процедуру сохранения set_value
 		-> .proc_rule_recursion_7C (*
 			<- searchElStr5;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _set_proc;;
@@ -168,7 +168,7 @@ scp_program -> proc_rule_recursion (*
 			<- varAssign;;
 			-> rrel_1: rrel_assign: rrel_scp_var: _new_binary_tree_element;;
 			-> rrel_2: rrel_fixed: rrel_scp_var: _binary_tree_element;;			
-			=> nrel_goto: .proc_rule_recursion_13;;
+			=> nrel_goto: .proc_rule_recursion_13A;;
 		*);;
 
 // 	СОХРАНЕНИЕ ЭЛЕМЕНТА В ДЕРЕВО С ДОБАВЛЕНИЕМ ВЕТВИ И ПОЛУЧЕНИЕ ЭТОЙ
@@ -197,7 +197,7 @@ scp_program -> proc_rule_recursion (*
 // если ориентированное, то сохраняем левую и правую ветви
 		-> .proc_rule_recursion_13A (*
 			<- call;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: proc_get_nrels;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_get_nrels;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
 				-> rrel_1: rrel_fixed: rrel_scp_var: _set_nrels;;
 				-> rrel_2: rrel_fixed: rrel_scp_var: _el_nrel_branch;;			
@@ -227,8 +227,14 @@ scp_program -> proc_rule_recursion (*
 			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _el_second_nrel_branch;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
 			-> rrel_3: rrel_fixed: rrel_scp_var: _nrel_for_right_element;;
-			=> nrel_goto: .proc_rule_recursion_13;;
+			=> nrel_goto: .proc_rule_recursion_13E;;
 		*);;
+
+		-> .proc_rule_recursion_13E (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [ДУРДОМ ! ЧАСТЬ 2. ДО 1-ГО];;
+			=> nrel_goto: .proc_rule_recursion_13;;
+	   	*);;
 
 // ================================================
 // РЕКУРСИВНЫЙ ВЫЗОВ ДЛЯ КАЖДОГО ЭЛЕМЕНТА ОТНОШЕНИЯ
@@ -262,8 +268,14 @@ scp_program -> proc_rule_recursion (*
 		-> .proc_rule_recursion_14 (*
 			<- waitReturn;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
-			=> nrel_goto: .proc_rule_recursion_15;;
+			=> nrel_goto: .proc_rule_recursion_15A;;
 		*);;
+
+		-> .proc_rule_recursion_15A (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [ДУРДОМ ! ЧАСТЬ 2. 1-ЫЙ ЭЛЕМЕНТ ОТРАБОТАЛ];;
+			=> nrel_goto: .proc_rule_recursion_15;;
+	   	*);;
 
 		-> .proc_rule_recursion_15 (*
 			<- call;;
@@ -295,8 +307,14 @@ scp_program -> proc_rule_recursion (*
 		-> .proc_rule_recursion_16 (*
 			<- waitReturn;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
-			=> nrel_goto: .proc_rule_recursion_17;;
+			=> nrel_goto: .proc_rule_recursion_17A;;
 		*);;
+
+		-> .proc_rule_recursion_17A (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [ДУРДОМ ! ЧАСТЬ 2. 2-ЫЙ ЭЛЕМЕНТ ОТРАБОТАЛ];;
+			=> nrel_goto: .proc_rule_recursion_17;;
+	   	*);;
 
 		-> .proc_rule_recursion_17 (*
 			<- printNl;;
