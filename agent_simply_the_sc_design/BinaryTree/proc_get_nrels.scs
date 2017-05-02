@@ -1,0 +1,83 @@
+scp_program -> proc_get_nrels (*
+	
+	-> rrel_params: ...(*
+		
+		// неизменяемый параметр: множество отношений
+		-> rrel_1: rrel_in: _set_nrel;;
+		
+		// тип отношения
+		-> rrel_2: rrel_in: _type;;
+		
+		// левая ветвь бинарного дерева
+		-> rrel_3: rrel_out: rrel_assign: rrel_scp_var: _nrel_left_branch;;
+
+		// правая ветвь бинарного дерева
+		-> rrel_4: rrel_out: rrel_assign: rrel_scp_var: _nrel_right_branch;;
+
+	*);;
+
+	-> rrel_operators: ...(*
+		
+		-> rrel_init: ..print1 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура получения отношений бинарного дерева по типу. Вход];;
+			=> nrel_goto: .proc_get_nrels_1;;
+	   	*);;
+
+	   	-> .proc_get_nrels_1 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _type;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _oriented;;
+			=> nrel_then: .proc_get_nrels_2;;
+			=> nrel_else: .proc_get_nrels_4;;
+		*);;
+
+	   	-> .proc_get_nrels_2 (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_nrel;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _nrel_left_branch;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_1;;
+			=> nrel_goto: .proc_get_nrels_3;;
+		*);;
+
+		-> .proc_get_nrels_3 (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_nrel;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _nrel_right_branch;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_2;;
+			=> nrel_goto: ..print2;;
+		*);;
+
+		-> .proc_get_nrels_4 (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_nrel;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _nrel_left_branch;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_3;;
+			=> nrel_goto: .proc_get_nrels_5;;
+		*);;
+
+		-> .proc_get_nrels_5 (*
+			<- varAssign;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _nrel_right_branch;;
+			-> rrel_2: rrel_fixed: rrel_scp_var: _nrel_left_branch;;
+			=> nrel_goto: ..print2;;
+		*);;
+
+	    -> ..print2 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура получения отношений бинарного дерева по типу. Выход];;
+			=> nrel_goto: .proc_get_nrels_return;;
+		*);;
+
+		-> .proc_get_nrels_return (*
+			<- return;;
+		*);;
+	*);;
+*);;

@@ -13,6 +13,9 @@ scp_program -> proc_binary_tree_const_add_value_and_branch (*
 
 		// изменяемый входный параметр: сохраняемое значение
 		-> rrel_4: rrel_in: _value;;
+
+		// новый узел дерева
+		-> rrel_5: rrel_out: rrel_assign: rrel_scp_var: _branch;;
 	*);;
 
 	-> rrel_operators: ...(*

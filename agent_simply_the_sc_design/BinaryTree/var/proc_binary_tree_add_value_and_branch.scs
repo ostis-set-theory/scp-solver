@@ -5,14 +5,17 @@ scp_program -> proc_binary_tree_add_value_and_branch (*
 		// параметры бинарного дерева
 		-> rrel_1: rrel_in: _in_parameter;;
 		
-		// неизменяемый входный параметр: отношение ветвь
+		// отношение ветвь
 		-> rrel_2: rrel_in: _nrel_branch;;
 
-		// изменяемый входный параметр: текущий узел дерева
+		// текущий узел дерева
 		-> rrel_3: rrel_in: _element;;
 
-		// изменяемый входный параметр: сохраняемое значение
+		// сохраняемое значение
 		-> rrel_4: rrel_in: _value;;
+
+		// новый узел дерева
+		-> rrel_5: rrel_out: rrel_assign: rrel_scp_var: _branch;;
 	*);;
 
 	-> rrel_operators: ...(*
@@ -26,7 +29,7 @@ scp_program -> proc_binary_tree_add_value_and_branch (*
 			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_1;;
 			=> nrel_goto: .proc_binary_tree_add_value_and_branch_B;;
 		*);;
-		// изменяемый входный параметр: контур дерева
+		// контур дерева
 
 		-> .proc_binary_tree_add_value_and_branch_B (*
 			<- searchElStr5;;

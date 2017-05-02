@@ -79,19 +79,27 @@ scp_program -> proc_of_simply_the_sc_design_rule (*
 		-> .proc_of_simply_the_sc_design_rule_7 (*
 			<- waitReturn;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_rule_8;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_rule_8A;;
 		*);;
 
-		// ищем отношение
+// =========================
+// НАЧАЛО РЕКУРСИВНОГО ЦИКЛА
+// ЦИКЛ ПО ЭКВИВАЛЕНЦИЯМ И ИМПЛИКАЦЯМ, КОНЪЮНКЦИЯМ, ДИЪЮНКЦИЯМ:
+		
+		-> .proc_of_simply_the_sc_design_rule_8A (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _el_nrel_branch;;
+			=> nrel_goto: .proc_of_simply_the_sc_design_rule_8;;
+		*);;
+		
 		-> .proc_of_simply_the_sc_design_rule_8 (*
 			<- call;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: proc_search_nrel;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_rule_recursion;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
-				-> rrel_1: rrel_fixed: rrel_scp_var: _statement;;
-				-> rrel_2: rrel_assign: rrel_scp_var: _nrel;;
-				-> rrel_3: rrel_assign: rrel_scp_var: _first;;
-				-> rrel_4: rrel_assign: rrel_scp_var: _second;;
-				-> rrel_5: rrel_assign: rrel_scp_var: _type;;
+				-> rrel_1: rrel_fixed: rrel_scp_var: _binary_tree_parameter;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _binary_tree_element;;
+				-> rrel_3: rrel_fixed: rrel_scp_var: _el_nrel_branch;;
+				-> rrel_4: rrel_fixed: rrel_scp_var: _statement;;			
 			*);;
 			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
 			=> nrel_goto: .proc_of_simply_the_sc_design_rule_9;;
@@ -100,68 +108,10 @@ scp_program -> proc_of_simply_the_sc_design_rule (*
 		-> .proc_of_simply_the_sc_design_rule_9 (*
 			<- waitReturn;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_rule_10;;
-		*);;
-
-		// получаем set_value
-		-> .proc_of_simply_the_sc_design_rule_10 (*
-			<- call;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: proc_get_parameter;;
-			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
-				-> rrel_1: rrel_fixed: rrel_scp_var: _binary_tree_parameter;;
-				-> rrel_2: rrel_fixed: rrel_scp_const: rrel_3;;
-				-> rrel_3: rrel_fixed: rrel_scp_const: rrel_1;;
-				-> rrel_4: rrel_assign: rrel_scp_var: _set_value;;
-			*);;
-			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_rule_12;;
-		*);;
-
-		-> .proc_of_simply_the_sc_design_rule_12 (*
-			<- waitReturn;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_rule_13;;
-		*);;
-
-		-> .proc_of_simply_the_sc_design_rule_13 (*
-			<- call;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _set_value;;
-			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
-				-> rrel_1: rrel_fixed: rrel_scp_var: _binary_tree_parameter;;
-				-> rrel_2: rrel_fixed: rrel_scp_var: _binary_tree_element;;
-				-> rrel_3: rrel_fixed: rrel_scp_var: _nrel;;
-			*);;
-			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
-			=> nrel_goto: .proc_of_simply_the_sc_design_rule_14;;
-		*);;
-
-		-> .proc_of_simply_the_sc_design_rule_14 (*
-			<- waitReturn;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
 			=> nrel_goto: ..print2;;
 		*);;
-
-/*
-// ===========================================================
-// ЦИКЛ ПО ЭКВИВАЛЕНЦИЯМ И ИМПЛИКАЦЯМ, КОНЪЮНКЦИЯМ, ДИЪЮНКЦИЯМ:
-		-> .proc_of_simply_the_sc_design_rule_8 (*
-			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: atomic_existence;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _statement;;
-			=> nrel_then: .proc_of_simply_the_sc_design_rule_x;;
-			=> nrel_else: .proc_of_simply_the_sc_design_rule_9;;
-		*);;
-
-		-> .proc_of_simply_the_sc_design_rule_9 (*
-			<- searchElStr3;;
-			-> rrel_1: rrel_assign: rrel_scp_var: rrel_norole_relation: _nrel;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _statement;;
-			=> nrel_then: .proc_of_simply_the_sc_design_rule_10;;
-			=> nrel_else: ..print3;;		
-		*);;
-*/
+// ===========================
+		
 	    -> ..print2 (*
 			<- printNl;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: [Процедура построение дерева по правилу. Выход];;
