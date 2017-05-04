@@ -268,14 +268,8 @@ scp_program -> proc_rule_recursion (*
 		-> .proc_rule_recursion_14 (*
 			<- waitReturn;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
-			=> nrel_goto: .proc_rule_recursion_15A;;
-		*);;
-
-		-> .proc_rule_recursion_15A (*
-			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [ДУРДОМ ! ЧАСТЬ 2. 1-ЫЙ ЭЛЕМЕНТ ОТРАБОТАЛ];;
 			=> nrel_goto: .proc_rule_recursion_15;;
-	   	*);;
+		*);;
 
 		-> .proc_rule_recursion_15 (*
 			<- call;;
@@ -307,14 +301,9 @@ scp_program -> proc_rule_recursion (*
 		-> .proc_rule_recursion_16 (*
 			<- waitReturn;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
-			=> nrel_goto: .proc_rule_recursion_17A;;
-		*);;
-
-		-> .proc_rule_recursion_17A (*
-			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [ДУРДОМ ! ЧАСТЬ 2. 2-ЫЙ ЭЛЕМЕНТ ОТРАБОТАЛ];;
 			=> nrel_goto: .proc_rule_recursion_17;;
-	   	*);;
+		*);;
+// ================================================
 
 		-> .proc_rule_recursion_17 (*
 			<- printNl;;
