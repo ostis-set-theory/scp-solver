@@ -2,340 +2,111 @@ scp_program -> proc_test_apply_rule (*
 	
 	-> rrel_params: ... (*
 
-		// процедура применения правила вывода
-		// все параметры бинарного дерева контура тождества,
-		// который пришел на вход
-		-> rrel_1: rrel_in: _binary_tree_input_identity;;
+		// множество связок между сущностями контура правила
+		// и найденными сущностями
+		-> rrel_1: rrel_in: _isomorphics;;
 
-		// правило вывода в виде бинарного дерева
-		-> rrel_2: rrel_in: _binary_tree_rule;;
+		-> rrel_2: rrel_in: _contour_element_others;;
 
-		// выходной контур, является элементом данного множества
-		-> rrel_3: rrel_out: rrel_assign: rrel_scp_var: _el_binary_tree_output_identity;;
+		-> rrel_3: rrel_in: _contour_constant;;
 	*);;
 
 	-> rrel_operators: ...(*
 
-		-> rrel_init: .proc_test_apply_rule_1_print1 (*
-			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [================================];;
-			=> nrel_goto: .proc_test_apply_rule_1_print2;;
-		*);;
+		-> rrel_init: .proc_test_apply_rule_1 (*
+			
+			<- searchSetStr5;;
+			
+			-> rrel_1: rrel_assign: rrel_scp_var: _entity_vars;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: rrel_const: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _entity_consts;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_var: _isomorphics;;
 
-		-> .proc_test_apply_rule_1_print2 (*
-			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Применение правила вывода. Вход];;
-			=> nrel_goto: .proc_test_apply_rule_1;;
-		*);;
+				-> rrel_set_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_entity;;
 
-		-> .proc_test_apply_rule_1 (*
-			<- genEl;;
-			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _nodes;;
 			=> nrel_goto: .proc_test_apply_rule_2;;
 		*);;
 
 		-> .proc_test_apply_rule_2 (*
+			
 			<- searchSetStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _binary_tree_rule;;
+			
+			-> rrel_1: rrel_fixed: rrel_scp_var: _contour_constant;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: _els;;	
-				
-				-> rrel_set_3: rrel_fixed: rrel_scp_var: _nodes;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _entitys;;
 
-			=> nrel_goto: .proc_test_apply_rule_3;;
-		*);;
+				-> rrel_set_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _contour_constant_new;;
 
-		-> .proc_test_apply_rule_3 (*
-			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _nodes;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: _contour_rule1;;
 			=> nrel_goto: .proc_test_apply_rule_4;;
 		*);;
 
 		-> .proc_test_apply_rule_4 (*
-			<- eraseEl;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
-			=> nrel_goto: .proc_test_apply_rule_5;;
+			
+			<- searchElStr3;;
+			
+			-> rrel_1: rrel_fixed: rrel_scp_var: _contour_constant_new;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _entity_const;;
+			
+			=> nrel_then: .proc_test_apply_rule_5;;
+			=> nrel_else: .proc_test_apply_rule_8;;
 		*);;
 
 		-> .proc_test_apply_rule_5 (*
-			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _nodes;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: _contour_rule2;;
+			
+			<- eraseEl;;
+			
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
+			
 			=> nrel_goto: .proc_test_apply_rule_6;;
 		*);;
 
 		-> .proc_test_apply_rule_6 (*
-			<- eraseEl;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
-			=> nrel_goto: .proc_test_apply_rule_7;;
+			
+			<- searchElStr3;;
+
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_entity;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _entity_const;;
+			
+			=> nrel_then: .proc_test_apply_rule_4;;
+			=> nrel_else: .proc_test_apply_rule_7;;
 		*);;
 
 		-> .proc_test_apply_rule_7 (*
-			<- eraseEl;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _nodes;;
-			=> nrel_goto: .proc_test_apply_rule_8_print1;;
+			
+			<- genElStr3;;
+			
+			-> rrel_1: rrel_fixed: rrel_scp_var: _contour_element_others;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _entity_const;;
+
+			=> nrel_goto: .proc_test_apply_rule_4;;
 		*);;
 
-		-> .proc_test_apply_rule_8_print1 (*
-			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Применение поиска по образцу для левой части правила:];;
-			=> nrel_goto: .proc_test_apply_rule_8;;
-		*);;
-
-// ЛЕВЫЕ И ПРАВЫЕ ЧАСТИ ПОЛУЧЕНЫ
-// =============================
-		
 		-> .proc_test_apply_rule_8 (*
-			<- sys_search;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _contour_rule1;;
-			-> rrel_2: rrel_fixed: rrel_scp_const: ...;;
-			-> rrel_3: rrel_fixed: rrel_scp_const: ...;;
-			-> rrel_4: rrel_assign: rrel_scp_var: _base;;
-			=> nrel_goto: .proc_test_apply_rule_8_print2;;
-		*);;
-
-		-> .proc_test_apply_rule_8_print2 (*
-			<- printEl;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _base;;
-			=> nrel_goto: .proc_test_apply_rule_9_print;;
-		*);;
-
-		-> .proc_test_apply_rule_9_print (*
-			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Поиск сущностей являющихся элементами как левой и так и правой части правила];;
+			
+			<- eraseEl;;
+			
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _set_entity;;
+			
 			=> nrel_goto: .proc_test_apply_rule_9;;
 		*);;
 
-		// формируем только переменные сущности никаких других нам не надо
-		// и притом только узлы
 		-> .proc_test_apply_rule_9 (*
-			<- genEl;;
-			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _el_var;;
-			=> nrel_goto: .proc_test_apply_rule_10;;
-		*);;
-
-		// узел для генерации по образцу
-		-> .proc_test_apply_rule_10 (*
-			<- genEl;;
-			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _for_sys_gen;;
-			=> nrel_goto: .proc_test_apply_rule_11;;
-		*);;
-
-		// множество сущностей которые принадлежат обеим контурам в правиле
-		-> .proc_test_apply_rule_11 (*
-			<- genEl;;
-			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_entity;;
-			=> nrel_goto: .proc_test_apply_rule_12;;
-		*);;
-
-		-> .proc_test_apply_rule_12 (*
-			<- searchSetStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _contour_rule2;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: rrel_var: _els;;
 			
-				-> rrel_set_3: rrel_fixed: rrel_scp_var: _el_var;;
-
-			=> nrel_goto: .proc_test_apply_rule_12A;;
-		*);;
-
-		// выбираем сущности, которые есть в обеих частях контура
-		-> .proc_test_apply_rule_12A (*
-			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _el_var;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: _entity;;
-			=> nrel_then: .proc_test_apply_rule_12B;;
-			=> nrel_else: .proc_test_apply_rule_13_print1;;
-		*);;
-
-		-> .proc_test_apply_rule_12B (*
 			<- eraseEl;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
-			=> nrel_goto: .proc_test_apply_rule_12C;;
-		*);;
-
-		-> .proc_test_apply_rule_12C (*
-			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _contour_rule1;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _entity;;
-			=> nrel_then: .proc_test_apply_rule_12C_print1;;
-			=> nrel_else: .proc_test_apply_rule_12A;;
-		*);;
-
-		// ВЫВОДИМ ИДЕНТИФИКАТОР
-		-> .proc_test_apply_rule_12C_print1 (*
-			<- call;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: proc_print_system_idtf;;
-			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
-				-> rrel_1: rrel_fixed: rrel_scp_var: _entity;;	
-			*);;
-			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
-			=> nrel_goto: .proc_test_apply_rule_12C_print2;;
-		*);;
-
-		-> .proc_test_apply_rule_12C_print2 (*
-			<- waitReturn;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
-			=> nrel_goto: .proc_test_apply_rule_12D;;
-		*);;
-
-		// для поиска по образцу
-		-> .proc_test_apply_rule_12D (*
-			<- genElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _for_sys_gen;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _node_temp;;
-			=> nrel_goto: .proc_test_apply_rule_12D1;;
-		*);;
-
-		// первые параметры
-		-> .proc_test_apply_rule_12D1 (*
-			<- genElStr5;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _node_temp;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _entity;;
-			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
-			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_1;;
-			=> nrel_goto: .proc_test_apply_rule_12D2;;
-		*);;
-
-		-> .proc_test_apply_rule_12D2 (*
-			<- genElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: rrel_scp_const;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _arc5;;
-			=> nrel_goto: .proc_test_apply_rule_12D2_print1;;
-		*);;
-		
-
-		-> .proc_test_apply_rule_12D2_print1 (*
-			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Дуга принадлежности в 1-ом параметре 2-ого параметра генерации по образцу:];;
-			=> nrel_goto: .proc_test_apply_rule_12D2_print2;;
-		*);;
-
-		-> .proc_test_apply_rule_12D2_print2 (*
-			<- printEl;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _arc5;;
-			=> nrel_goto: .proc_test_apply_rule_12D3;;
-		*);;
-
-		// вторые параметры
-		-> .proc_test_apply_rule_12D3 (*
-			<- genElStr5;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _node_temp;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
-			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_var: _var;;
-			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
-			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_2;;
-			=> nrel_goto: .proc_test_apply_rule_12D4;;
-		*);;
-
-		-> .proc_test_apply_rule_12D4 (*
-			<- genElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: rrel_scp_var;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _arc5;;
-			=> nrel_goto: .proc_test_apply_rule_12D4_print1;;
-		*);;
-
-		-> .proc_test_apply_rule_12D4_print1 (*
-			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Дуга принадлежности во 2-ом параметре 2-ого параметра генерации по образцу:];;
-			=> nrel_goto: .proc_test_apply_rule_12D4_print2;;
-		*);;
-
-		-> .proc_test_apply_rule_12D4_print2 (*
-			<- printEl;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _arc5;;
-			=> nrel_goto: .proc_test_apply_rule_12A;;
-		*);;
-
-// ====================================
-		-> .proc_test_apply_rule_13_print1 (*
-			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Второй входной параметр для генерации по образцу:];;
-			=> nrel_goto: .proc_test_apply_rule_13_print2;;
-		*);;
-
-		-> .proc_test_apply_rule_13_print2 (*
-			<- printEl;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _for_sys_gen;;
-			=> nrel_goto: .proc_test_apply_rule_13_print3;;
-		*);;
-
-		-> .proc_test_apply_rule_13_print3 (*
-			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Перед генерацией по образцу:];;
-			=> nrel_goto: .proc_test_apply_rule_14;;
-		*);;
-
-		-> .proc_test_apply_rule_14 (*
-			<- sys_gen;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _contour_rule2;;
-			-> rrel_2: rrel_fixed: rrel_scp_var: _for_sys_gen;;
-			-> rrel_3: rrel_fixed: rrel_scp_const: ...;;
-			-> rrel_4: rrel_assign: rrel_scp_var: _base2;;
-			=> nrel_goto: .proc_test_apply_rule_14_print1;;
-		*);;
-
-		-> .proc_test_apply_rule_14_print1 (*
-			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Результат генерации по образцу:];;
-			=> nrel_goto: .proc_test_apply_rule_15;;
-		*);;
-
-		// переписываем все константные узлы
-		-> .proc_test_apply_rule_15 (*
-			<- searchSetStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _contour_rule2;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
-			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _els;;
-
-				-> rrel_set_3: rrel_fixed: rrel_scp_var: _base2;;
-
-			=> nrel_goto: .proc_test_apply_rule_15_print1;;
-		*);;
-
-		// выводим результат
-		-> .proc_test_apply_rule_15_print1 (*
-			<- printEl;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _base2;;
-			=> nrel_goto: .proc_test_apply_rule_16;;
-		*);;
-
-		-> .proc_test_apply_rule_16 (*
-			<- genEl;;
-			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _el_binary_tree_output_identity;;
-			=> nrel_goto: ..print_finish1;;
-		*);;
-// ================================
-
-		-> ..print_finish1 (*
-			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Применение правила вывода. Выход];;
-			=> nrel_goto: ..print_finish2;;
-	   	*);;
-
-	   	-> ..print_finish2 (*
-			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [================================];;
+			
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _contour_constant_new;;
+			
 			=> nrel_goto: .proc_test_apply_rule_return;;
-	   	*);;
-
-	   	-> ..print_error (*
-			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Правила вывода не применено];;
-			=> nrel_goto: .proc_test_apply_rule_return;;
-	   	*);;
+		*);;
 
 		-> .proc_test_apply_rule_return (*
+
 			<- return;;
+
 		*);;
 	*);;
 *);;
