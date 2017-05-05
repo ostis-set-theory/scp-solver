@@ -105,7 +105,7 @@ scp_program -> proc_test_apply_rule (*
 
 		-> .proc_test_apply_rule_9_print (*
 			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Поиск сущностей являющихся элементами как левой и так и правой части правила:];;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Поиск сущностей являющихся элементами как левой и так и правой части правила];;
 			=> nrel_goto: .proc_test_apply_rule_9;;
 		*);;
 
@@ -135,7 +135,7 @@ scp_program -> proc_test_apply_rule (*
 			<- searchSetStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _contour_rule2;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_var: _els;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_var: _els;;
 			
 				-> rrel_set_3: rrel_fixed: rrel_scp_var: _el_var;;
 
@@ -211,6 +211,7 @@ scp_program -> proc_test_apply_rule (*
 			-> rrel_3: rrel_fixed: rrel_scp_var: _arc5;;
 			=> nrel_goto: .proc_test_apply_rule_12D2_print1;;
 		*);;
+		
 
 		-> .proc_test_apply_rule_12D2_print1 (*
 			<- printNl;;
@@ -271,12 +272,6 @@ scp_program -> proc_test_apply_rule (*
 		-> .proc_test_apply_rule_13_print3 (*
 			<- printNl;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: [Перед генерацией по образцу:];;
-			=> nrel_goto: .proc_test_apply_rule_13;;
-		*);;
-
-		-> .proc_test_apply_rule_13 (*
-			<- genEl;;
-			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _yu;;
 			=> nrel_goto: .proc_test_apply_rule_14;;
 		*);;
 
@@ -284,7 +279,7 @@ scp_program -> proc_test_apply_rule (*
 			<- sys_gen;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _contour_rule2;;
 			-> rrel_2: rrel_fixed: rrel_scp_var: _for_sys_gen;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _yu;;
+			-> rrel_3: rrel_fixed: rrel_scp_const: ...;;
 			-> rrel_4: rrel_assign: rrel_scp_var: _base2;;
 			=> nrel_goto: .proc_test_apply_rule_14_print1;;
 		*);;

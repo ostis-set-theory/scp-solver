@@ -96,9 +96,10 @@ scp_program -> agent_of_simply_the_sc_design
 
 
 		// САМЫЙ ВАЖНЫЙ ОПЕРАТОР
+
 		-> .agent_of_simply_the_sc_design14x1 (*
 			<- call;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: proc_test_apply_rule;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_test_apply_rule_new;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
 				-> rrel_1: rrel_fixed: rrel_scp_const: test_1_c;;
 				-> rrel_2: rrel_fixed: rrel_scp_const: rule_tree;;
@@ -116,17 +117,9 @@ scp_program -> agent_of_simply_the_sc_design
 		// ========================================================
 
 
-
-		-> .agent_of_simply_the_sc_design14x (*
-			<- varAssign;;
-			-> rrel_1: rrel_assign: rrel_scp_var: _param_test;;
-			-> rrel_2: rrel_fixed: rrel_scp_const: proc_of_simply_the_sc_design_generate_start_struct;;
-			=> nrel_goto: .agent_of_simply_the_sc_design14;;
-		*);;
-
 		-> .agent_of_simply_the_sc_design14 (*
 			<- call;; 
-			-> rrel_1: rrel_fixed: rrel_scp_var: _param_test;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_of_simply_the_sc_design_generate_start_struct;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
 				-> rrel_1: rrel_fixed: rrel_scp_var: _state;;
 				-> rrel_2: rrel_fixed: rrel_scp_var: _statement;;

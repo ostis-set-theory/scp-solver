@@ -1,0 +1,467 @@
+scp_program -> proc_test_apply_rule_new (*
+	
+	-> rrel_params: ... (*
+
+		// процедура применения правила вывода
+		// все параметры бинарного дерева контура тождества,
+		// который пришел на вход
+		-> rrel_1: rrel_in: _binary_tree_input_identity;;
+
+		// правило вывода в виде бинарного дерева
+		-> rrel_2: rrel_in: _binary_tree_rule;;
+
+		// выходной контур, является элементом данного множества
+		-> rrel_3: rrel_out: rrel_assign: rrel_scp_var: _el_binary_tree_output_identity;;
+	*);;
+
+	-> rrel_operators: ...(*
+
+		-> rrel_init: .proc_test_apply_rule_new_1_print1 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [================================];;
+			=> nrel_goto: .proc_test_apply_rule_new_1_print2;;
+		*);;
+
+		-> .proc_test_apply_rule_new_1_print2 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Применение правила вывода. Вход];;
+			=> nrel_goto: .proc_test_apply_rule_new_1;;
+		*);;
+
+		-> .proc_test_apply_rule_new_1 (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _nodes;;
+			=> nrel_goto: .proc_test_apply_rule_new_2;;
+		*);;
+
+		-> .proc_test_apply_rule_new_2 (*
+			<- searchSetStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _binary_tree_rule;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _els;;	
+				
+				-> rrel_set_3: rrel_fixed: rrel_scp_var: _nodes;;
+
+			=> nrel_goto: .proc_test_apply_rule_new_3;;
+		*);;
+
+		-> .proc_test_apply_rule_new_3 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _nodes;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _contour_rule1;;
+			=> nrel_goto: .proc_test_apply_rule_new_4;;
+		*);;
+
+		-> .proc_test_apply_rule_new_4 (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
+			=> nrel_goto: .proc_test_apply_rule_new_5;;
+		*);;
+
+		-> .proc_test_apply_rule_new_5 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _nodes;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _contour_rule2;;
+			=> nrel_goto: .proc_test_apply_rule_new_6;;
+		*);;
+
+		-> .proc_test_apply_rule_new_6 (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
+			=> nrel_goto: .proc_test_apply_rule_new_7;;
+		*);;
+
+		-> .proc_test_apply_rule_new_7 (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _nodes;;
+			=> nrel_goto: .proc_test_apply_rule_new_9_print;;
+		*);;
+
+		-> .proc_test_apply_rule_new_9_print (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Поиск сущностей являющихся элементами как левой и так и правой части правила:];;
+			=> nrel_goto: .proc_test_apply_rule_new_9;;
+		*);;
+
+		// формируем только переменные сущности никаких других нам не надо
+		-> .proc_test_apply_rule_new_9 (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _el_var;;
+			=> nrel_goto: .proc_test_apply_rule_new_10;;
+		*);;
+
+		// узел для поиска по образцу
+		-> .proc_test_apply_rule_new_10 (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _for_sys_search;;
+			=> nrel_goto: .proc_test_apply_rule_new_11;;
+		*);;
+
+		// множество сущностей которые принадлежат обеим контурам в правиле
+		-> .proc_test_apply_rule_new_11 (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_entity;;
+			=> nrel_goto: .proc_test_apply_rule_new_12;;
+		*);;
+
+		-> .proc_test_apply_rule_new_12 (*
+			<- searchSetStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _contour_rule2;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_var: _els;;
+			
+				-> rrel_set_3: rrel_fixed: rrel_scp_var: _el_var;;
+
+			=> nrel_goto: .proc_test_apply_rule_new_12A;;
+		*);;
+
+// ==============================================================
+		// выбираем сущности, которые есть в обеих частях контура
+		-> .proc_test_apply_rule_new_12A (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _el_var;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _entity;;
+			=> nrel_then: .proc_test_apply_rule_new_12B;;
+			=> nrel_else: .proc_test_apply_rule_new_12E4;;
+		*);;
+
+		-> .proc_test_apply_rule_new_12B (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
+			=> nrel_goto: .proc_test_apply_rule_new_12C;;
+		*);;
+
+		-> .proc_test_apply_rule_new_12C (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _contour_rule1;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _entity;;
+			=> nrel_then: .proc_test_apply_rule_new_12C1;;
+			=> nrel_else: .proc_test_apply_rule_new_12A;;
+		*);;
+
+		-> .proc_test_apply_rule_new_12C1 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_entity;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _entity;;
+			=> nrel_goto: .proc_test_apply_rule_new_12A;;
+		*);;
+
+// ===============================================================
+		-> .proc_test_apply_rule_new_12E4 (*
+			<- sys_search;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _contour_rule1;;
+			-> rrel_2: rrel_assign: rrel_scp_var: _for_sys_search;;
+			-> rrel_3: rrel_fixed: rrel_scp_const: ...;;
+			-> rrel_4: rrel_fixed: rrel_scp_const: ...;;
+			=> nrel_goto: .proc_test_apply_rule_new_13A;;
+		*);;
+// ==============================================================
+		-> .proc_test_apply_rule_new_13A (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_entity;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _var;;
+			=> nrel_then: .proc_test_apply_rule_new_13B;;
+			=> nrel_else: .proc_test_apply_rule_new_14A;;
+		*);;
+
+		-> .proc_test_apply_rule_new_13B (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
+
+			=> nrel_goto: .proc_test_apply_rule_new_13C;;
+		*);;
+		
+		-> .proc_test_apply_rule_new_13C (*
+			<- searchSetStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _for_sys_search;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _nodes_const;;
+
+				-> rrel_set_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_nrel;;
+
+			=> nrel_goto: .proc_test_apply_rule_new_13D;;
+		*);;
+
+		-> .proc_test_apply_rule_new_13D (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_nrel;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _nrel;;
+
+			=> nrel_then: .proc_test_apply_rule_new_13E;;
+			=> nrel_else: .proc_test_apply_rule_new_13J;;
+		*);;
+
+		-> .proc_test_apply_rule_new_13E (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
+
+			=> nrel_goto: .proc_test_apply_rule_new_13G;;
+		*);;
+
+		-> .proc_test_apply_rule_new_13G (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _var;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: rrel_const: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _el_tree;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_var: _nrel;;
+			=> nrel_then: .proc_test_apply_rule_new_13H;;
+			=> nrel_else: ..print_error;;
+		*);;
+
+		-> .proc_test_apply_rule_new_13H (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Переменная и ее значение:];;
+			=> nrel_goto: .proc_test_apply_rule_new_13H1;;
+		*);;
+
+		-> .proc_test_apply_rule_new_13H1 (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_print_system_idtf;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _var;;	
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_test_apply_rule_new_13I1;;
+		*);;
+
+		-> .proc_test_apply_rule_new_13I1 (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_test_apply_rule_new_13H2;;
+		*);;
+
+		-> .proc_test_apply_rule_new_13H2 (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_print_system_idtf;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _el_tree;;	
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_test_apply_rule_new_13I2;;
+		*);;
+
+		-> .proc_test_apply_rule_new_13I2 (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_test_apply_rule_new_13D;;
+		*);;
+
+		-> .proc_test_apply_rule_new_13J (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _set_nrel;;
+
+			=> nrel_goto: .proc_test_apply_rule_new_13A;;
+		*);;
+
+// поиск одного из отношений рисунок 3 25
+// ===========================================================
+// ОБХОДИМ ВСЕ ОТНОШЕНИЯ ДЛЯ ФОРМИРОВАНИЯ НЕСКОЛЬКИХ ГЕНЕРАЦИЙ
+
+		// СОЗДАЕМ МНОЖЕСТВО КОНТУРОВ ПОЛУЧЕННЫХ НА ВЫХОДЕ
+		// ПОСЛЕ ПРИМЕНЕНИЯ ПРАВИЛА
+		-> .proc_test_apply_rule_new_14A (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [УДАЛЕНИЯ ВЫПОЛНИЛИСЬ];;
+			=> nrel_goto: .proc_test_apply_rule_new_14AAA;;
+		*);;
+
+		-> .proc_test_apply_rule_new_14AAA (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _el_binary_tree_output_identity;;
+			=> nrel_goto: .proc_test_apply_rule_new_14AA;;
+		*);;
+
+		-> .proc_test_apply_rule_new_14AA (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _for_sys_search;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _nrel;;
+			=> nrel_then: .proc_test_apply_rule_new_14B;;
+			=> nrel_else: ..print_finish1;;
+		*);;
+
+		-> .proc_test_apply_rule_new_14B (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
+			=> nrel_goto: .proc_test_apply_rule_new_14CC;;
+		*);;
+
+		// СОЗДАЕМ КОНТУР ПОЛУЧЕННЫЙ НА ВЫХОДЕ ПОСЛЕ ПРИМЕНЕНИЯ ПРАВИЛА
+		// И СРАЗУ ЖЕ ДОБАВЛЯЕМ ЕГО В ОТВЕТ
+		-> .proc_test_apply_rule_new_14CC (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _el_binary_tree_output_identity;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: rrel_struct: _binary_tree_output_identity;;
+			=> nrel_goto: .proc_test_apply_rule_new_14C;;
+		*);;
+
+		// СОЗДАНИЕ МНОЖЕСТВА, КОТОРОЕ ЯВЛЯЕТСЯ 3-ИМ ПАРАМЕТРОМ SYS_GEN
+		-> .proc_test_apply_rule_new_14C (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _for_sys_gen;;
+			=> nrel_goto: .proc_test_apply_rule_new_14D;;
+		*);;
+
+		// ПОЛУЧАЕМ ПЕРЕМЕННУЮ И КОНСТАНТНУЮ СУЩНОСТЬ
+		-> .proc_test_apply_rule_new_14D (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _entity_var;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: rrel_const: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _entity_const;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_var: _nrel;;
+			=> nrel_then: .proc_test_apply_rule_new_14E;;
+			=> nrel_else: .proc_test_apply_rule_new_15A;;
+		*);;
+
+		-> .proc_test_apply_rule_new_14E (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc2;;
+			=> nrel_goto: .proc_test_apply_rule_new_14FA;;
+		*);;
+
+		// ДОБАВЛЯЕМ НАЙДЕННЫЙ ЛИСТ В ОТВЕТ
+		-> .proc_test_apply_rule_new_14FA (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _binary_tree_output_identity;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _entity_const;;
+			=> nrel_goto: .proc_test_apply_rule_new_14F;;
+		*);;
+
+		-> .proc_test_apply_rule_new_14F (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _for_sys_gen;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _node_temp;;
+			=> nrel_goto: .proc_test_apply_rule_new_14G;;
+		*);;
+
+		-> .proc_test_apply_rule_new_14G (*
+			<- genElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _node_temp;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc_G;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _entity_var;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_1;;
+			=> nrel_goto: .proc_test_apply_rule_new_14H;;
+		*);;
+
+		-> .proc_test_apply_rule_new_14H (*
+			<- genElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _node_temp;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc_H;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _entity_const;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_2;;
+			=> nrel_goto: .proc_test_apply_rule_new_14I;;
+		*);;
+
+		-> .proc_test_apply_rule_new_14I (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: rrel_fixed;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _arc_G;;
+			=> nrel_goto: .proc_test_apply_rule_new_14J;;
+		*);;
+
+		-> .proc_test_apply_rule_new_14J (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: rrel_fixed;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _arc_H;;
+			=> nrel_goto: .proc_test_apply_rule_new_14D;;
+		*);;
+
+		// ГЕНЕРАЦИЯ ПО ОБРАЗЦУ
+		-> .proc_test_apply_rule_new_15A (*
+			<- sys_gen;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _contour_rule2;;
+			-> rrel_2: rrel_assign: rrel_scp_var: _base2;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _for_sys_gen;;
+			=> nrel_goto: .proc_test_apply_rule_new_15B;;
+		*);;
+
+		-> .proc_test_apply_rule_new_15B (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Результат генерации по образцу:];;
+			=> nrel_goto: .proc_test_apply_rule_new_15C;;
+		*);;
+
+		-> .proc_test_apply_rule_new_15C (*
+			<- printEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _base2;;
+			=> nrel_goto: .proc_test_apply_rule_new_16A;;
+		*);;
+
+		// ПЕРЕПИСЫВАЕМ КОНСТАНТНЫЕ УЗЛЫ ВО ВТОРОМ КОНТУРЕ ПРАВИЛА
+		-> .proc_test_apply_rule_new_16A (*
+			<- searchSetStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _contour_rule2;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _els;;
+
+				-> rrel_set_3: rrel_fixed: rrel_scp_var: _binary_tree_output_identity;;
+
+			=> nrel_goto: .proc_test_apply_rule_new_16B;;
+		*);;
+
+		// ПЕРЕПИСЫВАЕМ РЕЗУЛЬТАТ ГЕНЕРАЦИИ ПО ОБРАЗЦУ
+		-> .proc_test_apply_rule_new_16B (*
+			<- searchSetStr5;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _entity_vars;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: rrel_const: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _entity_consts;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_var: _base2;;
+
+				-> rrel_set_3: rrel_fixed: rrel_scp_var: _binary_tree_output_identity;;
+
+			=> nrel_goto: .proc_test_apply_rule_new_17A;;
+		*);;
+		
+		// ИТОГОВЫЙ КОНТУР
+		-> .proc_test_apply_rule_new_17A (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Правило вывода, полученный контур:];;
+			=> nrel_goto: .proc_test_apply_rule_new_17B;;
+		*);;
+
+		-> .proc_test_apply_rule_new_17B (*
+			<- printEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _binary_tree_output_identity;;
+			=> nrel_goto: .proc_test_apply_rule_new_14AA;;
+		*);;
+
+		-> ..print_finish1 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Применение правила вывода. Выход];;
+			=> nrel_goto: ..print_finish2;;
+	   	*);;
+
+	   	-> ..print_finish2 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [================================];;
+			=> nrel_goto: .proc_test_apply_rule_new_return;;
+	   	*);;
+
+	   	-> ..print_error (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Правила вывода не применено];;
+			=> nrel_goto: .proc_test_apply_rule_new_return;;
+	   	*);;
+
+		-> .proc_test_apply_rule_new_return (*
+			<- return;;
+		*);;
+	*);;
+*);;
