@@ -1,0 +1,72 @@
+scp_program -> proc_gen_conjunction_or_disjunction (*
+	
+	-> rrel_params: ... (*
+		-> rrel_1: rrel_in: _el_type_oriented;;
+		-> rrel_2: rrel_in: _first;;
+		-> rrel_3: rrel_in: _second;;
+		-> rrel_4: rrel_in: _nrel;;
+		-> rrel_5: rrel_out: rrel_assign: rrel_scp_var: _tuple;;
+	*);;
+
+	-> rrel_operators: ...(*
+
+		-> rrel_init: .proc_gen_conjunction_or_disjunction_1 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: rrel_not_binary_tuple: _tuple;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _first;;
+			=> nrel_goto: .proc_gen_conjunction_or_disjunction_2;;
+		*);;
+
+		-> .proc_gen_conjunction_or_disjunction_2 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _tuple;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _second;;
+			=> nrel_goto: .proc_gen_conjunction_or_disjunction_3;;
+		*);;
+
+		-> .proc_gen_conjunction_or_disjunction_3 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _nrel;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _tuple;;
+			=> nrel_goto: .proc_gen_conjunction_or_disjunction_4;;
+		*);;
+
+		-> .proc_gen_conjunction_or_disjunction_4 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _el_type_oriented;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _oriented;;
+			=> nrel_then: .proc_gen_conjunction_or_disjunction_5;;
+			=> nrel_else: ..print2;;
+		*);;
+
+		-> .proc_gen_conjunction_or_disjunction_5 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: rrel_1;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _arc;;	
+			=> nrel_goto: .proc_gen_conjunction_or_disjunction_6;;
+		*);;
+
+		-> .proc_gen_conjunction_or_disjunction_6 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: rrel_2;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _arc2;;	
+			=> nrel_goto: ..print2;;
+		*);;
+
+	   	-> ..print2 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Генерация отношения конъюнкции либо дизъюнкции];;
+			=> nrel_goto: .proc_gen_conjunction_or_disjunction_return;;
+	   	*);;
+
+		-> .proc_gen_conjunction_or_disjunction_return (*
+			<- return;;
+		*);;
+	*);;
+*);;

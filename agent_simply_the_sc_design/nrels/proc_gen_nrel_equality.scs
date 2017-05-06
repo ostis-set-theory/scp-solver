@@ -1,0 +1,83 @@
+scp_program -> proc_gen_nrel_equality (*
+	
+	-> rrel_params: ... (*
+		-> rrel_1: rrel_in: _first;;
+		-> rrel_2: rrel_in: _second;;
+		-> rrel_3: rrel_in: _el_contour;;
+		-> rrel_4: rrel_out: rrel_assign: rrel_scp_var: _contour;;
+	*);;
+
+	-> rrel_operators: ...(*
+
+		-> rrel_init: .proc_gen_nrel_equality_A (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _el_contour;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _contour;;
+			=> nrel_then: .proc_gen_nrel_equality_1;;
+			=> nrel_else: .proc_gen_nrel_equality_B;;
+		*);;
+
+		-> .proc_gen_nrel_equality_B (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _el_contour;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: rrel_struct: _contour;;
+			=> nrel_goto: .proc_gen_nrel_equality_1;;
+		*);;
+
+		-> .proc_gen_nrel_equality_1 (*
+			<- genElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _first;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos: rrel_var: rrel_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _second;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_var: _contour;;		
+			=> nrel_goto: .proc_gen_nrel_equality_2;;
+		*);;
+
+		-> .proc_gen_nrel_equality_2 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _contour;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _first;;
+			=> nrel_then: .proc_gen_nrel_equality_4;;
+			=> nrel_else: .proc_gen_nrel_equality_3;;
+		*);;
+
+		-> .proc_gen_nrel_equality_3 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _contour;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _first;;
+			=> nrel_goto: .proc_gen_nrel_equality_4;;
+		*);;
+
+		-> .proc_gen_nrel_equality_4 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _contour;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _second;;
+			=> nrel_then: ..print2;;
+			=> nrel_else: .proc_gen_nrel_equality_5;;
+		*);;
+
+		-> .proc_gen_nrel_equality_5 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _contour;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _second;;
+			=> nrel_goto: ..print2;;
+		*);;
+
+	   	-> ..print2 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Генерация дуги принадлежности];;
+			=> nrel_goto: .proc_gen_nrel_equality_return;;
+	   	*);;
+
+		-> .proc_gen_nrel_equality_return (*
+			<- return;;
+		*);;
+	*);;
+*);;

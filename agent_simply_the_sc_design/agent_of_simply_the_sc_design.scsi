@@ -90,20 +90,23 @@ scp_program -> agent_of_simply_the_sc_design
 		-> .agent_of_simply_the_sc_design13 (*
 			<- eraseEl;;
 			-> rrel_1: rrel_fixed: rrel_erase: rrel_scp_var: _true;;
+			=> nrel_goto: .agent_of_simply_the_sc_design14x0;;
+		*);;
+
+		-> .agent_of_simply_the_sc_design14x0 (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _el_contour;;
 			=> nrel_goto: .agent_of_simply_the_sc_design14x1;;
 		*);;
 
-
-
-		// САМЫЙ ВАЖНЫЙ ОПЕРАТОР
-
+		// ПЕРЕВОД ИЗ ДЕРЕВА В КОНТУР
 		-> .agent_of_simply_the_sc_design14x1 (*
 			<- call;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: proc_test_apply_rule_new;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_binary_tree_to_contour;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
-				-> rrel_1: rrel_fixed: rrel_scp_const: test_1_c;;
-				-> rrel_2: rrel_fixed: rrel_scp_const: rule_tree;;
-				-> rrel_3: rrel_assign: rrel_scp_var: _temp;;
+				-> rrel_1: rrel_fixed: rrel_scp_const: root_binary_tree;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _el_contour;;
+				-> rrel_3: rrel_assign: rrel_scp_var: _cont;;
 			*);;
 			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
 			=> nrel_goto: .agent_of_simply_the_sc_design14x2;;
@@ -112,7 +115,27 @@ scp_program -> agent_of_simply_the_sc_design
 		-> .agent_of_simply_the_sc_design14x2 (*
 			<- waitReturn;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
-			=> nrel_goto: ..agent_of_simply_the_sc_design14x;;
+			=> nrel_goto: .agent_of_simply_the_sc_design14x3;;
+		*);;
+
+
+		// САМЫЙ ВАЖНЫЙ ОПЕРАТОР ВЫВОДА
+		-> .agent_of_simply_the_sc_design14x3 (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_test_apply_rule_new;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_const: test_1_c;;
+				-> rrel_2: rrel_fixed: rrel_scp_const: rule_tree;;
+				-> rrel_3: rrel_assign: rrel_scp_var: _temp;;
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=> nrel_goto: .agent_of_simply_the_sc_design14x4;;
+		*);;
+
+		-> .agent_of_simply_the_sc_design14x4 (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=> nrel_goto: ..print2;;
 		*);;
 		// ========================================================
 
