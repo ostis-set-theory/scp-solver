@@ -1,0 +1,131 @@
+scp_program -> proc_test_apply_rule_all (*
+	
+	-> rrel_params: ... (*
+
+		// процедура применения правила вывода
+		// константный контур, для которого применяется правило 
+		-> rrel_1: rrel_in: _binary_tree_input_identity;;
+
+		// правило вывода в виде бинарного дерева
+		-> rrel_2: rrel_in: _binary_tree_rule;;
+
+		// выходной контур, является элементом данного множества
+		-> rrel_3: rrel_out: rrel_assign: rrel_scp_var: _el_binary_tree_output_identity;;
+	*);;
+
+	-> rrel_operators: ...(*
+
+		-> rrel_init: .proc_test_apply_rule_all_1_print1 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [===============================================];;
+			=> nrel_goto: .proc_test_apply_rule_all_1_print2;;
+		*);;
+
+		-> .proc_test_apply_rule_all_1_print2 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Общая процедура применения правила вывода. Вход];;
+			=> nrel_goto: .proc_test_apply_rule_all_2;;
+		*);;
+
+		-> .proc_test_apply_rule_all_2 (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_search_nrel;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _binary_tree_rule;;
+				-> rrel_2: rrel_assign: rrel_scp_var: _nrel;;		
+				-> rrel_3: rrel_assign: rrel_scp_var: _first;;
+				-> rrel_4: rrel_assign: rrel_scp_var: _second;;	
+				-> rrel_5: rrel_assign: rrel_scp_var: _type;;	
+
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_test_apply_rule_all_3;;
+		*);;
+
+		-> .proc_test_apply_rule_all_3 (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_test_apply_rule_all_4A;;
+		*);;
+
+		// СОЗДАЕМ МНОЖЕСТВО КОНТУРОВ ПОЛУЧЕННЫХ НА ВЫХОДЕ
+		// ПОСЛЕ ПРИМЕНЕНИЯ ПРАВИЛА
+		-> .proc_test_apply_rule_all_4A (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _el_binary_tree_output_identity;;
+			=> nrel_goto: .proc_test_apply_rule_all_4;;
+		*);;
+
+		-> .proc_test_apply_rule_all_4 (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_test_apply_rule_new;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _binary_tree_input_identity;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _first;;
+				-> rrel_3: rrel_fixed: rrel_scp_var: _second;;
+				-> rrel_4: rrel_fixed: rrel_scp_var: _el_binary_tree_output_identity;;	
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_test_apply_rule_all_5;;
+		*);;
+
+		-> .proc_test_apply_rule_all_5 (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_test_apply_rule_all_6;;
+		*);;
+
+		-> .proc_test_apply_rule_all_6 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _el_binary_tree_output_identity;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _statement_new;;
+			=> nrel_then: ..print2;;
+			=> nrel_else: .proc_test_apply_rule_all_7;;
+		*);;
+
+		-> .proc_test_apply_rule_all_7 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _type;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _oriented;;
+			=> nrel_then: ..print2;;
+			=> nrel_else: .proc_test_apply_rule_all_8;;
+		*);;
+
+		-> .proc_test_apply_rule_all_8 (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_test_apply_rule_new;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _binary_tree_input_identity;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _second;;
+				-> rrel_3: rrel_fixed: rrel_scp_var: _first;;
+				-> rrel_4: rrel_fixed: rrel_scp_var: _el_binary_tree_output_identity;;	
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_test_apply_rule_all_9;;
+		*);;
+
+		-> .proc_test_apply_rule_all_9 (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=>nrel_goto: ..print2;;
+		*);;
+
+	   	-> ..print2 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Общая процедура применения правила вывода. Выход];;
+			=> nrel_goto: ..print2uygyug;;
+	   	*);;
+
+	   	-> ..print2uygyug (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [===============================================];;
+			=> nrel_goto: .proc_test_apply_rule_all_return;;
+		*);;
+
+		-> .proc_test_apply_rule_all_return (*
+			<- return;;
+		*);;
+	*);;
+*);;

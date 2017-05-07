@@ -47,7 +47,7 @@ scp_program -> proc_search_nrel (*
 			-> rrel_4: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc2;;
 			-> rrel_5: rrel_fixed: rrel_scp_const: rrel_1;;	
 			=> nrel_then: .proc_search_nrel_4;;
-			=> nrel_else: .proc_search_nrel_5;;		
+			=> nrel_else: .proc_search_nrel_5;;	
 		*);;
 
 		-> .proc_search_nrel_4 (*

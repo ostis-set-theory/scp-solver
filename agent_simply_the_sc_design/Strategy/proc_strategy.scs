@@ -117,7 +117,7 @@ scp_program -> proc_strategy (*
 		// получаем множество утверждений, если таковые найдены
 		-> .proc_strategy_9 (*
 			<- call;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: proc_test_apply_rule_new;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_test_apply_rule_all;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
 				-> rrel_1: rrel_fixed: rrel_scp_var: _current_statement;;
 				-> rrel_2: rrel_fixed: rrel_scp_var: _rule;;		
@@ -140,12 +140,12 @@ scp_program -> proc_strategy (*
 			-> rrel_1: rrel_fixed: rrel_scp_var: _set_statement;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _statement_new;;
-			=> nrel_then: .proc_strategy_12A;;
-			=> nrel_else: ..print2;;
+			=> nrel_then: .proc_strategy_12;;
+			=> nrel_else: .proc_strategy_7;;
 		*);;
 
 // ===================================================
-		// преобразуем полученное утверждение в контур
+		/*// преобразуем полученное утверждение в контур
 		-> .proc_strategy_12A (*
 			<- genEl;;
 			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _el_contour;;
@@ -186,7 +186,7 @@ scp_program -> proc_strategy (*
 			<- waitReturn;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
 			=>nrel_goto: .proc_strategy_12;;
-		*);;
+		*);;*/
 // ===============================================================
 
 		-> .proc_strategy_12 (*
