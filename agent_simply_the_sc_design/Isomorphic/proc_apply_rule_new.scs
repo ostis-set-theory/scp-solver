@@ -70,6 +70,22 @@ scp_program -> proc_test_apply_rule_new (*
 		-> .proc_test_apply_rule_new_7 (*
 			<- eraseEl;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _nodes;;
+			=> nrel_goto: ..print_contour_1;;
+		*);;
+
+		-> ..print_contour_1 (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_print_system_idtf;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _contour_rule1;;	
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=> nrel_goto: ..print_contour_2;;
+		*);;
+
+		-> ..print_contour_2 (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
 			=> nrel_goto: .proc_test_apply_rule_new_9_print;;
 		*);;
 // ==================================================================

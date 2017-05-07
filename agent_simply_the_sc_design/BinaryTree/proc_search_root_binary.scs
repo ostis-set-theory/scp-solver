@@ -1,0 +1,112 @@
+scp_program -> proc_search_root_binary (*	
+	
+	-> rrel_params: ...(*
+
+		// контур
+		-> rrel_1: rrel_in: _binary_tree;;
+
+		// корневой узел, если таковой есть,
+		// содержится в данном множестве как элемент
+		// иначе корень, не найден и данное множество пусто
+		-> rrel_2: rrel_out: rrel_assign: rrel_scp_var: _root;;
+	*);;
+
+	-> rrel_operators: ...(*
+
+	   	-> rrel_init: .proc_search_root_binary_1 (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _nodes;;
+			=> nrel_goto: .proc_search_root_binary_2;;
+	   	*);;
+
+		-> .proc_search_root_binary_2 (*
+			<- searchSetStr5;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _el1;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _el2;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_var: _binary_tree;;
+
+			-> rrel_set_1: rrel_fixed: rrel_scp_var: _nodes;;
+			
+			=> nrel_goto: .proc_search_root_binary_3;;
+		*);;
+
+		-> .proc_search_root_binary_3 (*
+			<- contAssign;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _i;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: [0];;
+			=> nrel_goto: .proc_search_root_binary_4;;
+		*);;
+
+		-> .proc_search_root_binary_4 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: number;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _i;;
+			=> nrel_goto: .proc_search_root_binary_5;;
+		*);;
+
+		-> .proc_search_root_binary_5 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _nodes;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _root;;
+			=> nrel_then: .proc_search_root_binary_6;;
+			=> nrel_else: ..print_error;;
+		*);;
+
+		-> .proc_search_root_binary_6 (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_erase: rrel_scp_var: _arc;;
+			=> nrel_goto: .proc_search_root_binary_7;;
+		*);;
+
+		-> .proc_search_root_binary_7 (*
+			<- contAdd;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _i;;
+			-> rrel_2: rrel_fixed: rrel_scp_var: _i;;
+			-> rrel_3: rrel_fixed: rrel_scp_const: [1];;
+			=> nrel_goto: .proc_search_root_binary_8;;
+		*);;
+
+		-> .proc_search_root_binary_8 (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _el1;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: _arc2;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _root;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc4;;
+			-> rrel_5: rrel_fixed: rrel_scp_var: _binary_tree;;
+			=> nrel_then: .proc_search_root_binary_5;;		
+			=> nrel_else: ..print4;;
+		*);;
+
+		-> ..print4 (*
+			<- print;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Корневой узел, узел дерева найден ! Количество итераций: ];;
+			=> nrel_goto: ..print5;;
+		*);;
+
+		-> ..print5 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _i;;
+			=> nrel_goto: .proc_search_root_binary_10;;
+		*);;
+
+		-> ..print_error (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Корневой узел не найден];;
+			=> nrel_goto: .proc_search_root_binary_10;;
+		*);;
+
+		-> .proc_search_root_binary_10 (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_erase: rrel_scp_var: _nodes;;
+			=> nrel_goto: .proc_search_root_binary_return;;
+		*);;
+
+		-> .proc_search_root_binary_return (*
+			<- return;;
+		*);;
+	*);;
+*);;

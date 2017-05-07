@@ -1,0 +1,237 @@
+scp_program -> proc_strategy (*
+	
+	-> rrel_params: ... (*
+
+		// получение доказательства
+		// утверждение для которого применяется множество правил
+		-> rrel_1: rrel_in: _statement;;
+
+		// множество правил
+		-> rrel_2: rrel_in: _set_rules;;
+		
+		// доказательсво получено или нет
+		//-> rrel_3: rrel_out: rrel_assign: rrel_scp_var: _state;;
+	*);;
+
+	-> rrel_operators: ...(*
+
+		-> rrel_init: ..print1 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Доказательство тождеств. Вход];;
+			=> nrel_goto: .proc_strategy_1;;
+	   	*);;
+
+		// исключенное множество правил
+		-> .proc_strategy_1 (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _delete_rules;;
+			=> nrel_goto: .proc_strategy_2;;
+		*);;
+
+		// множество всех правил
+		-> .proc_strategy_2 (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_rules_new;;
+			=> nrel_goto: .proc_strategy_2A;;
+		*);;
+
+		-> .proc_strategy_2A (*
+			<- varAssign;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _current_statement;;
+			-> rrel_2: rrel_fixed: rrel_scp_var: _statement;;
+			=> nrel_goto: .proc_strategy_3;;
+		*);;
+
+// =====================================================================
+// НАЧАЛО ИТЕРАЦИЙ
+		// формируем множество всех правил
+		-> .proc_strategy_3 (*
+			<- searchSetStr3;;	
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_rules;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arcs;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _rules;;
+
+				-> rrel_set_3: rrel_fixed: rrel_scp_var: _set_rules_new;;
+
+			=> nrel_goto: .proc_strategy_4;;
+		*);;
+
+		// находим исключенное правило
+		-> .proc_strategy_4 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _delete_rules;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _delete_rule;;
+			=> nrel_then: .proc_strategy_5;;
+			=> nrel_else: .proc_strategy_7;;
+		*);;
+
+		-> .proc_strategy_5 (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
+			=> nrel_goto: .proc_strategy_6;;
+		*);;
+
+		-> .proc_strategy_6 (*
+			<- eraseElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_rules_new;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: rrel_erase: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _delete_rule;;
+			=> nrel_goto: .proc_strategy_4;;
+		*);;
+
+// =====================================
+		// перебираем оставшиеся правила
+		// находим текущее правило
+		-> .proc_strategy_7 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_rules_new;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _rule;;
+			=> nrel_then: .proc_strategy_8;;
+			=> nrel_else: ..print4;;
+		*);;
+
+		-> .proc_strategy_8 (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
+			=> nrel_goto: .proc_strategy_9A;;
+		*);;
+
+		-> .proc_strategy_9A (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_print_system_idtf;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _rule;;	
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_strategy_9B;;
+		*);;
+
+		-> .proc_strategy_9B (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_strategy_9;;
+		*);;
+
+		// получаем множество утверждений, если таковые найдены
+		-> .proc_strategy_9 (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_test_apply_rule_new;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _current_statement;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _rule;;		
+				-> rrel_3: rrel_assign: rrel_scp_var: _set_statement;;	
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_10;;
+		*);;
+
+		-> .proc_strategy_10 (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_11;;
+		*);;
+
+		// если вывод получен, то при следующей итерации
+		// исключаем правило
+		-> .proc_strategy_11 (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_statement;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _statement_new;;
+			=> nrel_then: .proc_strategy_12A;;
+			=> nrel_else: ..print2;;
+		*);;
+
+// ===================================================
+		// преобразуем полученное утверждение в контур
+		-> .proc_strategy_12A (*
+			<- genEl;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _el_contour;;
+			=> nrel_goto: .proc_strategy_12B;;
+		*);;
+
+		// находим корень
+		-> .proc_strategy_12B (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_search_root_binary;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _statement_new;;
+				-> rrel_2: rrel_assign: rrel_scp_var: _root;;		
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_12C;;
+		*);;
+
+		-> .proc_strategy_12C (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_12D;;
+		*);;
+
+		-> .proc_strategy_12D (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_binary_tree_to_contour;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _root;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _el_contour;;		
+				-> rrel_3: rrel_assign: rrel_scp_var: _result;;	
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_12E;;
+		*);;
+
+		-> .proc_strategy_12E (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_12;;
+		*);;
+// ===============================================================
+
+		-> .proc_strategy_12 (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _delete_rules;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _rule;;
+			=> nrel_goto: .proc_strategy_13;;
+		*);;
+
+		-> .proc_strategy_13 (*
+			<- eraseSetStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_rules_new;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_erase: _arcs;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _cur_rules;;
+			=> nrel_goto: .proc_strategy_14;;
+		*);;
+
+		-> .proc_strategy_14 (*
+			<- varAssign;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _current_statement;;
+			-> rrel_2: rrel_fixed: rrel_scp_var: _statement_new;;
+			=> nrel_goto: .proc_strategy_3;;
+		*);;
+
+		-> ..print2 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Тождество истинно];;
+			=> nrel_goto: .proc_strategy_return;;
+	   	*);;
+
+	   	-> ..print3 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Тождество ложно];;
+			=> nrel_goto: .proc_strategy_return;;
+	   	*);;
+
+	   	-> ..print4 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Ошибка ! Правил не обнаружено];;
+			=> nrel_goto: .proc_strategy_return;;
+	   	*);;
+
+		-> .proc_strategy_return (*
+			<- return;;
+		*);;
+	*);;
+*);;
