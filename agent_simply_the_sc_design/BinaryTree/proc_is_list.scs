@@ -2,6 +2,7 @@ scp_program -> proc_is_list (*
 	
 	-> rrel_params: ...(*
 		
+		// 07.05.17
 		// текущий узел в дереве
 		-> rrel_1: rrel_in: _element;;
 		
@@ -18,35 +19,28 @@ scp_program -> proc_is_list (*
 		*);;
 
 	   	-> .proc_is_list_2 (*
-			<- searchSetStr3;;
+			<- searchElStr5;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _element;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _values;;
-
-				-> rrel_set_2: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_common;;
-
-			=> nrel_then: .proc_is_list_3;;
-			=> nrel_else: ..print4;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: nrel_binary_tree_branch_left;;
+			=> nrel_then: ..print3;;
+			=> nrel_else: .proc_is_list_3;;
 		*);;
 
 		-> .proc_is_list_3 (*
-			<- eraseElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _set_common;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: rrel_erase: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: _curr_common;;
-			=> nrel_goto: .proc_is_list_4;;
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _element;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _values;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: nrel_binary_tree_branch;;
+			=> nrel_then: ..print3;;
+			=> nrel_else: .proc_is_list_4;;
 		*);;
 
 		-> .proc_is_list_4 (*
-			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _set_common;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
-			-> rrel_3: rrel_assign: rrel_scp_var: _curr_common2;;
-			=> nrel_then: ..print3;;			
-			=> nrel_else: .proc_is_list_5;;
-		*);;
-
-		-> .proc_is_list_5 (*
 			<- genElStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _type;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
@@ -57,32 +51,28 @@ scp_program -> proc_is_list (*
 	    -> ..print2 (*
 			<- printNl;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: [Элемент лист];;
-			=> nrel_goto: .proc_is_list_6;;
+			=> nrel_goto: .proc_is_list_5;;
 		*);;
 
 		-> ..print3 (*
 			<- printNl;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: [Элемент не лист];;
+			=> nrel_goto: .proc_is_list_5;;
+		*);;
+
+		-> .proc_is_list_5 (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_print_system_idtf;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _element;;			
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
 			=> nrel_goto: .proc_is_list_6;;
 		*);;
 
 		-> .proc_is_list_6 (*
-			<- eraseEl;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _set_common;;
-			=> nrel_goto: .proc_is_list_return;;
-		*);;
-
-		-> ..print4 (*
-			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Элемент лист и не имеет значения];;
-			=> nrel_goto: .proc_is_list_7;;
-		*);;
-
-		-> .proc_is_list_7 (*
-			<- genElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _type;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: _list;;
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
 			=> nrel_goto: .proc_is_list_return;;
 		*);;
 

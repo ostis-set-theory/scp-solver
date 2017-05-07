@@ -9,7 +9,13 @@ scp_program -> proc_gen_nrel_equality (*
 
 	-> rrel_operators: ...(*
 
-		-> rrel_init: .proc_gen_nrel_equality_A (*
+		-> rrel_init: ..print1 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Генерация дуги принадлежности. Вход];;
+			=> nrel_goto: .proc_gen_nrel_equality_A;;
+	   	*);;
+
+		-> .proc_gen_nrel_equality_A (*
 			<- searchElStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _el_contour;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
@@ -72,7 +78,7 @@ scp_program -> proc_gen_nrel_equality (*
 
 	   	-> ..print2 (*
 			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Генерация дуги принадлежности];;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Генерация дуги принадлежности. Выход];;
 			=> nrel_goto: .proc_gen_nrel_equality_return;;
 	   	*);;
 
