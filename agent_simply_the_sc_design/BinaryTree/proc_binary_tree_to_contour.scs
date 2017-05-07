@@ -5,8 +5,8 @@ scp_program -> proc_binary_tree_to_contour (*
 		// изменяемый параметр: текущий узел дерева
 		-> rrel_1: rrel_in: _binary_tree_element;;
 
-		// элементом данного множества является контур
-		-> rrel_2: rrel_out: rrel_assign: rrel_scp_var: _el_contour;;
+		// изменяемый параметр: элементом данного множества является контур
+		-> rrel_2: rrel_in: _el_contour;;
 
 		// возвращаемый элемент для генерации
 		// результат квазибинарного отношения либо
@@ -73,9 +73,8 @@ scp_program -> proc_binary_tree_to_contour (*
 			<- call;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: proc_gen_list;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
-				-> rrel_1: rrel_fixed: rrel_scp_var: _binary_tree_element;;
-				-> rrel_2: rrel_fixed: rrel_scp_var: _el_contour;;			
-				-> rrel_3: rrel_assign: rrel_scp_var: _element_generated;;			
+				-> rrel_1: rrel_fixed: rrel_scp_var: _nrel;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _el_contour;;		
 			*);;
 			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
 			=> nrel_goto: .proc_binary_tree_to_contour_6B;;
@@ -84,6 +83,13 @@ scp_program -> proc_binary_tree_to_contour (*
 		-> .proc_binary_tree_to_contour_6B (*
 			<- waitReturn;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_binary_tree_to_contour_6C;;
+		*);;
+
+		-> .proc_binary_tree_to_contour_6C (*
+			<- varAssign;;
+			-> rrel_1: rrel_assign: rrel_scp_var: _element_generated;;
+			-> rrel_2: rrel_fixed: rrel_scp_var: _nrel;;
 			=> nrel_goto: ..print2;;
 		*);;
 
@@ -104,6 +110,53 @@ scp_program -> proc_binary_tree_to_contour (*
 		-> .proc_binary_tree_to_contour_8 (*
 			<- waitReturn;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=> nrel_goto: .proc_binary_tree_to_contour_9A;;
+		*);;
+
+		// ЕСЛИ ЭТО ПРИНАДЛЕЖНОСТЬ, ТО СОЗДАЕМ КОНТУР
+		-> .proc_binary_tree_to_contour_9A (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _binary_tree_element;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_const: nrel_accessory;;
+			-> rrel_4: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: nrel_tree_value;;
+			=> nrel_then: ..print_test_1;;
+			=> nrel_else: .proc_binary_tree_to_contour_9;;
+		*);;
+
+		-> ..print_test_1 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [ОПЕРАТОР 1];;
+			=> nrel_goto: .proc_binary_tree_to_contour_9B;;
+		*);;
+
+		-> .proc_binary_tree_to_contour_9B (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _el_contour;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _contour_prew;;
+			=> nrel_then: .proc_binary_tree_to_contour_9C;;
+			=> nrel_else: .proc_binary_tree_to_contour_9D;;
+		*);;
+
+		-> .proc_binary_tree_to_contour_9C (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
+			=> nrel_goto: .proc_binary_tree_to_contour_9D;;
+		*);;
+
+		-> .proc_binary_tree_to_contour_9D (*
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _el_contour;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: rrel_struct: _contour;;
+			=> nrel_goto: ..print_test_2;;
+		*);;
+
+		-> ..print_test_2 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [ОПЕРАТОР 2];;
 			=> nrel_goto: .proc_binary_tree_to_contour_9;;
 		*);;
 
@@ -114,7 +167,7 @@ scp_program -> proc_binary_tree_to_contour (*
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
 				-> rrel_1: rrel_fixed: rrel_scp_var: _binary_tree_element_left;;			
 				-> rrel_2: rrel_fixed: rrel_scp_var: _el_contour;;			
-				-> rrel_3: rrel_assign: rrel_scp_var: _binary_tree_value_left;;			
+				-> rrel_3: rrel_assign: rrel_scp_var: _element_generated_left;;			
 			*);;
 			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
 			=> nrel_goto: .proc_binary_tree_to_contour_10;;
@@ -133,7 +186,7 @@ scp_program -> proc_binary_tree_to_contour (*
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
 				-> rrel_1: rrel_fixed: rrel_scp_var: _binary_tree_element_right;;			
 				-> rrel_2: rrel_fixed: rrel_scp_var: _el_contour;;
-				-> rrel_3: rrel_assign: rrel_scp_var: _binary_tree_value_right;;			
+				-> rrel_3: rrel_assign: rrel_scp_var: _element_generated_right;;			
 			*);;
 			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
 			=> nrel_goto: .proc_binary_tree_to_contour_12;;
@@ -188,8 +241,8 @@ scp_program -> proc_binary_tree_to_contour (*
 			-> rrel_1: rrel_fixed: rrel_scp_const: proc_gen_kv;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
 				-> rrel_1: rrel_fixed: rrel_scp_var: _type_nrel_in_contour;;
-				-> rrel_2: rrel_fixed: rrel_scp_var: _binary_tree_value_left;;
-				-> rrel_3: rrel_fixed: rrel_scp_var: _binary_tree_value_right;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _element_generated_left;;
+				-> rrel_3: rrel_fixed: rrel_scp_var: _element_generated_right;;
 				-> rrel_4: rrel_fixed: rrel_scp_var: _nrel;;
 				-> rrel_5: rrel_fixed: rrel_scp_var: _el_contour;;
 				-> rrel_6: rrel_assign: rrel_scp_var: _element_generated;;
@@ -225,8 +278,8 @@ scp_program -> proc_binary_tree_to_contour (*
 			-> rrel_1: rrel_fixed: rrel_scp_const: proc_gen_conjunction_or_disjunction;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
 				-> rrel_1: rrel_fixed: rrel_scp_var: _type_nrel_in_contour;;
-				-> rrel_2: rrel_fixed: rrel_scp_var: _binary_tree_value_left;;
-				-> rrel_3: rrel_fixed: rrel_scp_var: _binary_tree_value_right;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _element_generated_left;;
+				-> rrel_3: rrel_fixed: rrel_scp_var: _element_generated_right;;
 				-> rrel_4: rrel_fixed: rrel_scp_var: _nrel;;
 				-> rrel_5: rrel_assign: rrel_scp_var: _element_generated;;
 			*);;
@@ -251,9 +304,9 @@ scp_program -> proc_binary_tree_to_contour (*
 			<- call;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: proc_gen_nrel_equality;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
-				-> rrel_1: rrel_fixed: rrel_scp_var: _binary_tree_value_left;;
-				-> rrel_2: rrel_fixed: rrel_scp_var: _binary_tree_value_right;;
-				-> rrel_3: rrel_fixed: rrel_scp_var: _el_contour;;		
+				-> rrel_1: rrel_fixed: rrel_scp_var: _element_generated_left;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _element_generated_right;;
+				-> rrel_3: rrel_fixed: rrel_scp_var: _el_contour;;	
 				-> rrel_4: rrel_assign: rrel_scp_var: _element_generated;;
 			*);;
 			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;

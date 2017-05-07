@@ -17,15 +17,7 @@ scp_program -> proc_gen_kv (*
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _contour;;
 			=> nrel_then: .proc_gen_kv_1;;
-			=> nrel_else: .proc_gen_kv_B;;
-		*);;
-
-		-> .proc_gen_kv_B (*
-			<- genElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _el_contour;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
-			-> rrel_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: rrel_struct: _contour;;
-			=> nrel_goto: .proc_gen_kv_1;;
+			=> nrel_else: ..print3;;
 		*);;
 
 		-> .proc_gen_kv_1 (*
@@ -80,17 +72,16 @@ scp_program -> proc_gen_kv (*
 			=> nrel_goto: .proc_gen_kv_7;;
 		*);;
 
-		// если есть контур
+// ======================================
+
 		-> .proc_gen_kv_7 (*
-			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _el_contour;;
+			<- genElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _contour;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc5;;
-			-> rrel_3: rrel_assign: rrel_scp_var: _contour;;
-			=> nrel_then: .proc_gen_kv_8;;
-			=> nrel_else: ..print2;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _element_result;;
+			=> nrel_goto: .proc_gen_kv_8;;
 		*);;
 
-// ======================================
 		-> .proc_gen_kv_8 (*
 			<- searchElStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _contour;;
@@ -188,6 +179,12 @@ scp_program -> proc_gen_kv (*
 	   	-> ..print2 (*
 			<- printNl;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: [Генерация квазибинарного отношения выход];;
+			=> nrel_goto: .proc_gen_kv_return;;
+	   	*);;
+
+	   	-> ..print3 (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Ошибка ! Генерация квазибинарного отношения ! Контур не найден];;
 			=> nrel_goto: .proc_gen_kv_return;;
 	   	*);;
 
