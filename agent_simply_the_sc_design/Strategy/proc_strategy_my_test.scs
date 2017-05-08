@@ -62,23 +62,36 @@ scp_program -> proc_strategy_my_test (*
 			-> rrel_1: rrel_fixed: rrel_scp_var: _delete_rules;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _delete_rule;;
-			=> nrel_then: .proc_strategy_my_test_5;;
+			=> nrel_then: .proc_strategy_my_test_5A;;
 			=> nrel_else: .proc_strategy_my_test_7B;;
 		*);;
 
-		-> .proc_strategy_my_test_5 (*
-			<- eraseEl;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
-			=> nrel_goto: .proc_strategy_my_test_6;;
+		-> .proc_strategy_my_test_5A (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Сюда зашли];;
+			=> nrel_goto: .proc_strategy_my_test_5B;;
 		*);;
 
-		-> .proc_strategy_my_test_6 (*
-			<- eraseElStr3;;
+		-> .proc_strategy_my_test_5B (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
+			=> nrel_goto: .proc_strategy_my_test_6A;;
+		*);;
+
+		-> .proc_strategy_my_test_6A (*
+			<- searchElStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _set_rules_new;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_erase: _arc;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
 			-> rrel_3: rrel_fixed: rrel_scp_var: _delete_rule;;
+			=> nrel_goto: .proc_strategy_my_test_6B;;
+		*);;
+
+		-> .proc_strategy_my_test_6B (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
 			=> nrel_goto: .proc_strategy_my_test_4;;
 		*);;
+
 
 // =====================================
 		// перебираем оставшиеся правила
@@ -148,6 +161,12 @@ scp_program -> proc_strategy_my_test (*
 		-> .proc_strategy_my_test_11_fuweihwu (*
 			<- printNl;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: [ВЫПОЛНЕНО];;
+			=> nrel_goto: .proc_strategy_my_test_11_fuweihwuwu;;
+		*);;
+
+		-> .proc_strategy_my_test_11_fuweihwuwu (*
+			<- printNl;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [ВЫПОЛНЕНО 2];;
 			=> nrel_goto: .proc_strategy_my_test_11;;
 		*);;
 
