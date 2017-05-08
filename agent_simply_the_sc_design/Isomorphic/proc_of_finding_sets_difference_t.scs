@@ -1,0 +1,98 @@
+scp_program -> proc_of_finding_sets_difference_t 
+	(*	
+	-> rrel_params: .proc_of_finding_sets_difference_t_params 
+		(*
+		-> rrel_1: rrel_in: _A;;
+		-> rrel_2: rrel_in: _B;;
+		-> rrel_3: rrel_out: rrel_assign: rrel_scp_var: _C;;
+		*);;
+
+	-> rrel_operators: .proc_of_finding_sets_difference_t_operator_set 
+		(*
+		-> rrel_init: .proc_of_finding_sets_difference_t_operator0 (*
+			<- genEl;;
+			
+				-> rrel_1: rrel_assign: rrel_node: rrel_const: rrel_scp_var: _C;;
+            
+            => nrel_goto: .proc_of_finding_sets_difference_t_operator1;;
+		*);;
+
+		// формируем not_checkedA
+		->.proc_of_finding_sets_difference_t_operator1
+			(*
+			<- searchSetStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _A;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _el;;
+
+		  	-> rrel_set_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _not_checkedA;;
+
+                 	=> nrel_then: .proc_of_finding_sets_difference_t_operator2;;
+                 	=> nrel_else: .proc_of_finding_sets_difference_t_operator6;;
+			*);;
+
+			// находим элемент из А
+		->.proc_of_finding_sets_difference_t_operator2 
+			(*
+			<- searchElStr3;;
+		 	-> rrel_1: rrel_fixed: rrel_scp_var: _not_checkedA;;
+			-> rrel_2: rrel_assign: rrel_scp_var: _arc_for_delA;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _elemA;;
+
+                 	=> nrel_then: .proc_of_finding_sets_difference_t_operator2A;;
+                 	=> nrel_else: .proc_of_finding_sets_difference_t_operator_return;;
+                 	*);;
+
+		->.proc_of_finding_sets_difference_t_operator2A 
+			(*
+			<- eraseEl;;
+		 	-> rrel_1: rrel_fixed: rrel_erase: rrel_scp_var: _arc_for_delA;;
+
+
+                 	=> nrel_goto: .proc_of_finding_sets_difference_t_operator3;;
+			*);;
+
+			// если принадлежит В
+		-> .proc_of_finding_sets_difference_t_operator3
+			(*
+			<- searchElStr3;;
+		 	-> rrel_1: rrel_fixed: rrel_scp_var: _B;;
+			-> rrel_2: rrel_assign: rrel_scp_var: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _elemA;;
+
+                 	=> nrel_then: .proc_of_finding_sets_difference_t_operator2;;
+                 	=> nrel_else: .proc_of_finding_sets_difference_t_operator4;;
+                 	*);;
+
+			// добавляем в ответ
+		-> .proc_of_finding_sets_difference_t_operator4 
+			(*
+			<- genElStr3;;
+		 	-> rrel_1: rrel_fixed: rrel_scp_var: _C;;
+			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc0;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _elemA;;
+
+                 	=> nrel_goto: .proc_of_finding_sets_difference_t_operator2;;
+			*);;
+
+		-> .proc_of_finding_sets_difference_t_operator_return 
+			(*
+			<- return;;
+			*);;
+		*);;
+	*);;
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
+		
