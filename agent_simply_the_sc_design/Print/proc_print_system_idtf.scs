@@ -33,7 +33,7 @@ scp_program -> proc_print_system_idtf (*
 
 		-> .proc_print_system_idtf_4 (*
 			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: [Данный элемент не имеет системного идентификатора];;
+			-> rrel_1: rrel_fixed: rrel_scp_const: [Данный элемент не имеет системного идентификатора];;
 			=> nrel_goto: .proc_print_system_idtf_return;;
 		*);;	
 

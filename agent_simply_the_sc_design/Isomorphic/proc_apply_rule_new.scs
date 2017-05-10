@@ -50,7 +50,7 @@ scp_program -> proc_test_apply_rule_new (*
 		// множество сущностей которые принадлежат обеим контурам в правиле
 		-> .proc_test_apply_rule_new_11 (*
 			<- genEl;;
-			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_entity;;
+			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_entity_var;;
 			=> nrel_goto: .proc_test_apply_rule_new_12;;
 		*);;
 
@@ -74,7 +74,7 @@ scp_program -> proc_test_apply_rule_new (*
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _entity;;
 			=> nrel_then: .proc_test_apply_rule_new_12B;;
-			=> nrel_else: .proc_test_apply_rule_new_12E4;;
+			=> nrel_else: .proc_test_apply_rule_new_12C2;;
 		*);;
 
 		-> .proc_test_apply_rule_new_12B (*
@@ -94,12 +94,17 @@ scp_program -> proc_test_apply_rule_new (*
 
 		-> .proc_test_apply_rule_new_12C1 (*
 			<- genElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _set_entity;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_entity_var;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
 			-> rrel_3: rrel_fixed: rrel_scp_var: _entity;;
 			=> nrel_goto: .proc_test_apply_rule_new_12A;;
 		*);;
 
+		-> .proc_test_apply_rule_new_12C2 (*
+			<- eraseEl;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _el_var;;
+			=> nrel_goto: .proc_test_apply_rule_new_12E4;;
+		*);;
 
 
 // ===============================================================
@@ -172,21 +177,21 @@ scp_program -> proc_test_apply_rule_new (*
 			=> nrel_goto: .proc_test_apply_rule_new_14C1;;
 		*);;
 
-		// ПЕРЕПИСЫВАЕМ ЛИСТЫ В НОВОЕ МНОЖЕСТВО
+		// ПЕРЕПИСЫВАЕМ СУЩНОСТИ ПЕРЕСЕЧЕНИЯ КОНТУРОВ ПРАВИЛ В НОВОЕ МНОЖЕСТВО
 		-> .proc_test_apply_rule_new_14C1 (*
 			<- searchSetStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _set_entity;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_entity_var;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _entity_var;;
 				
-				-> rrel_set_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_entity_new;;
+				-> rrel_set_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_entity_var_new;;
 
 			=> nrel_goto: .proc_test_apply_rule_new_14D1;;
 		*);;
 
 		-> .proc_test_apply_rule_new_14D1 (*
 			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _set_entity_new;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_entity_var_new;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _entity_var;;
 			=> nrel_then: .proc_test_apply_rule_new_14D2;;
@@ -226,7 +231,7 @@ scp_program -> proc_test_apply_rule_new (*
 			<- call;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: proc_print_system_idtf;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
-				-> rrel_1: rrel_fixed: rrel_scp_var: _entity_var;;	
+				-> rrel_1: rrel_fixed: rrel_scp_var: _entity_const;;	
 			*);;
 			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
 			=> nrel_goto: .proc_test_apply_rule_new_14FC;;
@@ -242,7 +247,7 @@ scp_program -> proc_test_apply_rule_new (*
 			<- call;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: proc_print_system_idtf;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
-				-> rrel_1: rrel_fixed: rrel_scp_var: _entity_const;;	
+				-> rrel_1: rrel_fixed: rrel_scp_var: _entity_var;;	
 			*);;
 			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
 			=> nrel_goto: .proc_test_apply_rule_new_14FE;;
@@ -254,7 +259,7 @@ scp_program -> proc_test_apply_rule_new (*
 			=> nrel_goto: .proc_test_apply_rule_new_14FF;;
 		*);;
 
-		// ДОБАВЛЯЕМ НАЙДЕННЫЙ ЛИСТ В ОТВЕТ
+		// ДОБАВЛЯЕМ НАЙДЕННЫЙ СУЩНОСТЬ В ОТВЕТ
 		-> .proc_test_apply_rule_new_14FF (*
 			<- genElStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _binary_tree_output_identity;;
@@ -309,7 +314,7 @@ scp_program -> proc_test_apply_rule_new (*
 
 		-> .proc_test_apply_rule_new_14K (*
 			<- eraseEl;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _set_entity_new;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _set_entity_var_new;;
 			=> nrel_goto: .proc_test_apply_rule_new_15A;;
 		*);;
 
@@ -351,7 +356,7 @@ scp_program -> proc_test_apply_rule_new (*
 
 		-> .proc_test_apply_rule_new_18 (*
 			<- eraseEl;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _set_entity;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _set_entity_var;;
 			=> nrel_goto: ..print_finish1;;
 		*);;
 

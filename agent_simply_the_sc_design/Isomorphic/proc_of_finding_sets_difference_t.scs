@@ -22,7 +22,7 @@ scp_program -> proc_of_finding_sets_difference_t
 			(*
 			<- searchSetStr3;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _A;;
-			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
+			-> rrel_2: rrel_assign: rrel_scp_var: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _el;;
 
 		  	-> rrel_set_3: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _not_checkedA;;

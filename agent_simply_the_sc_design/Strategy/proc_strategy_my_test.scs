@@ -9,8 +9,7 @@ scp_program -> proc_strategy_my_test (*
 		// множество правил
 		-> rrel_2: rrel_in: _set_rules;;
 		
-		// доказательсво получено или нет
-		//-> rrel_3: rrel_out: rrel_assign: rrel_scp_var: _state;;
+		-> rrel_3: rrel_out: rrel_assign: rrel_scp_var: _statement_new6;;
 	*);;
 
 	-> rrel_operators: ...(*
@@ -21,234 +20,307 @@ scp_program -> proc_strategy_my_test (*
 			=> nrel_goto: .proc_strategy_my_test_1;;
 	   	*);;
 
-		// исключенное множество правил
 		-> .proc_strategy_my_test_1 (*
-			<- genEl;;
-			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _delete_rules;;
-			=> nrel_goto: .proc_strategy_my_test_2;;
-		*);;
-
-		// множество всех правил
-		-> .proc_strategy_my_test_2 (*
-			<- genEl;;
-			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _set_rules_new;;
-			=> nrel_goto: .proc_strategy_my_test_2A;;
-		*);;
-
-		-> .proc_strategy_my_test_2A (*
-			<- varAssign;;
-			-> rrel_1: rrel_assign: rrel_scp_var: _current_statement;;
-			-> rrel_2: rrel_fixed: rrel_scp_var: _statement;;
-			=> nrel_goto: .proc_strategy_my_test_3;;
-		*);;
-
-// =====================================================================
-// НАЧАЛО ИТЕРАЦИЙ
-		// формируем множество всех правил
-		-> .proc_strategy_my_test_3 (*
-			<- searchSetStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _set_rules;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arcs;;
-			-> rrel_3: rrel_assign: rrel_scp_var: _rules;;
-
-				-> rrel_set_3: rrel_fixed: rrel_scp_var: _set_rules_new;;
-
-			=> nrel_goto: .proc_strategy_my_test_4;;
-		*);;
-
-		// находим исключенное правило
-		-> .proc_strategy_my_test_4 (*
-			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _delete_rules;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: _delete_rule;;
-			=> nrel_then: .proc_strategy_my_test_5A;;
-			=> nrel_else: .proc_strategy_my_test_7B;;
-		*);;
-
-		-> .proc_strategy_my_test_5A (*
-			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Сюда зашли];;
-			=> nrel_goto: .proc_strategy_my_test_5B;;
-		*);;
-
-		-> .proc_strategy_my_test_5B (*
-			<- eraseEl;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
-			=> nrel_goto: .proc_strategy_my_test_6A;;
-		*);;
-
-		-> .proc_strategy_my_test_6A (*
-			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _set_rules_new;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _delete_rule;;
-			=> nrel_goto: .proc_strategy_my_test_6B;;
-		*);;
-
-		-> .proc_strategy_my_test_6B (*
-			<- eraseEl;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
-			=> nrel_goto: .proc_strategy_my_test_4;;
-		*);;
-
-
-// =====================================
-		// перебираем оставшиеся правила
-		// находим текущее правило
-		-> .proc_strategy_my_test_7B (*
-			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [Множество правил применяемых для утверждения:];;
-			=> nrel_goto: .proc_strategy_my_test_7A;;
-		*);;
-
-		-> .proc_strategy_my_test_7A (*
-			<- printEl;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _set_rules_new;;
-			=> nrel_goto: .proc_strategy_my_test_7;;
-		*);;
-
-		-> .proc_strategy_my_test_7 (*
-			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _set_rules_new;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: _rule;;
-			=> nrel_then: .proc_strategy_my_test_8;;
-			=> nrel_else: ..print4;;
-		*);;
-
-		-> .proc_strategy_my_test_8 (*
-			<- eraseEl;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: rrel_erase: _arc;;
-			=> nrel_goto: .proc_strategy_my_test_9A;;
-		*);;
-
-		-> .proc_strategy_my_test_9A (*
-			<- call;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: proc_print_system_idtf;;
-			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
-				-> rrel_1: rrel_fixed: rrel_scp_var: _rule;;	
-			*);;
-			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
-			=> nrel_goto: .proc_strategy_my_test_9B;;
-		*);;
-
-		-> .proc_strategy_my_test_9B (*
-			<- waitReturn;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
-			=> nrel_goto: .proc_strategy_my_test_9;;
-		*);;
-
-		// получаем множество утверждений, если таковые найдены
-		-> .proc_strategy_my_test_9 (*
 			<- call;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: proc_test_apply_rule_all;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
-				-> rrel_1: rrel_fixed: rrel_scp_var: _current_statement;;
-				-> rrel_2: rrel_fixed: rrel_scp_var: _rule;;		
-				-> rrel_3: rrel_assign: rrel_scp_var: _set_statement;;	
+				-> rrel_1: rrel_fixed: rrel_scp_var: _statement;;
+				-> rrel_2: rrel_fixed: rrel_scp_const: rule_intersection;;		
+				-> rrel_3: rrel_assign: rrel_scp_var: _set_statement1;;	
 			*);;
 			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
-			=>nrel_goto: .proc_strategy_my_test_10;;
+			=>nrel_goto: .proc_strategy_my_test_2;;
 		*);;
 
-		-> .proc_strategy_my_test_10 (*
+		-> .proc_strategy_my_test_2 (*
 			<- waitReturn;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
-			=>nrel_goto: .proc_strategy_my_test_11_fuweihwu;;
+			=>nrel_goto: .proc_strategy_my_test_3;;
 		*);;
 
-		-> .proc_strategy_my_test_11_fuweihwu (*
-			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [ВЫПОЛНЕНО];;
-			=> nrel_goto: .proc_strategy_my_test_11_fuweihwuwu;;
-		*);;
-
-		-> .proc_strategy_my_test_11_fuweihwuwu (*
-			<- printNl;;
-			-> rrel_1: rrel_fixed: rrel_scp_const: [ВЫПОЛНЕНО 2];;
-			=> nrel_goto: .proc_strategy_my_test_11;;
-		*);;
-
-		// если вывод получен, то при следующей итерации
-		// исключаем правило
-		-> .proc_strategy_my_test_11 (*
+		-> .proc_strategy_my_test_3 (*
 			<- searchElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _set_statement;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_statement1;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_assign: rrel_scp_var: _statement_new;;
-			=> nrel_then: .proc_strategy_my_test_12;;
-			=> nrel_else: .proc_strategy_my_test_7;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _statement_new1;;
+			=> nrel_goto: .proc_strategy_my_test_4;;
 		*);;
 
-// ===================================================
-		/*// преобразуем полученное утверждение в контур
-		-> .proc_strategy_my_test_12A (*
-			<- genEl;;
-			-> rrel_1: rrel_assign: rrel_scp_var: rrel_node: rrel_const: _el_contour;;
-			=> nrel_goto: .proc_strategy_my_test_12B;;
-		*);;
-
-		// находим корень
-		-> .proc_strategy_my_test_12B (*
+		-> .proc_strategy_my_test_4 (*
 			<- call;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: proc_search_root_binary;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
-				-> rrel_1: rrel_fixed: rrel_scp_var: _statement_new;;
-				-> rrel_2: rrel_assign: rrel_scp_var: _root;;		
+				-> rrel_1: rrel_fixed: rrel_scp_var: _statement_new1;;
+				-> rrel_2: rrel_assign: rrel_scp_var: _root1;;		
 			*);;
 			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
-			=>nrel_goto: .proc_strategy_my_test_12C;;
+			=>nrel_goto: .proc_strategy_my_test_5;;
 		*);;
 
-		-> .proc_strategy_my_test_12C (*
+		-> .proc_strategy_my_test_5 (*
 			<- waitReturn;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
-			=>nrel_goto: .proc_strategy_my_test_12D;;
+			=>nrel_goto: .proc_strategy_my_test_7;;
 		*);;
 
-		-> .proc_strategy_my_test_12D (*
+		-> .proc_strategy_my_test_7 (*
 			<- call;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: proc_binary_tree_to_contour;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
-				-> rrel_1: rrel_fixed: rrel_scp_var: _root;;
-				-> rrel_2: rrel_fixed: rrel_scp_var: _el_contour;;		
-				-> rrel_3: rrel_assign: rrel_scp_var: _result;;	
+				-> rrel_1: rrel_fixed: rrel_scp_var: _root1;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _set_statement1;;		
+				-> rrel_3: rrel_assign: rrel_scp_var: _element_generated;;	
 			*);;
 			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
-			=>nrel_goto: .proc_strategy_my_test_12E;;
+			=>nrel_goto: .proc_strategy_my_test_8;;
 		*);;
 
-		-> .proc_strategy_my_test_12E (*
+		-> .proc_strategy_my_test_8 (*
 			<- waitReturn;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
-			=>nrel_goto: .proc_strategy_my_test_12;;
-		*);;*/
-// ===============================================================
+			=>nrel_goto: .proc_strategy_my_test_1A;;
+		*);;
 
-		-> .proc_strategy_my_test_12 (*
-			<- genElStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _delete_rules;;
+		-> .proc_strategy_my_test_1A (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_test_apply_rule_all;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _statement_new1;;
+				-> rrel_2: rrel_fixed: rrel_scp_const: rule_combination;;		
+				-> rrel_3: rrel_assign: rrel_scp_var: _set_statement2;;	
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_my_test_2A;;
+		*);;
+
+		-> .proc_strategy_my_test_2A (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_my_test_3A;;
+		*);;
+
+		-> .proc_strategy_my_test_3A (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_statement2;;
 			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
-			-> rrel_3: rrel_fixed: rrel_scp_var: _rule;;
-			=> nrel_goto: .proc_strategy_my_test_13;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _statement_new2;;
+			=> nrel_goto: .proc_strategy_my_test_4A;;
 		*);;
 
-		-> .proc_strategy_my_test_13 (*
-			<- eraseSetStr3;;
-			-> rrel_1: rrel_fixed: rrel_scp_var: _set_rules_new;;
-			-> rrel_2: rrel_assign: rrel_scp_var: rrel_erase: _arcs;;
-			-> rrel_3: rrel_assign: rrel_scp_var: _cur_rules;;
-			=> nrel_goto: .proc_strategy_my_test_14;;
+		-> .proc_strategy_my_test_4A (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_search_root_binary;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _statement_new2;;
+				-> rrel_2: rrel_assign: rrel_scp_var: _root2;;		
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_my_test_5A;;
 		*);;
 
-		-> .proc_strategy_my_test_14 (*
-			<- varAssign;;
-			-> rrel_1: rrel_assign: rrel_scp_var: _current_statement;;
-			-> rrel_2: rrel_fixed: rrel_scp_var: _statement_new;;
-			=> nrel_goto: .proc_strategy_my_test_3;;
+		-> .proc_strategy_my_test_5A (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_my_test_7A;;
 		*);;
 
+		-> .proc_strategy_my_test_7A (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_binary_tree_to_contour;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _root2;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _set_statement2;;		
+				-> rrel_3: rrel_assign: rrel_scp_var: _element_generated2;;	
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_my_test_8A;;
+		*);;
+
+		-> .proc_strategy_my_test_8A (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_my_test_1B;;
+		*);;
+
+		-> .proc_strategy_my_test_1B (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_test_apply_rule_all;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _statement_new2;;
+				-> rrel_2: rrel_fixed: rrel_scp_const: rule_conjunction;;		
+				-> rrel_3: rrel_assign: rrel_scp_var: _set_statement3;;	
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_my_test_2B;;
+		*);;
+
+		-> .proc_strategy_my_test_2B (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_my_test_3B;;
+		*);;
+
+		-> .proc_strategy_my_test_3B (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_statement3;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _statement_new3;;
+			=> nrel_goto: .proc_strategy_my_test_4B;;
+			//=> nrel_goto: ..print2;;
+		*);;
+
+		-> .proc_strategy_my_test_4B (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_search_root_binary;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _statement_new3;;
+				-> rrel_2: rrel_assign: rrel_scp_var: _root3;;		
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_my_test_5B;;
+		*);;
+
+		-> .proc_strategy_my_test_5B (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_my_test_7B;;
+		*);;
+
+		-> .proc_strategy_my_test_7B (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_binary_tree_to_contour;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _root3;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _set_statement3;;		
+				-> rrel_3: rrel_assign: rrel_scp_var: _element_generated3;;	
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_my_test_8B;;
+		*);;
+
+		-> .proc_strategy_my_test_8B (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_my_test_1C;;
+		*);;
+
+		-> .proc_strategy_my_test_1C (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_test_apply_rule_all;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _statement_new3;;
+				-> rrel_2: rrel_fixed: rrel_scp_const: rule_intersection;;		
+				-> rrel_3: rrel_assign: rrel_scp_var: _set_statement4;;	
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_my_test_2C;;
+		*);;
+
+		-> .proc_strategy_my_test_2C (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_my_test_3C;;
+		*);;
+
+		-> .proc_strategy_my_test_3C (* 
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_statement4;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _statement_new4;;
+			//=> nrel_then: ..print2;;
+						=> nrel_then: .proc_strategy_my_test_1D;;
+			=> nrel_else: ..print4;;
+		*);;
+
+		-> .proc_strategy_my_test_4C (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_search_root_binary;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _statement_new4;;
+				-> rrel_2: rrel_assign: rrel_scp_var: _root4;;		
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_my_test_5C;;
+		*);;
+
+		-> .proc_strategy_my_test_5C (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_my_test_7C;;
+		*);;
+
+		-> .proc_strategy_my_test_7C (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_binary_tree_to_contour;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _root4;;
+				-> rrel_2: rrel_fixed: rrel_scp_var: _set_statement4;;		
+				-> rrel_3: rrel_assign: rrel_scp_var: _element_generated4;;	
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_my_test_8C;;
+		*);;
+
+		-> .proc_strategy_my_test_8C (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_my_test_1D;;
+		*);;
+
+// ====================================
+		-> .proc_strategy_my_test_1D (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_test_apply_rule_all;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _statement_new4;;
+				-> rrel_2: rrel_fixed: rrel_scp_const: rule_combination;;		
+				-> rrel_3: rrel_assign: rrel_scp_var: _set_statement5;;	
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_my_test_2D;;
+		*);;
+
+		-> .proc_strategy_my_test_2D (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_my_test_3D;;
+		*);;
+
+		-> .proc_strategy_my_test_3D (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_statement5;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _statement_new5;;
+			=> nrel_goto: .proc_strategy_my_test_1E;;
+		*);;
+
+		-> .proc_strategy_my_test_1E (*
+			<- call;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: proc_test_apply_rule_all;;
+			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
+				-> rrel_1: rrel_fixed: rrel_scp_var: _statement_new5;;
+				-> rrel_2: rrel_fixed: rrel_scp_const: rule_intersection;;		
+				-> rrel_3: rrel_assign: rrel_scp_var: _set_statement6;;	
+			*);;
+			-> rrel_3: rrel_assign: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_my_test_2E;;
+		*);;
+
+		-> .proc_strategy_my_test_2E (*
+			<- waitReturn;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
+			=>nrel_goto: .proc_strategy_my_test_3E;;
+		*);;
+
+		-> .proc_strategy_my_test_3E (*
+			<- searchElStr3;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _set_statement6;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_pos_const_perm: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _statement_new6;;
+			=> nrel_then: ..print2;;
+			=> nrel_else: ..print4;;
+		*);;
+		
 		-> ..print2 (*
 			<- printNl;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: [Тождество истинно];;
