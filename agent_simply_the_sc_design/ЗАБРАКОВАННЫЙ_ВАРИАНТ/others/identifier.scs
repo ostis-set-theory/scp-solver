@@ -1,0 +1,64 @@
+nrel_binary_tree_branch 
+	<- sc_node_norole_relation;
+	<- oriented_relation;
+	=> nrel_main_idtf: 
+		[ветвь бинарного дерева*] (* <- lang_ru;; *);;
+
+nrel_binary_tree_branch_left 
+	<- sc_node_norole_relation;
+	<- oriented_relation;
+	=> nrel_main_idtf: 
+		[левая ветвь бинарного дерева*] (* <- lang_ru;; *);;
+
+nrel_binary_tree_branch_right 
+	<- sc_node_norole_relation;
+	<- oriented_relation;
+	=> nrel_main_idtf: 
+		[правая ветвь бинарного дерева*] (* <- lang_ru;; *);;
+
+nrel_tree_value
+	<- sc_node_norole_relation;
+	<- oriented_relation;
+	=> nrel_main_idtf: 
+		[значение элемента*] (* <- lang_ru;; *);;
+
+nrel_main_proof_action
+	<- sc_node_norole_relation;
+	<- oriented_relation;
+	=> nrel_main_idtf:
+		[основное доказательство*] (* <- lang_ru;; *);;
+
+set_rules_tm
+	<- sc_node_not_relation;
+	=> nrel_main_idtf:
+		[множество правил теории множеств] (* <- lang_ru;; *);;
+
+set_rules_tm -> rule_intersection; rule_combination; rule_conjunction;;
+
+logic_sc_action
+<- sc_node_not_relation;
+	=> nrel_main_idtf:
+		[sc-действие применения логического утверждения] (* <- lang_ru;; *);;
+
+atomic_existence
+<- sc_node_not_relation;
+	=> nrel_main_idtf:
+		[атомарное существование] (* <- lang_ru;; *);;
+
+d_nrel_intersection
+	=> nrel_main_idtf:
+	[Опр. (операция пересечения)] (* <- lang_ru;; *);;
+
+d_nrel_combination
+	=> nrel_main_idtf:
+	[Опр. (операция объединения)] (* <- lang_ru;; *);;
+
+d_nrel_conjunction
+	=> nrel_main_idtf:
+	[Опр. (операция конъюнкции дизъюнкции)] (* <- lang_ru;; *);;
+
+_a => nrel_main_idtf: [множество A] (* <- lang_ru;; *);;
+_b => nrel_main_idtf: [множество B] (* <- lang_ru;; *);;
+_c => nrel_main_idtf: [множество C] (* <- lang_ru;; *);;
+//_b_union_c => nrel_main_idtf: [B∪C] (* <- lang_ru;; *);;
+//_a_intersection_c => nrel_main_idtf: [A⋂C] (* <- lang_ru;; *);;

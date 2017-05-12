@@ -57,11 +57,31 @@ scp_program -> agent_of_simply_the_sc_design
 			-> rrel_1: rrel_fixed: rrel_scp_var: _quest;;
 			-> rrel_2: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc;;
 			-> rrel_3: rrel_assign: rrel_scp_var: _statement;;
-			=>nrel_then: .agent_of_simply_the_sc_design10;;
+			=>nrel_then: .agent_of_simply_the_sc_design9;;
 			=>nrel_else: ..print3;;
 		*);;
+
+		-> .agent_of_simply_the_sc_design9 (*
+			<- searchElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_const: decomposition;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: rrel_const: _arc;;
+			-> rrel_3: rrel_assign: rrel_scp_var: _q2;;
+			-> rrel_4: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: nrel_decomposition_of_action;;			
+			=>nrel_goto: .agent_of_simply_the_sc_design9A;;
+		*);;
+
+		-> .agent_of_simply_the_sc_design9A (*
+			<- genElStr5;;
+			-> rrel_1: rrel_fixed: rrel_scp_var: _statement;;
+			-> rrel_2: rrel_assign: rrel_scp_var: rrel_common: rrel_const: _arc;;
+			-> rrel_3: rrel_fixed: rrel_scp_var: _q2;;
+			-> rrel_4: rrel_assign: rrel_pos_const_perm: rrel_scp_var: _arc2;;
+			-> rrel_5: rrel_fixed: rrel_scp_const: nrel_main_proof_action;;			
+			=>nrel_goto: .agent_of_simply_the_sc_design14x0;;
+		*);;
 		
-		-> .agent_of_simply_the_sc_design10 (*
+		/*-> .agent_of_simply_the_sc_design10 (*
 			<- call;;
 			-> rrel_1: rrel_fixed: rrel_scp_const: proc_of_simply_the_sc_design_test;;
 			-> rrel_2: rrel_fixed: rrel_scp_const: ... (*
@@ -76,7 +96,7 @@ scp_program -> agent_of_simply_the_sc_design
 			<- waitReturn;;
 			-> rrel_1: rrel_fixed: rrel_scp_var: _descr;;
 			=>nrel_goto: .agent_of_simply_the_sc_design12;;
-		*);;
+		*);;*/
 
 		-> .agent_of_simply_the_sc_design12 (*
 			<- searchElStr3;;

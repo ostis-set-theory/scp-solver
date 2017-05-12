@@ -2,7 +2,7 @@ ui_menu_file_for_simply_the_sc_design
 	<- 	ui_user_command_class_atom; 
 		ui_user_command_class_view_kb;
 	=> nrel_main_idtf: 
-		[Упростить sc-конструкцию] (* <- lang_ru;; *);
+		[Запрос доказательства тождества] (* <- lang_ru;; *);
 		[Simply the sc-design] (* <- lang_en;; *);
 	=> ui_nrel_command_template:
 		[*
@@ -13,7 +13,7 @@ ui_menu_file_for_simply_the_sc_design
 		._question_simply_the_sc_design_instance _<- question;;
 		*];
 	=> ui_nrel_command_lang_template: 
-		[Запрос упрощения sc-конструкции: $ui_arg_1] 
+		[Запрос доказательства тождества: $ui_arg_1] 
 		(* <- lang_ru;; *);
 		[Simply the sc-design: $ui_arg_1] 
 		(* <- lang_en;; *);;
